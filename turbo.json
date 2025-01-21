@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "start:demo": {
+      "dependsOn": ["^build"]
+    },
+    "start:demoreact": {
+      "dependsOn": ["^build"]
+    },
+    "start:thirdparty": {
+      "dependsOn": []
+    },
+    "tsc": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {},
+    "check": {}
+  }
+}

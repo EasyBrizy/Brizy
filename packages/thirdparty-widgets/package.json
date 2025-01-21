@@ -1,0 +1,23 @@
+{
+  "name": "thirdparty-widgets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "brizy-scripts build",
+    "start": "PORT=2222 brizy-scripts start",
+    "tsc": "tsc"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@brizy/core": "1.0.10",
+    "classnames": "^2.5.1"
+  },
+  "devDependencies": {
+    "@brizy/scripts": "^1.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.1",
+    "@types/react": "^18.3.4",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
+}

@@ -52,8 +52,8 @@ export interface Extension {
 export interface Config {
   mode?: Modes;
   container: HTMLElement;
-  pageData: PageData;
-  projectData: ProjectData;
+  pageData?: PageData;
+  projectData?: ProjectData;
 
   //#region Extensions
 

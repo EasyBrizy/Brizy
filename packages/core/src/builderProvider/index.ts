@@ -1,7 +1,7 @@
 // Provider for Builder
 // Used for transform core api to builder internal api
 import * as Comlink from "comlink";
-import { compiler } from "./defaults";
+import { compiler, contentDefaults, projectData } from "./defaults";
 import { actions } from "./utils/actions";
 
 (function (w: Window) {
@@ -16,6 +16,8 @@ import { actions } from "./utils/actions";
         locked: false,
       },
     },
+    projectData: projectData(),
+    contentDefaults: contentDefaults(),
     page: {
       provider: "collections",
     },

@@ -3,24 +3,21 @@ import { AddFileExtra } from "@/types/customFile";
 import { BaseDCHandlerExtra, DCHandlerExtra, DCPlaceholdersExtra } from "@/types/dynamicContent";
 import { LeftSidebarOptionsIds } from "@/types/leftSidebar";
 import { AddMediaExtra } from "@/types/media";
-import { PostsSources } from "@/types/posts";
 import { ScreenshotExtra, ScreenshotRes } from "@/types/screenshots";
 import { BlockWithThumbs, KitItem } from "@/types/templates";
-import { AutoSaveOutput, BuilderOutput, Config, HtmlOutputType, OnSave } from "@/types/types";
+import { AutoSaveOutput, BuilderOutput, Config, OnSave } from "@/types/types";
 import { createOutput } from "@/utils/createOutput";
-import { Response } from "@/utils/types";
 
 interface Params {
   uid: string;
-  config: Config<HtmlOutputType>;
+  config: Config;
   iframe: HTMLIFrameElement;
   spinner: HTMLElement;
   container: HTMLElement;
-  htmlOutputType: HtmlOutputType;
-  savedNodeCB: Map<HTMLElement, OnSave<HtmlOutputType>>;
+  savedNodeCB: Map<HTMLElement, OnSave>;
 }
 
-export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner, savedNodeCB, uid }: Params) => ({
+export const getHandlers = ({ config, iframe, container, spinner, savedNodeCB, uid }: Params) => ({
   addMedia: (iframeUid: string, extra: AddMediaExtra) => {
     if (iframeUid !== uid) {
       return;
@@ -322,11 +319,11 @@ export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner
       getPlaceholderData(res, rej, extra);
     });
   },
-  save: (output: BuilderOutput<HtmlOutputType>, iframeUid: string) => {
+  save: (output: BuilderOutput, iframeUid: string) => {
     if (iframeUid !== uid) {
       return;
     }
-    const _output = createOutput(htmlOutputType, output);
+    const _output = createOutput(output);
     config.onSave?.(_output);
     const onSaveCallback = savedNodeCB.get(container);
 
@@ -334,7 +331,7 @@ export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner
       onSaveCallback(_output);
     }
   },
-  onAutoSave: (output: AutoSaveOutput<HtmlOutputType>, iframeUid: string) => {
+  onAutoSave: (output: AutoSaveOutput, iframeUid: string) => {
     if (iframeUid !== uid) {
       return;
     }
@@ -346,20 +343,6 @@ export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner
     }
     destroyLoader(spinner, container);
     config.onLoad?.();
-  },
-  getFormFields: (iframeUid: string) => {
-    if (iframeUid !== uid) {
-      return;
-    }
-    const { integrations = {} } = config;
-    const { form = {} } = integrations;
-    const handler = form.fields?.handler;
-
-    if (typeof handler === "function") {
-      return new Promise((res, rej) => {
-        handler(res, rej);
-      });
-    }
   },
   onOpenCMS: async (cb: () => Promise<void>, iframeUid: string) => {
     if (iframeUid !== uid) {
@@ -390,7 +373,7 @@ export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner
       onClose();
     }
   },
-  publish: (iframeUid: string, extra: BuilderOutput<HtmlOutputType>) => {
+  publish: (iframeUid: string, extra: BuilderOutput) => {
     if (iframeUid !== uid) {
       return;
     }
@@ -398,34 +381,11 @@ export const getHandlers = ({ config, iframe, container, htmlOutputType, spinner
     const handler = publish?.handler;
 
     if (typeof handler === "function") {
-      const output = createOutput(htmlOutputType, extra);
+      const output = createOutput(extra);
       config.onSave?.(output);
 
       return new Promise((res, rej) => {
         handler(res, rej, output);
-      });
-    }
-  },
-  onOpenMenu: (iframeUid: string) => {
-    if (iframeUid !== uid) {
-      return;
-    }
-    const { menu = {} } = config.elements ?? {};
-    const onOpen = menu?.onOpen;
-
-    if (typeof onOpen === "function") {
-      onOpen();
-    }
-  },
-  postsHandler: (iframeUid: string) => {
-    if (iframeUid !== uid) {
-      return;
-    }
-    const { handler } = config.elements?.posts ?? {};
-
-    if (typeof handler === "function") {
-      return new Promise((res: Response<PostsSources>, rej: Response<string>) => {
-        handler(res, rej);
       });
     }
   },

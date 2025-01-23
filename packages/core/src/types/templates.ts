@@ -1,16 +1,11 @@
 import { Literal } from "@/utils/types";
 import { Response } from "./common";
 
-interface ThumbnailWithDimensions {
-  thumbnail: string;
-  thumbnailWidth: number;
-  thumbnailHeight: number;
-}
-
 interface DefaultTemplate<T1> {
   label?: string;
   getMeta: (res: Response<T1>, rej: Response<string>) => void;
 }
+
 export interface Block {
   id: string;
   cat: Array<Literal>;
@@ -107,13 +102,6 @@ export interface KitsWithThumbs extends Omit<Kits, "blocks"> {
   blocks: Array<BlockWithThumbs>;
 }
 
-export type KitType = {
-  title: string;
-  id: string;
-  name: string;
-  icon: string;
-};
-
 export type KitItem = {
   id: string;
   title: string;
@@ -126,9 +114,6 @@ export interface DefaultKits {
   getData: (res: Response<Record<string, unknown>>, rej: Response<string>, kit: BlockWithThumbs) => void;
 }
 
-export interface KitDataItems {
-  items: Array<DefaultBlock>;
-}
 //#endregion
 
 //#region DefaultPopups
@@ -154,26 +139,6 @@ export interface DefaultBlock {
   value: Record<string, unknown>;
 }
 
-export interface PopupBlockWithThumbs extends PopupBlock {
-  thumbnailSrc: string;
-}
-
-export type APIPopup = {
-  id: string;
-  categories: string;
-  blank?: string;
-  order: number;
-  pro: string;
-  thumbnail: string;
-  thumbnailHeight: number;
-  thumbnailWidth: number;
-  title: string;
-};
-
-export type PopupDataResult = Array<{
-  pageData: string;
-}>;
-
 type PopupCategoryId = Symbol;
 
 interface PopupCategory {
@@ -194,22 +159,6 @@ export interface DefaultPopups extends DefaultTemplate<Popup> {
 //#endregion
 
 //#region DefaultLayouts
-export interface LayoutsPageAPI {
-  title: string;
-  slug: string;
-  thumbs: string;
-  thumbnailWidth: number;
-  thumbnailHeight: number;
-}
-
-export interface LayoutsAPI extends ThumbnailWithDimensions {
-  title: string;
-  pro: string;
-  categories: string;
-  pagesCount: string;
-  slug: string;
-  keywords: string;
-}
 
 export interface DefaultBlock {
   type: string;
@@ -306,13 +255,6 @@ export interface DefaultLayouts {
 //#endregion
 
 //#region DefaultStories
-export interface StoryDataResponse {
-  collection: string;
-}
-
-export interface StoryPages extends ThumbnailWithDimensions {
-  slug: string;
-}
 
 export interface StoriesTemplate {
   blank?: boolean;
@@ -336,13 +278,6 @@ export interface StoriesTemplateWithThumbs extends StoriesTemplate {
 
 export interface StoriesWithThumbs extends Omit<Stories, "stories"> {
   stories: Array<StoriesTemplateWithThumbs>;
-}
-
-export interface StoriesAPI extends ThumbnailWithDimensions {
-  title: string;
-  categories: string;
-  id: string;
-  pages: number;
 }
 
 type StoryCategoryId = Symbol;

@@ -1,22 +1,21 @@
 import { BuilderModes } from "@/actions/init";
-import { PostsSources } from "@/types/posts";
+import { PageData } from "@/types/pageData";
+import { ProjectData } from "@/types/projectData";
 import { CollectionItems } from "./collectionItems";
 import { CollectionTypes } from "./collectionTypes";
-import { PageData, PageDataOutput, ProjectData, ProjectDataOutput, Response } from "./common";
+import { PageDataOutput, ProjectDataOutput } from "./common";
 import { CustomFile } from "./customFile";
 import { DynamicContent } from "./dynamicContent";
-import { Form } from "./form";
 import { LeftSidebar } from "./leftSidebar";
 import { Media } from "./media";
-import { Menu } from "./menu";
 import { Publish } from "./publish";
 import { Screenshots } from "./screenshots";
 import { DefaultKits, DefaultLayouts, DefaultPopups, DefaultStories } from "./templates";
 import { Theme } from "./theme";
 
-export interface Output<T extends HtmlOutputType> {
-  pageData: PageDataOutput<T>;
-  projectData: ProjectDataOutput<T>;
+export interface Output {
+  pageData?: PageDataOutput;
+  projectData?: ProjectDataOutput;
   error?: string;
   popupSettings?: {
     verticalAlign: "top" | "bottom" | "center";
@@ -30,38 +29,31 @@ export enum Modes {
   story = "story",
 }
 
-export enum ShopifyTemplate {
-  Page = "shopify-page",
-}
-
-export interface BuilderOutput<T extends HtmlOutputType> {
-  pageData?: PageData<T>;
-  projectData?: ProjectData<T>;
+export interface BuilderOutput {
+  pageData?: PageData;
+  projectData?: ProjectData;
   error?: string;
   mode: BuilderModes;
 }
 
-export interface AutoSaveOutput<T extends HtmlOutputType> {
-  pageData?: PageData<T>;
-  projectData?: ProjectData<T>;
+export interface AutoSaveOutput {
+  pageData?: PageData;
+  projectData?: ProjectData;
 }
 
-export type OnSave<T extends HtmlOutputType> = (output: Output<T>) => void;
-export type OnAutoSave<T extends HtmlOutputType> = (output: AutoSaveOutput<T>) => void;
+export type OnSave = (output: Output) => void;
+export type OnAutoSave = (output: AutoSaveOutput) => void;
 
 export interface Extension {
   host?: string;
   path: string;
 }
 
-export type HtmlOutputType = "html" | "json";
-
-export interface Config<T extends HtmlOutputType> {
+export interface Config {
   mode?: Modes;
   container: HTMLElement;
-  pageData: Record<string, unknown>;
-  projectData: Record<string, unknown>;
-  htmlOutputType: T;
+  pageData: PageData;
+  projectData: ProjectData;
 
   //#region Extensions
 
@@ -77,20 +69,6 @@ export interface Config<T extends HtmlOutputType> {
 
   assets?: string;
   pagePreview?: string;
-
-  //#endregion
-
-  //#region Menu
-
-  menu?: Menu;
-
-  //#endregion
-
-  //#region Integrations
-
-  integrations?: {
-    form?: Form;
-  };
 
   //#endregion
 
@@ -134,7 +112,7 @@ export interface Config<T extends HtmlOutputType> {
     leftSidebar?: LeftSidebar;
 
     // Publish
-    publish?: Publish<T>;
+    publish?: Publish;
   };
 
   //#endregion
@@ -174,93 +152,22 @@ export interface Config<T extends HtmlOutputType> {
 
   //#region Events
 
-  onSave?: OnSave<T>;
-  onAutoSave?: OnAutoSave<T>;
+  onSave?: OnSave;
+  onAutoSave?: OnAutoSave;
   autoSaveInterval?: number;
   onLoad?: VoidFunction;
 
   //#endregion
 
-  // #region platform
-  platform?: "shopify" | "cms";
-
-  // #endregion
-
   // #region contentDefaults
-  contentDefaults?: {
-    PostTitle?: {
-      textPopulation?: string;
-      textPopulationEntityType?: string;
-      textPopulationEntityId?: string;
-      linkSource?: string;
-      linkType?: string;
-    };
-    PostContent?: {
-      textPopulation?: string;
-      textPopulationEntityType?: string;
-      textPopulationEntityId?: string;
-    };
-    Quantity?: {
-      sourceType?: string;
-    };
-    Price?: {
-      sourceType?: string;
-    };
-    AddToCart?: {
-      sourceType?: string;
-    };
-    Vendor?: {
-      sourceType?: string;
-      linkSource?: string;
-      linkType?: string;
-    };
-    Variant?: {
-      sourceType?: string;
-    };
-    FeaturedImage?: {
-      linkSource?: string;
-      linkType?: string;
-    };
-    ProductList?: {
-      collectionTypeId?: string;
-      component?: string;
-      source?: string;
-    };
-    Posts?: {
-      _version?: number;
-      items?: Array<Record<string, unknown>>;
-      source?: string;
-      orderBy?: string;
-      order?: string;
-    };
-  };
 
-  // #endregion
-
-  // #region templateType
-  templateType?: {
-    id: string;
-    type: ShopifyTemplate;
-  };
+  contentDefaults?: {};
 
   // #endregion
 
   // #region elements
-  elements?: {
-    menu?: {
-      createMenuLabel?: string;
-      onOpen?: VoidFunction;
-    };
-    posts?: {
-      handler?: (res: Response<PostsSources>, rej: Response<string>) => void;
-      exclude?: boolean;
-      includeQueryMultiOptions?: boolean;
-      offset?: boolean;
-      orderBy?: boolean;
-      order?: boolean;
-      querySource?: boolean;
-    };
-  };
+
+  elements?: {};
 
   // #endregion
 }
@@ -280,8 +187,8 @@ export type ActionResolve = {
   data: string;
 };
 
-export type Init<T extends HtmlOutputType> = (token: string, config: Config<T>, cb: CB) => void;
+export type Init = (config: Config, cb: CB) => void;
 
-export type Builder<T extends HtmlOutputType> = {
-  init: Init<T>;
+export type Builder = {
+  init: Init;
 };

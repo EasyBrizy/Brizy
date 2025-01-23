@@ -1,11 +1,7 @@
+import { BuilderModes } from "@/actions/init";
 import { getElements } from "@/builderProvider/handlers/defaults/elements";
-import {
-  addThirdPartyAssets,
-  getAssetsType,
-  prepareThirdPartyAssets,
-  replaceThirdParty,
-} from "@/builderProvider/utils/thirdParty";
-import { ActionResolve, AutoSaveOutput, HtmlOutputType } from "@/types/types";
+import { prepareThirdPartyAssets, replaceThirdParty } from "@/builderProvider/utils/thirdParty";
+import { ActionResolve, AutoSaveOutput } from "@/types/types";
 import * as Comlink from "comlink";
 import { mergeDeep } from "timm";
 import { getApi } from "../handlers/api";
@@ -43,14 +39,11 @@ const init = async ({ uid, data }: ActionResolve) => {
   const compiler = configData.compiler ?? defaultConfig.compiler;
 
   const platform = configData.platform ?? defaultConfig.platform;
-  const contentDefaults = configData.contentDefaults ?? {};
+  const contentDefaults = configData.contentDefaults ?? defaultConfig.contentDefaults;
   const templateType = configData.templateType;
 
   window.__VISUAL_CONFIG__.mode = mode;
-  window.__VISUAL_CONFIG__.projectData = {
-    dataVersion: 1,
-    data: configData.projectData,
-  };
+  window.__VISUAL_CONFIG__.projectData = configData.projectData ?? defaultConfig.projectData;
   window.__VISUAL_CONFIG__.menuData = menuData;
   window.__VISUAL_CONFIG__.elements = getElements(elements, exposedHandlers, uid);
   window.__VISUAL_CONFIG__.auth = {
@@ -60,10 +53,11 @@ const init = async ({ uid, data }: ActionResolve) => {
     assets: freeAssets,
     pagePreview: configData.pagePreview,
     ...(configData.urls ? configData.urls : {}),
-    ...(api.screenshots?.screenshotUrl ? {
-      screenshot: api.screenshots.screenshotUrl,
-    } : {}),
-
+    ...(api.screenshots?.screenshotUrl
+      ? {
+          screenshot: api.screenshots.screenshotUrl,
+        }
+      : {}),
   });
   window.__VISUAL_CONFIG__.pro = mergeDeep(pro, {
     urls: { assets: proAssets },
@@ -88,7 +82,7 @@ const init = async ({ uid, data }: ActionResolve) => {
   }
 
   window.__VISUAL_CONFIG__.onLoad = () => exposedHandlers.onLoad(uid);
-  window.__VISUAL_CONFIG__.onAutoSave = (data: AutoSaveOutput<HtmlOutputType>) => exposedHandlers.onAutoSave(data, uid);
+  window.__VISUAL_CONFIG__.onAutoSave = (data: AutoSaveOutput) => exposedHandlers.onAutoSave(data, uid);
   window.__VISUAL_CONFIG__.autoSaveInterval = configData.autoSaveInterval;
 
   const iframe = document.querySelector("#no-script-frame");
@@ -117,14 +111,11 @@ const save = (uid: string) => {
   const Config = window.Brizy?.config?.getAll();
 
   if (Config && typeof Config.onUpdate === "function") {
-    const mode = window.__VISUAL_CONFIG__.mode;
+    const mode = window.__VISUAL_CONFIG__.mode as BuilderModes;
 
-    Config.onUpdate(async (_extra: Record<string, unknown>) => {
-      const assetsType = getAssetsType(Config);
-      let extra = addThirdPartyAssets({ data: _extra, assetsType });
+    Config.onUpdate(async (extra: Record<string, unknown>) => {
       const data = { mode, ...extra };
       const exposedConfig = Comlink.wrap<ExposedHandlers>(Comlink.windowEndpoint(self.parent));
-      // @ts-expect-error: Type Styles is not assignable to type string
       await exposedConfig.save(data, uid);
     });
   }

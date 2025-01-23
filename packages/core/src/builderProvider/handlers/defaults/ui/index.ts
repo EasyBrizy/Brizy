@@ -1,4 +1,3 @@
-import { getAssetsType } from "@/builderProvider/utils/thirdParty";
 import {
   BaseElementTypes,
   isLeftSidebarAddElementsType,
@@ -6,10 +5,9 @@ import {
   LeftSidebarMoreOptionsIds,
   LeftSidebarOption,
   LeftSidebarOptionsIds,
-  StoryElementTypes,
 } from "@/types/leftSidebar";
 import { Publish } from "@/types/publish";
-import { Config, HtmlOutputType } from "@/types/types";
+import { Config } from "@/types/types";
 import { getIn, setIn } from "timm";
 import { ExposedHandlers } from "../../../types/type";
 import { getOpenCMS } from "./cms";
@@ -24,9 +22,9 @@ interface Data {
 
 const defaultUI = (
   mode: string,
-  configUi: Config<HtmlOutputType>["ui"],
+  configUi: Config["ui"],
 ): {
-  ui: Config<HtmlOutputType>["ui"];
+  ui: Config["ui"];
   leftSidebar: LeftSidebar;
 } => {
   const topTabsOrder: Array<LeftSidebarOption> = [
@@ -54,7 +52,7 @@ const defaultUI = (
     scrollPageBehind: true,
   };
 
-  let ui: Config<HtmlOutputType>["ui"] = {
+  let ui: Config["ui"] = {
     leftSidebar: {
       topTabsOrder: [
         {
@@ -63,58 +61,8 @@ const defaultUI = (
           elements: [
             {
               label: "grid",
-              moduleNames: [BaseElementTypes.Columns, BaseElementTypes.Row],
+              moduleNames: [BaseElementTypes.Columns2, BaseElementTypes.Row2],
             },
-            {
-              label: "essentials",
-              moduleNames: [
-                BaseElementTypes.Text,
-                BaseElementTypes.Image,
-                BaseElementTypes.Button,
-                BaseElementTypes.Icon,
-                BaseElementTypes.Spacer,
-                BaseElementTypes.Map,
-                BaseElementTypes.Form2,
-                BaseElementTypes.Line,
-                BaseElementTypes.Menu,
-              ],
-            },
-            {
-              label: "media",
-              moduleNames: [
-                BaseElementTypes.ImageGallery,
-                BaseElementTypes.Video,
-                BaseElementTypes.Audio,
-                BaseElementTypes.VideoPlaylist,
-              ],
-            },
-            {
-              label: "content",
-              moduleNames: [
-                BaseElementTypes.IconText,
-                BaseElementTypes.Embed,
-                BaseElementTypes.StarRating,
-                BaseElementTypes.Alert,
-                BaseElementTypes.Counter,
-                BaseElementTypes.Countdown2,
-                BaseElementTypes.ProgressBar,
-                BaseElementTypes.Calendly,
-                BaseElementTypes.Carousel,
-                BaseElementTypes.Tabs,
-                BaseElementTypes.Accordion,
-                BaseElementTypes.Switcher,
-                BaseElementTypes.Table,
-                BaseElementTypes.Timeline,
-              ],
-            },
-            {
-              label: "social",
-              moduleNames: [BaseElementTypes.Facebook, BaseElementTypes.Twitter, BaseElementTypes.FacebookComments],
-            },
-            {
-              label:"blog",
-              moduleNames:[BaseElementTypes.Posts]
-            }
           ],
         },
         ...topTabsOrder,
@@ -145,52 +93,7 @@ const defaultUI = (
               elements: [
                 {
                   label: "grid",
-                  moduleNames: [BaseElementTypes.Columns, BaseElementTypes.Row],
-                },
-                {
-                  label: "essentials",
-                  moduleNames: [
-                    BaseElementTypes.Text,
-                    BaseElementTypes.Image,
-                    BaseElementTypes.Button,
-                    BaseElementTypes.Icon,
-                    BaseElementTypes.Spacer,
-                    BaseElementTypes.Map,
-                    BaseElementTypes.Form2,
-                    BaseElementTypes.Line,
-                  ],
-                },
-                {
-                  label: "media",
-                  moduleNames: [
-                    BaseElementTypes.ImageGallery,
-                    BaseElementTypes.Video,
-                    BaseElementTypes.Audio,
-                    BaseElementTypes.VideoPlaylist,
-                  ],
-                },
-                {
-                  label: "content",
-                  moduleNames: [
-                    BaseElementTypes.IconText,
-                    BaseElementTypes.Embed,
-                    BaseElementTypes.StarRating,
-                    BaseElementTypes.Alert,
-                    BaseElementTypes.Counter,
-                    BaseElementTypes.Countdown2,
-                    BaseElementTypes.ProgressBar,
-                    BaseElementTypes.Calendly,
-                    BaseElementTypes.Carousel,
-                    BaseElementTypes.Tabs,
-                    BaseElementTypes.Accordion,
-                    BaseElementTypes.Switcher,
-                    BaseElementTypes.Table,
-                    BaseElementTypes.Timeline,
-                  ],
-                },
-                {
-                  label: "social",
-                  moduleNames: [BaseElementTypes.Facebook, BaseElementTypes.Twitter, BaseElementTypes.FacebookComments],
+                  moduleNames: [BaseElementTypes.Columns2, BaseElementTypes.Row2],
                 },
               ],
             },
@@ -223,30 +126,7 @@ const defaultUI = (
             {
               id: LeftSidebarOptionsIds.addElements,
               type: LeftSidebarOptionsIds.addElements,
-              elements: [
-                {
-                  label: "essentials",
-                  moduleNames: [
-                    StoryElementTypes.StoryButton,
-                    StoryElementTypes.StoryIcon,
-                    StoryElementTypes.StoryEmbed,
-                    StoryElementTypes.StoryText,
-                    StoryElementTypes.StoryMap,
-                    StoryElementTypes.StoryProgressBar,
-                    StoryElementTypes.StoryLine,
-                    StoryElementTypes.StoryCountdown2,
-                    StoryElementTypes.StoryCounter,
-                    StoryElementTypes.StoryShape,
-                    StoryElementTypes.StoryForm2,
-                    StoryElementTypes.StoryStarRating,
-                    StoryElementTypes.StoryLottie,
-                  ],
-                },
-                {
-                  label: "media",
-                  moduleNames: [StoryElementTypes.StoryImage, StoryElementTypes.StoryVideo],
-                },
-              ],
+              elements: [],
             },
             ...topTabsOrder,
           ],
@@ -307,8 +187,7 @@ export const getUi = (data: Data): Record<string, unknown> => {
   const popupSettings = Object.assign({}, oldUI.popupSettings, ui.popupSettings);
   const enabledCMS = getIn(leftSidebar, ["cms", "enable"]);
   const enabledPublish = getIn(ui, ["publish", "enable"]);
-  let publish: Partial<Publish<HtmlOutputType>> = {};
-  const assetsType = getAssetsType(config);
+  let publish: Partial<Publish> = {};
 
   if (enabledCMS) {
     const { onOpenCMS, onCloseCMS } = handlers;
@@ -319,7 +198,7 @@ export const getUi = (data: Data): Record<string, unknown> => {
   }
 
   if (enabledPublish) {
-    publish = getPublish({ assetsType, publishHandler: handlers.publish, uid });
+    publish = getPublish({ publishHandler: handlers.publish, uid });
   }
 
   return {

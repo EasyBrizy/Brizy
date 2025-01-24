@@ -1,11 +1,6 @@
 import { Literal } from "@/utils/types";
 import { Response } from "./common";
 
-interface DefaultTemplate<T1> {
-  label?: string;
-  getMeta: (res: Response<T1>, rej: Response<string>) => void;
-}
-
 export interface Block {
   id: string;
   cat: Array<Literal>;
@@ -116,48 +111,6 @@ export interface DefaultKits {
 
 //#endregion
 
-//#region DefaultPopups
-export interface PopupBlock {
-  id: string;
-  cat: Array<Literal>;
-  title: string;
-  keywords: string;
-  thumbnailWidth: number;
-  thumbnailHeight: number;
-  type: Array<Literal>;
-  blank?: string;
-  position?: number;
-  pro?: boolean;
-}
-
-export interface DefaultBlockWithID extends DefaultBlock {
-  blockId: string;
-}
-
-export interface DefaultBlock {
-  type: string;
-  value: Record<string, unknown>;
-}
-
-type PopupCategoryId = Symbol;
-
-interface PopupCategory {
-  id: PopupCategoryId;
-  slug: string;
-  title: string;
-}
-
-export interface Popup {
-  blocks: Array<PopupBlock>;
-  categories: Array<PopupCategory>;
-}
-
-export interface DefaultPopups extends DefaultTemplate<Popup> {
-  getData: (res: Response<DefaultBlockWithID>, rej: Response<string>, kit: KitItem) => void;
-}
-
-//#endregion
-
 //#region DefaultLayouts
 
 export interface DefaultBlock {
@@ -246,74 +199,6 @@ export interface DefaultLayouts {
   getMeta: (res: Response<LayoutsWithThumbs>, rej: Response<string>) => void;
   getData: (
     res: Response<BlocksArray<DefaultBlockWithID>>,
-    rej: Response<string>,
-    page: { id: string; layoutId: string },
-  ) => void;
-  getPages: (res: Response<LayoutsPages>, rej: Response<string>, id: string) => void;
-}
-
-//#endregion
-
-//#region DefaultStories
-
-export interface StoriesTemplate {
-  blank?: boolean;
-  layoutId: string;
-  name: string;
-  cat: Array<Literal>;
-  pagesCount: number;
-  styles?: Array<Style>;
-}
-
-export interface Stories {
-  stories: Array<StoriesTemplate>;
-  categories: Array<Omit<Categories, "slug">>;
-}
-
-export interface StoriesTemplateWithThumbs extends StoriesTemplate {
-  thumbnailSrc: string;
-  thumbnailWidth: number;
-  thumbnailHeight: number;
-}
-
-export interface StoriesWithThumbs extends Omit<Stories, "stories"> {
-  stories: Array<StoriesTemplateWithThumbs>;
-}
-
-type StoryCategoryId = Symbol;
-
-interface StoryPage {
-  id: string;
-  thumbnailWidth: number;
-  thumbnailHeight: number;
-  thumbnailSrc: string;
-  title: string;
-  keywords: string; // used for search example "home, details, menu, reservation, food, lunch"
-  cat: Array<StoryCategoryId>;
-}
-
-interface Story {
-  name: string;
-  color: string; // example "#FF7102"
-  cat: Array<StoryCategoryId>;
-  pages: Array<StoryPage>;
-  styles: Record<string, unknown>; // The global styles
-}
-
-interface StoryCategory {
-  id: StoryCategoryId;
-  title: string;
-}
-
-export interface StoryTemplate {
-  stories: Array<Story>;
-  categories: Array<StoryCategory>;
-}
-
-export interface DefaultStories {
-  getMeta: (res: Response<StoriesWithThumbs>, rej: Response<string>) => void;
-  getData: (
-    res: Response<BlocksArray<DefaultBlock>>,
     rej: Response<string>,
     page: { id: string; layoutId: string },
   ) => void;

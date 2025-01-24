@@ -1,10 +1,10 @@
 import {
   BaseElementTypes,
-  isLeftSidebarAddElementsType,
   LeftSidebar,
   LeftSidebarMoreOptionsIds,
   LeftSidebarOption,
   LeftSidebarOptionsIds,
+  isLeftSidebarAddElementsType,
 } from "@/types/leftSidebar";
 import { Publish } from "@/types/publish";
 import { Config } from "@/types/types";
@@ -14,14 +14,12 @@ import { getOpenCMS } from "./cms";
 import { getPublish } from "./publish";
 
 interface Data {
-  mode: string;
   config: Record<string, unknown>;
   handlers: ExposedHandlers;
   uid: string;
 }
 
 const defaultUI = (
-  mode: string,
   configUi: Config["ui"],
 ): {
   ui: Config["ui"];
@@ -42,15 +40,6 @@ const defaultUI = (
     { id: LeftSidebarOptionsIds.deviceMode, type: LeftSidebarOptionsIds.deviceMode },
     { id: LeftSidebarOptionsIds.more, type: LeftSidebarOptionsIds.more },
   ];
-
-  const defaultPopupSettings = {
-    displayCondition: false,
-    clickOutsideToClose: true,
-    embedded: false,
-    horizontalAlign: true,
-    verticalAlign: true,
-    scrollPageBehind: true,
-  };
 
   let ui: Config["ui"] = {
     leftSidebar: {
@@ -78,74 +67,7 @@ const defaultUI = (
         ],
       },
     },
-    popupSettings: defaultPopupSettings,
   };
-
-  switch (mode) {
-    case "internal_popup":
-    case "external_popup": {
-      ui = {
-        leftSidebar: {
-          topTabsOrder: [
-            {
-              id: LeftSidebarOptionsIds.addElements,
-              type: LeftSidebarOptionsIds.addElements,
-              elements: [
-                {
-                  label: "grid",
-                  moduleNames: [BaseElementTypes.Columns2, BaseElementTypes.Row2],
-                },
-              ],
-            },
-            ...topTabsOrder,
-          ],
-          bottomTabsOrder,
-          more: {
-            options: [
-              {
-                type: LeftSidebarMoreOptionsIds.shortcuts,
-                label: "Shortcuts",
-                link: "",
-              },
-            ],
-          },
-        },
-        popupSettings: {
-          ...defaultPopupSettings,
-          displayCondition: true,
-          deletePopup: true,
-        },
-      };
-      break;
-    }
-    case "internal_story":
-    case "external_story": {
-      ui = {
-        leftSidebar: {
-          topTabsOrder: [
-            {
-              id: LeftSidebarOptionsIds.addElements,
-              type: LeftSidebarOptionsIds.addElements,
-              elements: [],
-            },
-            ...topTabsOrder,
-          ],
-          bottomTabsOrder,
-          more: {
-            options: [
-              {
-                type: LeftSidebarMoreOptionsIds.shortcuts,
-                label: "Shortcuts",
-                link: "",
-              },
-            ],
-          },
-        },
-        popupSettings: defaultPopupSettings,
-      };
-      break;
-    }
-  }
 
   const leftSidebar = Object.assign({}, ui.leftSidebar, configUi?.leftSidebar);
   // Find the index of the addElements tab
@@ -180,11 +102,10 @@ const defaultUI = (
 };
 
 export const getUi = (data: Data): Record<string, unknown> => {
-  const { mode, config, handlers, uid } = data;
+  const { config, handlers, uid } = data;
   const _ui = config.ui as Record<string, unknown> | undefined;
-  let { ui: oldUI = {}, leftSidebar } = defaultUI(mode, _ui);
+  let { ui: oldUI = {}, leftSidebar } = defaultUI(_ui);
   const ui = _ui ? _ui : oldUI;
-  const popupSettings = Object.assign({}, oldUI.popupSettings, ui.popupSettings);
   const enabledCMS = getIn(leftSidebar, ["cms", "enable"]);
   const enabledPublish = getIn(ui, ["publish", "enable"]);
   let publish: Partial<Publish> = {};
@@ -204,7 +125,6 @@ export const getUi = (data: Data): Record<string, unknown> => {
   return {
     ...ui,
     publish,
-    popupSettings,
     leftSidebar,
   };
 };

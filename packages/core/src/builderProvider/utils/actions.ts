@@ -1,4 +1,3 @@
-import { BuilderModes } from "@/actions/init";
 import { getElements } from "@/builderProvider/handlers/defaults/elements";
 import { prepareThirdPartyAssets, replaceThirdParty } from "@/builderProvider/utils/thirdParty";
 import { ActionResolve, AutoSaveOutput } from "@/types/types";
@@ -65,7 +64,7 @@ const init = async ({ uid, data }: ActionResolve) => {
   window.__VISUAL_CONFIG__.compiler = compiler;
 
   window.__VISUAL_CONFIG__.pageData = getPage(pageData);
-  window.__VISUAL_CONFIG__.ui = getUi({ mode, config: configData, handlers: exposedHandlers, uid });
+  window.__VISUAL_CONFIG__.ui = getUi({ config: configData, handlers: exposedHandlers, uid });
   window.__VISUAL_CONFIG__.dynamicContent = getDCConfig(dynamicContent, exposedHandlers, uid);
   window.__VISUAL_CONFIG__.integrations = getIntegration({
     integration,
@@ -111,12 +110,9 @@ const save = (uid: string) => {
   const Config = window.Brizy?.config?.getAll();
 
   if (Config && typeof Config.onUpdate === "function") {
-    const mode = window.__VISUAL_CONFIG__.mode as BuilderModes;
-
     Config.onUpdate(async (extra: Record<string, unknown>) => {
-      const data = { mode, ...extra };
       const exposedConfig = Comlink.wrap<ExposedHandlers>(Comlink.windowEndpoint(self.parent));
-      await exposedConfig.save(data, uid);
+      await exposedConfig.save(extra, uid);
     });
   }
 };

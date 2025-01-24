@@ -3,8 +3,6 @@ export enum BaseElementTypes {
   Row2 = "Row2",
 }
 
-export enum StoryElementTypes {}
-
 export enum LeftSidebarOptionsIds {
   addElements = "addElements",
   reorderBlock = "reorderBlock",
@@ -33,7 +31,7 @@ export interface LeftSidebarAddElementsType extends LeftSidebarOptionBase {
   type: LeftSidebarOptionsIds.addElements;
   elements: {
     label: string;
-    moduleNames: Array<BaseElementTypes | StoryElementTypes>;
+    moduleNames: Array<BaseElementTypes>;
   }[];
 }
 

@@ -14,11 +14,6 @@ import {
   LayoutsDataHandler,
   LayoutsMetaHandler,
   LayoutsPagesHandler,
-  PopupsDataHandler,
-  PopupsMetaHandler,
-  StoriesDataHandler,
-  StoriesMetaHandler,
-  StoriesPagesHandler,
 } from "../handlers/api/templates";
 import { OpenCMSHandler } from "../handlers/defaults/ui/cms";
 import { PublishHandler } from "../handlers/defaults/ui/publish";
@@ -36,14 +31,9 @@ export interface ExposedHandlers {
   getKits: KitsHandler;
   getKitsMeta: KitsMetaHandler;
   getKitsData: KitsDataHandler;
-  getPopupsMeta: PopupsMetaHandler;
-  getPopupsData: PopupsDataHandler;
   getLayoutsMeta: LayoutsMetaHandler;
   getLayoutsData: LayoutsDataHandler;
   getLayoutsPages: LayoutsPagesHandler;
-  getStoriesMeta: StoriesMetaHandler;
-  getStoriesData: StoriesDataHandler;
-  getStoriesPages: StoriesPagesHandler;
   loadCollectionTypes: LoadCollectionTypesHandler;
   getCollectionItems: GetCollectionItemsHandler;
   searchCollectionItems: SearchCollectionItemsHandler;

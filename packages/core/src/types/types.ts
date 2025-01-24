@@ -1,4 +1,3 @@
-import { BuilderModes } from "@/actions/init";
 import { PageData } from "@/types/pageData";
 import { ProjectData } from "@/types/projectData";
 import { CollectionItems } from "./collectionItems";
@@ -10,30 +9,19 @@ import { LeftSidebar } from "./leftSidebar";
 import { Media } from "./media";
 import { Publish } from "./publish";
 import { Screenshots } from "./screenshots";
-import { DefaultKits, DefaultLayouts, DefaultPopups, DefaultStories } from "./templates";
+import { DefaultKits, DefaultLayouts } from "./templates";
 import { Theme } from "./theme";
 
 export interface Output {
   pageData?: PageDataOutput;
   projectData?: ProjectDataOutput;
   error?: string;
-  popupSettings?: {
-    verticalAlign: "top" | "bottom" | "center";
-    horizontalAlign: "left" | "right" | "center";
-  };
-}
-
-export enum Modes {
-  popup = "popup",
-  page = "page",
-  story = "story",
 }
 
 export interface BuilderOutput {
   pageData?: PageData;
   projectData?: ProjectData;
   error?: string;
-  mode: BuilderModes;
 }
 
 export interface AutoSaveOutput {
@@ -50,7 +38,6 @@ export interface Extension {
 }
 
 export interface Config {
-  mode?: Modes;
   container: HTMLElement;
   pageData?: PageData;
   projectData?: ProjectData;
@@ -93,18 +80,6 @@ export interface Config {
   //#region UI
 
   ui?: {
-    // Popup
-    popupSettings?: {
-      displayCondition?: boolean;
-      deletePopup?: boolean;
-      embedded?: boolean;
-      horizontalAlign?: boolean;
-      verticalAlign?: boolean;
-      backgroundPreviewUrl?: string;
-      scrollPageBehind?: boolean;
-      clickOutsideToClose?: boolean;
-    };
-
     // Theme
     theme?: Theme;
 
@@ -129,14 +104,8 @@ export interface Config {
     // Default Kits
     defaultKits?: DefaultKits;
 
-    // Default Popups
-    defaultPopups?: DefaultPopups;
-
     // Default Layouts
     defaultLayouts?: DefaultLayouts;
-
-    // Default Stories
-    defaultStories?: DefaultStories;
 
     // Screenshots
     screenshots?: Screenshots;

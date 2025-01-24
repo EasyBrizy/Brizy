@@ -6,19 +6,7 @@ import { getLoadCollectionTypesHandler } from "./collectionTypes";
 import { getCustomFileHandler } from "./customFile";
 import { getMediaHandler } from "./media";
 import { getCreateScreenshots, getUpdateScreenshots } from "./screenshots";
-import {
-  getKits,
-  getKitsData,
-  getKitsMeta,
-  getLayoutsData,
-  getLayoutsMeta,
-  getLayoutsPages,
-  getPopupsData,
-  getPopupsMeta,
-  getStoriesData,
-  getStoriesMeta,
-  getStoriesPages,
-} from "./templates";
+import { getKits, getKitsData, getKitsMeta, getLayoutsData, getLayoutsMeta, getLayoutsPages } from "./templates";
 
 interface Data {
   api: Record<string, unknown>;
@@ -33,23 +21,16 @@ export const getApi = (data: Data) => {
 
   const customFile = api.customFile ?? {};
   const enabledDefaultKits = getIn(api, ["defaultKits", "enable"]);
-  const enabledDefaultPopups = getIn(api, ["defaultPopups", "enable"]);
   const enabledDefaultLayouts = getIn(api, ["defaultLayouts", "enable"]);
-  const enabledDefaultStories = getIn(api, ["defaultStories", "enable"]);
   const enabledScreenshots = getIn(api, ["screenshots", "enable"]);
 
   const {
     getKits: getApiKits,
     getKitsMeta: getApiKitsMeta,
     getKitsData: getApiKitsData,
-    getPopupsMeta: getApiPopupsMeta,
-    getPopupsData: getApiPopupsData,
     getLayoutsMeta: getApiLayoutsMeta,
     getLayoutsData: getApiLayoutsData,
     getLayoutsPages: getApiLayoutsPages,
-    getStoriesMeta: getApiStoriesMeta,
-    getStoriesData: getApiStoriesData,
-    getStoriesPages: getApiStoriesPages,
     createScreenshot,
     updateScreenshot,
     addMedia,
@@ -68,26 +49,11 @@ export const getApi = (data: Data) => {
     }) as Record<string, unknown>;
   }
 
-  if (enabledDefaultPopups) {
-    api = setIn(api, ["defaultPopups"], {
-      getMeta: getPopupsMeta(getApiPopupsMeta, uid),
-      getData: getPopupsData(getApiPopupsData, uid),
-    }) as Record<string, unknown>;
-  }
-
   if (enabledDefaultLayouts) {
     api = setIn(api, ["defaultLayouts"], {
       getMeta: getLayoutsMeta(getApiLayoutsMeta, uid),
       getData: getLayoutsData(getApiLayoutsData, uid),
       getPages: getLayoutsPages(getApiLayoutsPages, uid),
-    }) as Record<string, unknown>;
-  }
-
-  if (enabledDefaultStories) {
-    api = setIn(api, ["defaultStories"], {
-      getMeta: getStoriesMeta(getApiStoriesMeta, uid),
-      getData: getStoriesData(getApiStoriesData, uid),
-      getPages: getStoriesPages(getApiStoriesPages, uid),
     }) as Record<string, unknown>;
   }
 

@@ -1,7 +1,7 @@
 import type { Response } from "@/types/common";
 import { DCTypes } from "@/types/dynamicContent";
 import { LeftSidebarOptionsIds } from "@/types/leftSidebar";
-import { ActionResolve, Config, Modes } from "@/types/types";
+import type { ActionResolve, Config } from "@/types/types";
 import type { Dictionary } from "@/utils/types";
 import { encode } from "js-base64";
 import { mergeIn, omit, setIn } from "timm";
@@ -81,30 +81,6 @@ const createDCContent = (config: Config): BuilderDCOption => {
 
 //#endregion
 
-//#region Modes
-
-export enum BuilderModes {
-  externalPopup = "external_popup",
-  externalStory = "external_story",
-  page = "page",
-}
-
-const createModes = (modes: Modes): BuilderModes => {
-  switch (modes) {
-    case Modes.page: {
-      return BuilderModes.page;
-    }
-    case Modes.popup: {
-      return BuilderModes.externalPopup;
-    }
-    case Modes.story: {
-      return BuilderModes.externalStory;
-    }
-  }
-};
-
-//#endregion
-
 //#region API
 
 type API = Config["api"];
@@ -138,16 +114,8 @@ const createApi = (config: Config): BuilderAPI => {
     api = setIn(api, ["defaultKits"], { enable: true }) as BuilderAPI;
   }
 
-  if (api.defaultPopups) {
-    api = setIn(api, ["defaultPopups"], { enable: true }) as BuilderAPI;
-  }
-
   if (api.defaultLayouts) {
     api = setIn(api, ["defaultLayouts"], { enable: true }) as BuilderAPI;
-  }
-
-  if (api.defaultStories) {
-    api = setIn(api, ["defaultStories"], { enable: true }) as BuilderAPI;
   }
 
   if (api.screenshots && api.screenshots.screenshotUrl) {
@@ -192,18 +160,8 @@ export const createUi = (config: Config): BuilderUI => {
 
 //#endregion
 // #region Elements
-type Elements = Config["elements"];
 
-type BuilderElements = Elements & {
-  menu?: {
-    enable?: boolean;
-  };
-  posts?: {
-    enable?: boolean;
-  };
-};
-
-const createElements = (config: Config): BuilderElements => {
+const createElements = (config: Config) => {
   let { elements } = config;
 
   if (!elements) {
@@ -244,7 +202,6 @@ const getCompiler = (_config: Config): BuilderCompiler => ({
 export const init = (config: Config, uid: string): ActionResolve => ({
   uid,
   data: JSON.stringify({
-    mode: createModes(config.mode ?? Modes.page),
     pageData: getPage(config),
     projectData: config.projectData,
     pagePreview: config.pagePreview,

@@ -1,0 +1,5 @@
+/node_modules/
+pages.database.json
+project.database.json
+.turbo
+.next

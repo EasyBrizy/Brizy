@@ -24,10 +24,9 @@
     "check": "turbo run lint tsc test"
   },
   "workspaces": [
-    "demo/*",
+    "recipes/*",
     "packages/*",
-    "docusaurus",
-    "plugins/*"
+    "docusaurus"
   ],
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",

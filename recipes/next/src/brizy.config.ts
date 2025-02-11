@@ -921,7 +921,7 @@ export const config: EditorConfig = {
         split: "{{ [baseUrl] }}/{{ iW=[iW] }}&{{ iH=[iH] }}/{{ [uid] }}/{{ [fileName] }}",
       },
       addMedia: {
-        async handler(resolve, reject, extra) {},
+        async handler() {},
       },
     },
 
@@ -967,5 +967,4 @@ export const config: EditorConfig = {
       },
     },
   },
-  pagePreview: "http://localhost:9001/preview",
 };

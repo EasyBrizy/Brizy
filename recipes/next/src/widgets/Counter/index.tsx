@@ -26,6 +26,7 @@ export const CounterModule = {
     editor: Counter,
     view: Counter,
   },
+  icon: "nc-counter-outline",
   title: "Counter",
   category: "custom",
 };

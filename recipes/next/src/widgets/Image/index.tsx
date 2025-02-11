@@ -1,4 +1,4 @@
-import cn from "classnames";
+import cn from "clsx";
 import { JSX } from "react";
 import { EditorToolbarOptions } from "@brizy/builder";
 import { HOVER, NORMAL } from "../utils";
@@ -6,7 +6,7 @@ import "./index.scss";
 import { Props } from "./types";
 import { sizeCSS } from "./utils";
 
-const Image = (props: Props): JSX.Element => {
+const BrizyImage = (props: Props): JSX.Element => {
   const {
     isEditor,
     linkExternal,
@@ -272,8 +272,8 @@ const toolbarOptions: EditorToolbarOptions = ({ t }) => [
 export const ImageModule = {
   id: "Brizy.ThirdParty.Image",
   component: {
-    editor: (props: Props) => <Image {...props} isEditor={true} />,
-    view: Image,
+    editor: (props: Props) => <BrizyImage {...props} isEditor={true} />,
+    view: BrizyImage,
   },
   title: "Image",
   icon: "nc-img",

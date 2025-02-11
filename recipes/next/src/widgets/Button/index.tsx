@@ -1,4 +1,4 @@
-import cn from "classnames";
+import cn from "clsx";
 import type { EditorToolbarOptions } from "@brizy/builder";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";

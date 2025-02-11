@@ -3,3 +3,4 @@ pages.database.json
 project.database.json
 .turbo
 .next
+tsconfig.tsbuildinfo

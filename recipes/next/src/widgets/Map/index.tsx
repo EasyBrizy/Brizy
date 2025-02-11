@@ -69,6 +69,7 @@ export const MapModule = {
     editor: Editor,
     view: View,
   },
+  icon: "nc-pin",
   title: "Map",
   category: "custom",
   options: toolbarOptions,

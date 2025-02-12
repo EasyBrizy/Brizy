@@ -26,7 +26,7 @@ export const pageData: EditorPage = {
                           type: "ThirdParty",
                           value: {
                             _id: "1asddccc",
-                            thirdPartyId: "Brizy.ThirdParty.Test",
+                            thirdPartyId: "Brizy.ThirdParty.Button",
                           },
                         },
                       ],
@@ -962,7 +962,7 @@ export const config: EditorConfig = {
           rej(`Fail to find layout page ${layoutId}`);
         }
       },
-      async getData(res, rej, { id, layoutId }) {
+      async getData(res) {
         res(layoutTemplatePageData.data);
       },
     },

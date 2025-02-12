@@ -10,7 +10,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@brizy/builder": "../../../BB/editor/visual/build",
+    "@brizy/builder": "*",
     "classnames": "^2.5.1",
     "next": "14.2.23",
     "react": "^18.3.1",

@@ -14,8 +14,8 @@ You can see how to start the Brizy server [here](https://github.com/EasyBrizy/Br
 
 ## Node.js Version
 
-This package requires Node.js version 16 or higher.
+This package requires Node.js version 18 or higher.
 
 ## npm Version
 
-This package requires npm version 7 or higher.
+This package requires npm version 10 or higher.

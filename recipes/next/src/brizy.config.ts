@@ -1,4 +1,4 @@
-import { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
+import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 import brizyIcons from "@brizy/builder/editor/icons/icons.svg";
 import noImage from "../public/no_image_placeholder.svg";
 

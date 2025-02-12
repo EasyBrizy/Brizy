@@ -3,7 +3,7 @@
 import type { EditorPage, EditorProject } from "@brizy/builder/preview";
 import { Preview } from "@brizy/builder/preview";
 import { thirdPartyComponents } from "@/widgets/thirdPartyComponents";
-import "@brizy/builder/preview/css.css";
+import "@brizy/builder/preview/styles.css";
 
 interface Props {
   pageData: EditorPage;

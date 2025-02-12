@@ -16,7 +16,6 @@ In the process of developing an widget, the developer is able to create a new wi
 <ul>
   <li>[Toolbar](/docs-internals/brizy-editor/introduction) - the controls displayed in the toolbar.</li>
   <li>[Sidebar](/docs-internals/brizy-editor/introduction) - the controls displayed in the sidebar.</li>
-  <li>[Dynamic Content](/docs-internals/control-arguments/dynamic-content) - defining controls for dynamic data</li>
   <li>[Defaults](/docs-internals/control-arguments/defaults) - the default values for controls</li>
   <li>[CSS](/docs-internals/control-arguments/css) - dynamic styling based on control values</li>
 </ul>

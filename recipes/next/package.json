@@ -10,7 +10,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@brizy/builder": "*",
+    "@brizy/builder": "../../../BB/editor/visual/build",
     "classnames": "^2.5.1",
     "next": "14.2.23",
     "react": "^18.3.1",
@@ -26,6 +26,7 @@
     "eslint-config-next": "14.2.23",
     "eslint-config-prettier": "^10.0.1",
     "postcss": "^8",
+    "sass": "^1.84.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

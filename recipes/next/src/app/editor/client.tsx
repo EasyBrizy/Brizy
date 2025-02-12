@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { Editor } from "@brizy/builder";
 import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
-import "@brizy/builder/editor/css.css";
+import "@brizy/builder/editor/styles.css";
 import { config } from "@/brizy.config";
 import { thirdPartyComponents } from "@/widgets/thirdPartyComponents";
 
@@ -19,6 +19,12 @@ export function Client(props: Props) {
   const cnf = useMemo((): EditorConfig => {
     return {
       ...config,
+      onLoad() {
+        console.log("Load");
+      },
+      onAutoSave(data) {
+        console.log("AutoSave", data);
+      },
       ui: {
         ...config.ui,
         publish: {
@@ -35,12 +41,13 @@ export function Client(props: Props) {
               res(data);
             } catch (e) {
               rej("Failed to update data.");
+              console.error(e);
             }
           },
         },
       },
     };
-  }, []);
+  }, [pageData, path, projectData]);
 
   return (
     <Editor projectData={projectData} pageData={pageData} config={cnf} thirdPartyComponents={thirdPartyComponents} />

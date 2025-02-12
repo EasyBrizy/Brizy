@@ -47,7 +47,7 @@ const config: Config = {
     navbar: {
       logo: {
         alt: "Brizy",
-        src: "img/logo.svg"
+        src: "img/logo.svg",
       },
       items: [
         //#region Internals
@@ -57,17 +57,6 @@ const config: Config = {
           label: "Internals",
           position: "right",
           activeBaseRegex: `/docs-internals/`,
-        },
-
-        //#endregion
-
-        //#region Third party
-
-        {
-          to: "/docs-third-party/brizy-widgets/introduction",
-          label: "Third Party",
-          position: "right",
-          activeBaseRegex: `/docs-third-party/`,
         },
 
         //#endregion
@@ -91,7 +80,7 @@ const config: Config = {
           items: [
             {
               label: "Get Started",
-              to: "/docs/getting-started/what-is-brizy",
+              to: "/docs-internals/brizy-editor/introduction",
             },
           ],
         },
@@ -129,15 +118,6 @@ const config: Config = {
         id: "docs-internals",
         path: "docs-internals",
         routeBasePath: "docs-internals",
-        sidebarPath: require.resolve("./sidebars.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "docs-third-party",
-        path: "docs-third-party",
-        routeBasePath: "docs-third-party",
         sidebarPath: require.resolve("./sidebars.js"),
       },
     ],

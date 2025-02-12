@@ -40,7 +40,7 @@ In the above example, we'll use the `inputText` control. The value entered in th
 - [Background Color](/docs-internals/editor-controls/data-controls/background-color)
 - [Border](/docs-internals/editor-controls/data-controls/border)
 - [Box Shadow](/docs-internals/editor-controls/data-controls/box-shadow)
-- [Button](/docs-internals/editor-controls/data-controls/Button)
+- [Button](/docs-internals/editor-controls/data-controls/button)
 - [Code Mirror](/docs-internals/editor-controls/data-controls/codeMirror)
 - [Corners](/docs-internals/editor-controls/data-controls/corners)
 - [Editable Select](/docs-internals/editor-controls/data-controls/editableSelect)

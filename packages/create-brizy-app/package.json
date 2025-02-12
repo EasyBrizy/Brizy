@@ -1,0 +1,44 @@
+{
+  "name": "@brizy/create-app",
+  "version": "1.0.0",
+  "description": "Create full app with brizy builder",
+  "keywords": [
+    "brizy",
+    "builder",
+    "editor"
+  ],
+  "author": "@brizy",
+  "repository": "EasyBrizy/Brizy",
+  "bugs": "https://github.com/EasyBrizy/Brizy/issues",
+  "homepage": "https://brizy.io",
+  "private": false,
+  "license": "MIT",
+  "type": "module",
+  "bin":  "./bin/index.js",
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsc -p ./tsconfig.prod.json",
+    "postbuild": "chmod +x bin/index.js",
+    "tsc": "tsc",
+    "clean": "rimraf bin",
+    "generate": "node bin/scripts/generate.js",
+    "prepublishOnly": "npm run tsc && npm run build && npm run generate"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "glob": "^11.0.1",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.0"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": ">=10"
+  }
+}

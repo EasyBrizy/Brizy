@@ -12,12 +12,12 @@ Welcome to the Internals module of our documentation. Here, you will find detail
 
 Overview of different control types used for building toolbars and gathering:
 
-- [Usage](/docs-internals/using-controls/usage/)
-- [Regular](/docs-internals/using-controls/regular-control/)
-- [Responsive](/docs-internals/using-controls/responsive-control/)
-- [Group](/docs-internals/using-controls/control-group/)
-- [Popover](/docs-internals/using-controls/control-popover/)
-- [Tabs](/docs-internals/using-controls/control-tabs/)
+- [Usage](/docs-internals/using-controls/usage)
+- [Regular](/docs-internals/using-controls/regular-control)
+- [Responsive](/docs-internals/using-controls/responsive-control)
+- [Group](/docs-internals/using-controls/container-controls)
+- [Popover](/docs-internals/using-controls/container-controls)
+- [Tabs](/docs-internals/using-controls/container-controls)
 
 ### Editor Controls 
 
@@ -30,7 +30,7 @@ The Brizy Editor control allows users to edit content directly within the page b
 Discover how to personalize your controls:
 
 - [CSS](/docs-internals/control-arguments/css/)
-- [Dynamic Content](/docs-internals/control-arguments/dynamic-content)
+- [Dynamic Content](/docs-internals/control-arguments/dynamic-content/Introduction)
 
 ### Icons 
 

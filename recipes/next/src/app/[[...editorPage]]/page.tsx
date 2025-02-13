@@ -10,11 +10,11 @@
  * will invalidate the cache as the page is written in /api/editor/route.ts
  */
 
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getPage } from "@/lib/getPage";
 import { getProject } from "@/lib/getProject";
 import { Client } from "./client";
+import { MissingPage } from "@/components/MissingPage";
 
 export async function generateMetadata({ params }: { params: Promise<{ editorPage: string[] }> }): Promise<Metadata> {
   const { editorPage = [] } = await params;
@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: Promise<{ editorPage: s
   const projectData = getProject();
 
   if (!pageData || !projectData) {
-    return notFound();
+    return <MissingPage />;
   }
 
   return <Client pageData={pageData} projectData={projectData} />;

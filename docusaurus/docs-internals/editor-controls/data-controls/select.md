@@ -609,7 +609,7 @@ In the example below, we use the `select` output value to determine which icon t
 When the selected value is `"male"`, we will render the male icon inside the button and the female icon if the `"female"` value is selected.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import { Icon } from "./Icon";
 import React, { JSX } from "react";
 
@@ -627,8 +627,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -666,5 +666,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

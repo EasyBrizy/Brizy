@@ -1,8 +1,8 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
-# Registering
+# Registering Your Widgets
 
 Third-party widgets can be added to the builder via the `thirdPartyComponents` prop.  
 Component registration allows the builder to recognize additional widgets beyond the default set.<br/> 
@@ -19,7 +19,7 @@ import type { EditorThirdPartyComponents } from "@brizy/builder/editor";
 const WidgetEditor = () => <div>Rendered in Editor Mode</div>;
 
 const ContainerModule = {
-  id: "Brizy.ThirdParty.Container",
+  id: "Brizy.ThirdParty.Container", // Ensure this is unique across all module registrations
   component: {
     editor: WidgetEditor,
   },
@@ -58,7 +58,7 @@ import type { EditorThirdPartyComponents } from "@brizy/builder/preview";
 const WidgetView = () => <div>Rendered in View Mode</div>;
 
 const ContainerModule = {
-  id: "Brizy.ThirdParty.Container",
+  id: "Brizy.ThirdParty.Container",// Ensure this is unique across all module registrations
   component: {
     view: WidgetView,
   },
@@ -70,6 +70,9 @@ const ContainerModule = {
 const thirdPartyComponents: EditorThirdPartyComponents = {
   [ContainerModule.id]: ContainerModule,
 };
+
+const pageData = {};
+const projectData = {};
 
 const PreviewPage = () => {
   return (

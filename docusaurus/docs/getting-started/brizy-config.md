@@ -11,7 +11,6 @@ The full config can be seen below:
 
 ```ts
 type config = {
-  pagePreview: string;
   autoSaveInterval?: number;
 
   // L10n
@@ -81,6 +80,7 @@ type config = {
   // Urls
   urls: {
     editorIcons: string;
+    pagePreview?: string;
   };
 
   // Events
@@ -98,7 +98,7 @@ To be able to start the builder you need to send valid values in the config in t
   <li>`urls.editorIcons` - The path to the icons used by the builder.</li>
 </ul>
 
-The other keys like `pagePreview`, `autoSaveInterval`, `api`, `l10n` etc. are not required and builder can work without them.
+The other keys like `autoSaveInterval`, `api`, `l10n` etc. are not required and builder can work without them.
 
 ## Explanation
 
@@ -108,13 +108,12 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### First level parameters
 
-| Name               | Type     | Description                                                                                                                                                                                                                                                                                                           |
-| :----------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pagePreview`      | `string` | Link of the preview which will be set on "preview" button in UI of the builder                                                                                                                                                                                                                                        |
-| `l10n`             | `object` | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy-Local-Editor/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations). |
-| `onAutoSave`       | `JSON`   | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                              |
-| `onLoad`           | `JSON`   | Fired when the builder is loaded                                                                                                                                                                                                                                                                                      |
-| `autoSaveInterval` | `number` | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                                            |
+| Name               | Type     | Description                                                                                                                                                                                                                                                                                              |
+| :----------------- | :------- |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `l10n`             | `object` | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations). |
+| `onAutoSave`       | `JSON`   | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                 |
+| `onLoad`           | `JSON`   | Fired when the builder is loaded                                                                                                                                                                                                                                                                         |
+| `autoSaveInterval` | `number` | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                               |
 
 ### UI parameters
 
@@ -124,7 +123,7 @@ Config can be passed as an object when you initialize the editor from the script
 | `ui.leftSidebar.topTabsOrder`    | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements` key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png). |
 | `ui.leftSidebar.bottomTabsOrder` | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png).  |
 | `ui.leftSidebar.more.options`    | `Array`    | Lets you add more links in the [More dropdown](https://user-images.githubusercontent.com/10077249/206904832-5af03a48-991a-4c90-aead-2d7dea82c9d5.png) in the left sidebar.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `ui.leftSidebar.cms.onOpen`      | `function` | Is a function for Opening External Modals with onClose Callback for CMS Icon Deactivation you can see [here](https://github.com/EasyBrizy/Brizy-Local-Editor/assets/18303258/bd0e52df-9143-4986-9152-6397324bc2ff).                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `ui.leftSidebar.cms.onOpen`      | `function` | Is a function for Opening External Modals with onClose Callback for CMS Icon Deactivation you can see [here](https://github.com/EasyBrizy/Brizy/assets/18303258/bd0e52df-9143-4986-9152-6397324bc2ff).                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `ui.leftSidebar.cms.onClose`     | `function` | Is a function for Closing External Modals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `ui.publish.handler`             | `function` | A function assigned to the bottom-right "Publish" save button.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
@@ -147,6 +146,13 @@ Config can be passed as an object when you initialize the editor from the script
 | `api.screenshots.screenshotUrl`  | `string`   | This is the base URL used to retrieve the screenshots. The final URL will be `${api.screenshots.screenshotUrl}${id}?t=${timestamp}`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `api.screenshots.create`         | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ id: screenshot id })`). In case you want to cancel the operation, call the reject() function.                                                                                                                                                                                                                                                                         |
 | `api.screenshots.update`         | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ id: screenshot id })`). In case you want to cancel the operation, call the reject() function.                                                                                                                                                                                                                                                                         |
+
+### Urls parameters
+
+| Name               | type     | Description                                                                                                       |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components. |
+| `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                  |
 
 ## Examples
 
@@ -355,7 +361,7 @@ const defaultConfigModulesGroup = {
           id: "more",
           type: "more",
         },
-      ],      
+      ],
     },
   },
 };
@@ -604,7 +610,7 @@ const config = {
 
 ### Example: Localization (`l10n`)
 
-To use localization, import one of the files from [/packages/core-translations](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations) and include it in the Brizy configuration:
+To use localization, import one of the files from [/packages/core-translations](https://github.com/EasyBrizy/Brizy/tree/master/packages/core-translations) and include it in the Brizy configuration:
 
 ```ts
 import l10nUK from "/path/to/editor.uk.json";

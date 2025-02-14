@@ -6,6 +6,9 @@ toc_max_heading_level: 4
 
 The `imageUpload` control displays a image selection interface, enabling the user to choose one image from their device storage.
 
+> You need to add the API configuration handler (`api.media.addMedia.handler`) for these option types to work fully. For more details, 
+> refer to the **[documentation](/getting-started/brizy-config#example-media-handler)**.
+
 Example of the `imageUpload` control:
 
 ![Image Upload](/img/controls/imageUpload.png)
@@ -370,7 +373,7 @@ Set the width and height of the `.brz-image` element based on the value of the c
 In this example, the value of the control is used to display the uploaded image in the HTML.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -390,8 +393,8 @@ const Image = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Image",
+const imageModule = {
+  id: "ThirdParty.Image", // Ensure this is unique across all module registrations
   component: { editor: Image, view: Image },
   title: "My Image",
   category: "custom",
@@ -414,5 +417,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [imageModule.id]: imageModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

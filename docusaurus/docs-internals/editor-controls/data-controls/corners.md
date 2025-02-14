@@ -390,7 +390,7 @@ The style function dynamically generates the CSS based on whether the control is
 The `corners` control is a React functional component designed to manage and display corner values with units. It extracts various properties from the value prop, including corner dimensions and their respective units, and organizes them into a structured object.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -441,8 +441,8 @@ export const Corners = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent(Corners, {
-  id: "ThirdParty.Corners",
+const cornersModule = {
+  id: "ThirdParty.Corners", // Ensure this is unique across all module registrations
   component: { editor: Corners, view: Corners },
   title: "Border Radius",
   category: "custom",
@@ -471,5 +471,16 @@ Brizy.registerComponent(Corners, {
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [cornersModule.id]: cornersModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

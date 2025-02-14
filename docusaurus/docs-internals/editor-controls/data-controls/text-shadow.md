@@ -266,7 +266,8 @@ demonstrates how to extract all possible values from the `textShadow` control an
 inside a `p` element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import React, { JSX } from "react";
 
 interface Props {
   textShadowColorHex: string;
@@ -280,15 +281,19 @@ interface Props {
 const Component = (props: Props): JSX.Element => {
   const { textShadowColorHex, textShadowBlur, textShadowHorizontal, textShadowVertical } = props;
 
-  return <div className="component">
-    <p style={{ textShadow: `${textShadowHorizontal}px ${textShadowVertical}px ${textShadowBlur}px ${textShadowColorHex}` }}>
-      text
-    </p>
-  </div>
+  return (
+    <div className="component">
+        <p style={{
+          textShadow: `${textShadowHorizontal}px ${textShadowVertical}px ${textShadowBlur}px ${textShadowColorHex}`
+        }}>
+          text
+        </p>
+    </div>
+  )
 }
 
-Brizy.registerComponent({
-  id: "ThirdParty.Component",
+const componentModule = {
+  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -328,5 +333,16 @@ Brizy.registerComponent({
       }
     ]
   }
-})
+};
+
+const thirdPartyComponents = {
+  [componentModule.id]: componentModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

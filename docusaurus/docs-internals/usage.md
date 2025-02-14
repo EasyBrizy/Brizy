@@ -12,7 +12,7 @@ Brizy's control values can be used to render content in the HTML. These values e
 Using the value entered in the `inputText` control, we can redirect the user based on the typed input.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -29,8 +29,8 @@ export const Link = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Link",
+const linkModule = {
+  id: "ThirdParty.Link", // Ensure this is unique across all module registrations
   component: { editor: Link, view: Link },
   title: "My Link",
   options: (props) => {
@@ -57,7 +57,14 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={proejctData} />
+}
 ```
 
 ### Select

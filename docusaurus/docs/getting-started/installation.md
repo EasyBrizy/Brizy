@@ -4,12 +4,19 @@ sidebar_position: 2
 
 # Installation
 
-Install the package via npm:
+### NextJS
+Generate a Brizy application
+
+```bash
+npx @brizy/create-app my-app
+```
+
+### Standalone
+Install the package via npm into existing project:
 
 ```bash
 npm install @brizy/builder
 ```
-
 
 ## Available Components
 
@@ -69,7 +76,6 @@ const App: React.FC = () => {
 
 export default App;
 ```
-The `projectData` and `pageData` [example](https://github.com/EasyBrizy/Brizy-Local-Editor/blob/master/demo/react/src/demoConfig.ts#L23)
 
 ## Features
 - **Editor Mode:** Fully interactive editor with a customizable toolbar and sidebar.

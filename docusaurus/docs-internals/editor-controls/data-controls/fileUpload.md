@@ -5,6 +5,8 @@ toc_max_heading_level: 4
 
 The `fileUpload` control displays a file chooser section that allows the user to choose one or more files from their device storage.
 
+> You need to add the API configuration handler (`api.customFile.addFile.handler`) for these option types to work fully. For more details, refer to the **[documentation](/getting-started/brizy-config#api-parameters)**.
+
 Example of the `fileUpload` without selected file:
 
 ![FileUpload without file](/img/controls/fileupload-without-file.png)
@@ -267,7 +269,7 @@ When the video is uploaded, we will render the label.
 We also use the same video values to add the `"data-disabled"` HTML attribute to the `.brz-button` and to create a `props.size` value for the `<Icon />` component.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -288,8 +290,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -318,5 +320,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

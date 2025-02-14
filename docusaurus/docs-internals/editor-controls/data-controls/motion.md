@@ -373,7 +373,7 @@ This example demonstrates how `motion` control values can be utilized to create 
 enhancing the user experience by adjusting visual elements based on user-defined `motion` settings.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -477,8 +477,8 @@ const Carousel = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Carousel",
+const carouselModule = {
+  id: "ThirdParty.Carousel", // Ensure this is unique across all module registrations
   component: { editor: Carousel, view: Carousel },
   title: "My Carousel",
   category: "custom",
@@ -506,5 +506,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [carouselModule.id]: carouselModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

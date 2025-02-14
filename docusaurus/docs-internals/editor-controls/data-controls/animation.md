@@ -326,7 +326,7 @@ concatenate the `id` of the `animation` control with the value you wish to extra
 how to extract all the values from `entrance` and `hover` animations.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 
 interface Props {
   animationName: string;
@@ -357,8 +357,8 @@ const Component = (props: Props) => {
   </div>;
 }
 
-Brizy.registerComponent({
-  id: "ThirdParty.Component",
+const componentModule = {
+  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -425,5 +425,16 @@ Brizy.registerComponent({
       }
     ]
   }
-})
+};
+
+const thirdPartyComponents = {
+  [componentModule.id]: componentModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

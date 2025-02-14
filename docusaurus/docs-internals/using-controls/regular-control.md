@@ -26,7 +26,6 @@ Implement the following code snippet to create a control:
 In the above example, we'll use the `inputText` control. The value entered in the `inputText` control will be saved under the `"link"` key.
 
 ### Controls
-- [Internal Link](/docs-internals/editor-controls/data-controls/internalLink)
 - [Padding](/docs-internals/editor-controls/data-controls/padding)
 - [Switch](/docs-internals/editor-controls/data-controls/switch)
 - [Input Text](/docs-internals/editor-controls/data-controls/inputText)
@@ -35,7 +34,6 @@ In the above example, we'll use the `inputText` control. The value entered in th
 - [Number](/docs-internals/editor-controls/data-controls/number)
 - [Textarea](/docs-internals/editor-controls/data-controls/textarea)
 - [Color Picker](/docs-internals/editor-controls/data-controls/colorPicker)
-- [AI Text](/docs-internals/editor-controls/data-controls/aiText)
 - [Animation](/docs-internals/editor-controls/data-controls/animation)
 - [Background Color](/docs-internals/editor-controls/data-controls/background-color)
 - [Border](/docs-internals/editor-controls/data-controls/border)

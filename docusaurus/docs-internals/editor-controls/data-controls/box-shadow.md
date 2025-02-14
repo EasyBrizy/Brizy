@@ -317,7 +317,7 @@ following rule: concatenate the `id` of the `boxShadow` control with the value y
 demonstrates how to extract all possible values from the `boxShadow` control and use them to add the shadow to the `div` element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import { hexToRgba } from "./utils";
 import React, { JSX } from "react";
 
@@ -356,8 +356,8 @@ const Container = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent(Container, {
-  id: "ThirdParty.Container",
+const containerModule = {
+  id: "ThirdParty.Container", // Ensure this is unique across all module registrations
   component: { editor: Container, view: Container },
   title: "My Container",
   category: "custom",
@@ -386,5 +386,16 @@ Brizy.registerComponent(Container, {
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [containerModule.id]: containerModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

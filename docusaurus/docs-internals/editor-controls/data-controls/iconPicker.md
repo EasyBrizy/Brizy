@@ -564,20 +564,21 @@ To retrieve the value of the control from the component's props, you can use its
 the CSS `display` property, which can be either `flex` or `grid`.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import React, { JSX } from "react";
 
 interface Props {
   layoutType: string;
 }
 
-const Component = (props: Props) => {
+const Component = (props: Props): JSX.Element => {
   const { layoutType } = props;
   
   return <div className="component" style={{ display: layoutType }}>...</div>
 }
 
-Brizy.registerComponent({
-  id: "ThirdParty.Component",
+const componentModule = {
+  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -620,5 +621,16 @@ Brizy.registerComponent({
       }
     ]
   }
-});
+};
+
+const thirdPartyComponents = {
+  [componentModule.id]: componentModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

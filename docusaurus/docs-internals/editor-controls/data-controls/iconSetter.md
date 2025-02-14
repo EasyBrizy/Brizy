@@ -311,7 +311,7 @@ Change the border of the `.brz-icon` element with CSS using a `iconSetter` contr
 In the example below, the output values from the `iconSetter` control (`iconType`, `iconFilename`, `iconName`) are used to set and display an icon.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import { getIconUrl } from "./utils";
 import React, { JSX } from "react";
 
@@ -337,8 +337,8 @@ const Icon = (props: Props): JSX.Element => {
   return <div className=".brz-icon"  style={style} />;
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Icon",
+const iconModule = {
+  id: "ThirdParty.Icon", // Ensure this is unique across all module registrations
   component: { editor: Icon, view: Icon },
   title: "My Icon",
   category: "custom",
@@ -367,5 +367,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [iconModule.id]: iconModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

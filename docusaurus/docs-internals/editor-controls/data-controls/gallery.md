@@ -5,6 +5,8 @@ toc_max_heading_level: 4
 
 The `gallery` control displays a file chooser section that allows the user to upload multiple images from their device storage.
 
+> You need to add the API configuration handler (`api.media.addMedia.handler`) for these option types to work fully. For more details, refer to the **[documentation](/getting-started/brizy-config#example-media-handler)**.
+
 Example of empty `gallery`:
 
 ![Gallery Empty](/img/controls/gallery-empty.png)
@@ -305,7 +307,7 @@ In this example shows how to apply basic styles to the gallery images.
 #### Usage in HTML example
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Image {
@@ -339,9 +341,8 @@ const Gallery = (props: Props): JSX.Element => {
   );
 };
 
-
-Brizy.registerComponent({
-  id: "ThirdParty.Gallery",
+const galleryModule = {
+  id: "ThirdParty.Gallery", // Ensure this is unique across all module registrations
   component: { editor: Gallery, view: Gallery },
   title: "My Gallery",
   category: "custom",
@@ -369,5 +370,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [galleryModule.id]: galleryModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

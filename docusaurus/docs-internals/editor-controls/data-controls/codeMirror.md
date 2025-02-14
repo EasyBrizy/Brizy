@@ -402,7 +402,7 @@ Retrieve the CSS styles `normal` and `active` for the display of the `.brz-butto
 In the example below, a custom `Container` component for the Brizy editor is defined that supports customization through the injection of custom HTML.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -419,8 +419,8 @@ const Container = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Container",
+const containerModule = {
+  id: "ThirdParty.Container", // Ensure this is unique across all module registrations
   component: { editor: Container, view: Container },
   title: "My Container",
   category: "essentials",
@@ -454,6 +454,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
 
+const thirdPartyComponents = {
+  [containerModule.id]: containerModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

@@ -19,12 +19,6 @@ export function Client(props: Props) {
   const cnf = useMemo((): EditorConfig => {
     return {
       ...config,
-      onLoad() {
-        console.log("Load");
-      },
-      onAutoSave(data) {
-        console.log("AutoSave", data);
-      },
       ui: {
         ...config.ui,
         publish: {

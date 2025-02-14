@@ -911,6 +911,7 @@ export const config: EditorConfig = {
   },
   urls: {
     editorIcons: brizyIcons,
+    pagePreview: "/",
   },
   api: {
     media: {
@@ -921,7 +922,9 @@ export const config: EditorConfig = {
         split: "{{ [baseUrl] }}/{{ iW=[iW] }}&{{ iH=[iH] }}/{{ [uid] }}/{{ [fileName] }}",
       },
       addMedia: {
-        async handler(resolve, reject, extra) {},
+        async handler(resolve, reject, extra) {
+          reject("Not Implemented");
+        },
       },
     },
 
@@ -967,5 +970,4 @@ export const config: EditorConfig = {
       },
     },
   },
-  pagePreview: "http://localhost:9001/preview",
 };

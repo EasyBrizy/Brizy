@@ -30,4 +30,4 @@ These controls are integrated into `Brizy`’s intuitive drag-and-drop interface
 
 There are two main types of controls in `Brizy` Editor:
   - [**Container Controls**](/docs-internals/editor-controls/containers/grid): are UI elements that group and organize other controls or content within them, providing structure and layout to the user interface.
-  - [**Regular Controls**](/docs-internals/editor-controls/data-controls/internalLink): are individual UI components that users interact with directly to perform specific actions or input data, such as buttons, text inputs, checkboxes, etc.
+  - [**Regular Controls**](/docs-internals/editor-controls/data-controls/padding): are individual UI components that users interact with directly to perform specific actions or input data, such as buttons, text inputs, checkboxes, etc.

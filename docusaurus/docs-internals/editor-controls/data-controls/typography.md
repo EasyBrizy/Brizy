@@ -445,7 +445,7 @@ concatenate the `id` of the `typography` control with the value you wish to extr
 how to extract 5 values from the `typography` control and use them to change some styles of a `h1` element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 
 interface Props {
   titleBold: boolean;
@@ -491,8 +491,8 @@ const Component = (props: Props): JSX.Element => {
   </div>
 }
 
-Brizy.registerComponent({
-  id: "ThirdParty.Component",
+const componentModule = {
+  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -536,5 +536,16 @@ Brizy.registerComponent({
       }
     ]
   }
-})
+};
+
+const thirdPartyComponents = {
+  [componentModule.id]: componentModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

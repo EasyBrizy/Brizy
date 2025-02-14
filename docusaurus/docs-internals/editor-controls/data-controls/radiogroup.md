@@ -384,7 +384,7 @@ Set the font size of the `.brz-text` element with CSS using a `radioGroup` contr
 In the example below, we use the `radioGroup` output value to determine the size of the icon in the button element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 import { Icon } from "./Icon";
 
@@ -402,8 +402,8 @@ const Button = (props: Props): JSX.Element => {
   )
 }
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -437,5 +437,16 @@ Brizy.registerComponent({
       }
     ]
   }
-})
+};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

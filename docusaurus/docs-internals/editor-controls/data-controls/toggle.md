@@ -312,7 +312,7 @@ Change the color of the `.brz-toggle` element with CSS using a `toggle` control 
 In the example below, we use the toggle output value (default is `string`) to determine the alignment of the child elements. When the toggle is set to `"left"`, the label and child elements will be aligned to the left.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import { Icon } from "./Icon";
 import React, { JSX } from "react";
 
@@ -331,8 +331,8 @@ const { align } = props;
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Container",
+const containerModule = {
+  id: "ThirdParty.Container", // Ensure this is unique across all module registrations
   component: { editor: Container, view: Container },
   title: "My Container",
   category: "custom",
@@ -366,5 +366,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [containerModule.id]: containerModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

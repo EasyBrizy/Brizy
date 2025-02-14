@@ -388,7 +388,7 @@ Change the opacity of the `.brz-text` element with CSS using custom values from 
 In the example below, we use the `number` output value to set the icon size for the button element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 import { Icon } from "./Icon";
 
@@ -407,8 +407,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -437,5 +437,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

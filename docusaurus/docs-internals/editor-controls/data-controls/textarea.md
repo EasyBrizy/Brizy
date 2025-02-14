@@ -325,7 +325,7 @@ Change the content of the `.brz-text::after` element with CSS using custom value
 In the example below, we use the textarea output value to determine the content for the label in the Text element.
 
 ```tsx
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
 
 interface Props {
@@ -342,8 +342,8 @@ const Text = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Text",
+const textModule = {
+  id: "ThirdParty.Text", // Ensure this is unique across all module registrations
   component: { editor: Text, view: Text },
   title: "My Text",
   category: "custom",
@@ -372,5 +372,16 @@ Brizy.registerComponent({
       }
     ];
   }
-});
+};
+
+const thirdPartyComponents = {
+  [textModule.id]: textModule
+};
+
+const pageData = {};
+const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

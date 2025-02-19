@@ -1,17 +1,17 @@
 {
-  "name": "remix",
+  "name": "{{appName}}",
+  "version": "0.1.0",
   "private": true,
-  "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
     "dev": "remix vite:dev --port=3000",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "build": "remix vite:build",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@brizy/builder": "*",
+    "@brizy/builder": "{{editorVersion}}",
     "@remix-run/node": "^2.15.2",
     "@remix-run/react": "^2.15.2",
     "@remix-run/serve": "^2.15.2",

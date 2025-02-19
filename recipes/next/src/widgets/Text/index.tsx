@@ -4,6 +4,7 @@ import type { EditorToolbarOptions } from "@brizy/builder";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";
 import { Props } from "./types";
+import { alignCSS } from "./utils";
 
 const Text = (props: Props): JSX.Element => {
   const {
@@ -174,6 +175,33 @@ const toolbarOptions: EditorToolbarOptions = ({ t, device }) => [
             type: "switch",
           },
         ],
+      },
+
+      {
+        id: "horizontalAlign",
+        type: "toggle",
+        position: 60,
+        default: {
+          value: "center",
+        },
+        choices: [
+          {
+            icon: "nc-text-align-left",
+            title: t("Align"),
+            value: "left",
+          },
+          {
+            icon: "nc-text-align-center",
+            title: t("Align"),
+            value: "center",
+          },
+          {
+            icon: "nc-text-align-right",
+            title: t("Align"),
+            value: "right",
+          },
+        ],
+        style: alignCSS,
       },
 
       {

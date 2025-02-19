@@ -1,3 +1,4 @@
+import { alignCSS } from "./utils";
 import cn from "classnames";
 import { JSX } from "react";
 import type { EditorToolbarOptions } from "@brizy/builder";
@@ -175,6 +176,33 @@ const toolbarOptions: EditorToolbarOptions = ({ t, device }) => [
             type: "switch",
           },
         ],
+      },
+
+      {
+        id: "horizontalAlign",
+        type: "toggle",
+        position: 60,
+        default: {
+          value: "center",
+        },
+        choices: [
+          {
+            icon: "nc-text-align-left",
+            title: t("Align"),
+            value: "left",
+          },
+          {
+            icon: "nc-text-align-center",
+            title: t("Align"),
+            value: "center",
+          },
+          {
+            icon: "nc-text-align-right",
+            title: t("Align"),
+            value: "right",
+          },
+        ],
+        style: alignCSS,
       },
 
       {

@@ -3,7 +3,7 @@
 import fs from "fs";
 import path from "path";
 import { program } from "commander";
-import { input, confirm } from "@inquirer/prompts";
+import { input, confirm, select } from "@inquirer/prompts";
 import Handlebars from "handlebars";
 import { glob } from "glob";
 import { execSync } from "child_process";
@@ -57,9 +57,15 @@ program
   )
   .action(async (_appName, options) => {
     let appName = _appName;
+    const recipe = await select({
+      message: "Choose which recipe you want to create:",
+      choices: ["next", "remix"],
+      default: "next",
+    });
 
-    // Currently only NextJS
-    const recipe = "next";
+    if (typeof recipe !== "string") {
+      throw new Error("Invalid recipe. Accepted values are 'next' or 'remix'.");
+    }
 
     if (!appName) {
       appName = await input({ message: "What is the name of your app?", required: true });

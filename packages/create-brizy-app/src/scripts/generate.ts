@@ -27,8 +27,7 @@ const run = async () => {
     return;
   }
 
-  // Copy only next files
-  const recipeFiles = glob.sync(`next/**`, {
+  const recipeFiles = glob.sync("*/**", {
     cwd: `${recipePath}`,
     nodir: true,
     dot: true,

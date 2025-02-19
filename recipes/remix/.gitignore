@@ -1,5 +1,8 @@
-node_modules
-
+/node_modules/
+pages.database.json
+project.database.json
+.turbo
 /.cache
 /build
 .env
+tsconfig.tsbuildinfo

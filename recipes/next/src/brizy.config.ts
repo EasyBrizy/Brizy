@@ -1,5 +1,5 @@
 import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
-import brizyIcons from "@brizy/builder/editor/icons/icons.svg";
+import brizyIcons from "@brizy/builder/editor/icons.svg";
 import noImage from "../public/no_image_placeholder.svg";
 
 export const pageData: EditorPage = {

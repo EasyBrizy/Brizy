@@ -6,13 +6,13 @@ interface SliderProps {
 }
 
 export const widthCSS = ({ value: { value, unit } }: SliderProps) => ({
-  "{{WRAPPER}} .brz-button": {
+  "{{WRAPPER}} .button": {
     "min-width": `${value}${unit}`
   }
 });
 
 export const heightCSS = ({ value: { value, unit } }: SliderProps) => ({
-  "{{WRAPPER}} .brz-button": {
+  "{{WRAPPER}} .button": {
     "min-height": `${value}${unit}`
   }
 });

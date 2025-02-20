@@ -1,4 +1,4 @@
-import type { EditorProject } from "@brizy/builder/editor";
+import type { EditorProject } from "@brizy/builder";
 import fs from "fs";
 
 // Replace with call to your database
@@ -9,7 +9,3 @@ export const getProject = (): EditorProject | undefined => {
 
   return allData ?? undefined;
 };
-
-export function setProject(projectData: EditorProject): void {
-  fs.writeFileSync("project.database.json", JSON.stringify(projectData));
-}

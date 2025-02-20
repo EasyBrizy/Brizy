@@ -1,44 +1,12 @@
 import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 import brizyIcons from "@brizy/builder/editor/icons.svg";
-import noImage from "../public/no_image_placeholder.svg";
+import noImage from "~/assets/no_image_placeholder.svg";
 
 export const pageData: EditorPage = {
   id: "1",
   status: "publish",
   data: {
-    items: [
-      {
-        type: "Section2",
-        value: {
-          _id: "asdasdasd",
-          items: [
-            {
-              type: "Section2Item",
-              value: {
-                _id: "asdasdasd111",
-                items: [
-                  {
-                    type: "Wrapper2",
-                    value: {
-                      _id: "xx11aasd1233333",
-                      items: [
-                        {
-                          type: "ThirdParty",
-                          value: {
-                            _id: "1asddccc",
-                            thirdPartyId: "Brizy.ThirdParty.Button",
-                          },
-                        },
-                      ],
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    ],
+    items: [],
   },
   dataVersion: 0,
 };

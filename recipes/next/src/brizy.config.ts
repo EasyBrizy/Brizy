@@ -922,7 +922,7 @@ export const config: EditorConfig = {
         split: "{{ [baseUrl] }}/{{ iW=[iW] }}&{{ iH=[iH] }}/{{ [uid] }}/{{ [fileName] }}",
       },
       addMedia: {
-        async handler(resolve, reject, extra) {
+        async handler(resolve, reject) {
           reject("Not Implemented");
         },
       },

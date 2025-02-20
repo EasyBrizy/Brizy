@@ -1,6 +1,7 @@
 /node_modules/
 pages.database.json
 project.database.json
+dashboard.database.json
 .turbo
 .next
 tsconfig.tsbuildinfo

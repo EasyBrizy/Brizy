@@ -6,8 +6,7 @@ import { glob } from "glob";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import chalk from "chalk";
-
-const verbose = false;
+import { execSync } from "child_process";
 
 const run = async () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +26,11 @@ const run = async () => {
     return;
   }
 
+  // Clean templates before coping
+  console.log(chalk.blue("Cleaning templates before copying..."));
+  execSync("git clean -dfx", { cwd: templatePath, stdio: "inherit" });
+  console.log(chalk.green("Templates cleaned successfully."));
+
   const recipeFiles = glob.sync("*/**", {
     cwd: `${recipePath}`,
     nodir: true,
@@ -42,17 +46,12 @@ const run = async () => {
     if (fs.existsSync(`${targetPath}.hbs`)) {
       console.log(chalk.yellow(`- ${recipeFile}`));
     } else {
-      if (verbose) {
-        console.log(chalk.cyan(`Copying ${filePath} -> ${targetPath}`));
-      }
-
-      const data = fs.readFileSync(filePath, "utf-8");
-
       const dir = path.dirname(targetPath);
 
       fs.mkdirSync(dir, { recursive: true });
 
-      fs.writeFileSync(targetPath, data);
+      // Copy the file as binary to preserve any non-text formats
+      fs.copyFileSync(filePath, targetPath);
 
       if (targetPath.indexOf(".gitignore") > -1) {
         fs.copyFileSync(filePath, targetPath.replace(".gitignore", "gitignore"));

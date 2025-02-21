@@ -2,6 +2,8 @@
 pages.database.json
 project.database.json
 dashboard.database.json
+tsconfig.tsbuildinfo
 .turbo
 .next
-tsconfig.tsbuildinfo
+.idea
+.vscode

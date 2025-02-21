@@ -72,7 +72,7 @@ export function Client(props: Props) {
         },
       },
     };
-  }, [pageData, pagePreview]);
+  }, [pageData, pagePreview, projectData]);
 
   return (
     <Editor projectData={projectData} pageData={pageData} config={cnf} thirdPartyComponents={thirdPartyComponents} />

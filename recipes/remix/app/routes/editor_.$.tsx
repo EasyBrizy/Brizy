@@ -1,9 +1,9 @@
-import { ActionFunctionArgs, LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData, useSubmit } from "@remix-run/react";
-import { useMemo } from "react";
 import type { EditorConfig } from "@brizy/builder/editor";
 import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import brizyStylesHref from "@brizy/builder/editor/styles.css?url";
+import { ActionFunctionArgs, LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { useLoaderData, useSubmit } from "@remix-run/react";
+import { useMemo } from "react";
 import { config, pageData, projectData } from "~/brizy.config";
 import { getPage, setPage } from "~/lib/page";
 import { getProject, setProject } from "~/lib/project";

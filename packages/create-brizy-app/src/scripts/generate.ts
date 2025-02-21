@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-
-import fs from "fs";
-import path from "path";
-import { glob } from "glob";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 import chalk from "chalk";
 import { execSync } from "child_process";
+import fs from "fs";
+import { glob } from "glob";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 const run = async () => {
   const __filename = fileURLToPath(import.meta.url);

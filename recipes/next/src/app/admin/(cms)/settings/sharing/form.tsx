@@ -1,15 +1,15 @@
+import { clsx } from "clsx";
+import { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Loading } from "@/components/helpers/Loading";
+import { useProjectSetting } from "@/components/modules/settings/core/System";
+import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
 import { FormValues } from "./types";
 import { sharingFormResolver } from "./utils";
-import { useProjectSetting } from "@/components/modules/settings/core/System";
-import { useCallback, useEffect } from "react";
-import { clsx } from "clsx";
-import { Loading } from "@/components/helpers/Loading";
 
 const defaultValues: FormValues = {
   sharingTitle: "",

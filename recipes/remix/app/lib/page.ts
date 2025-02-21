@@ -1,5 +1,5 @@
-import fs from "fs";
 import type { EditorPage } from "@brizy/builder/editor";
+import fs from "fs";
 
 // Replace with call to your database
 export const getPage = (path: string): EditorPage | undefined => {

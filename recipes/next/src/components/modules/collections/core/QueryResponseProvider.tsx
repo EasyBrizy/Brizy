@@ -1,8 +1,8 @@
-import { createContext, FC, useContext, useMemo } from "react";
+import { FC, createContext, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import { WithChildren } from "../../../helpers";
-import { getCollections } from "./_requests";
 import { Collection } from "./_models";
+import { getCollections } from "./_requests";
 import { QueryResponseContextProps } from "./types";
 
 const initialQueryResponse = {

@@ -1,7 +1,7 @@
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { Preview as BrizyPreview } from "@brizy/builder/preview";
 import brizyPreviewStylesHref from "@brizy/builder/preview/styles.css?url";
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { MissingPage } from "~/components/MissingPage";
 import { getPage } from "~/lib/page";
 import { getProject } from "~/lib/project";

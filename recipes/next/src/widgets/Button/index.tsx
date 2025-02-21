@@ -1,5 +1,5 @@
-import cn from "clsx";
 import type { EditorToolbarOptions } from "@brizy/builder";
+import cn from "clsx";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";
 import { Props } from "./types";

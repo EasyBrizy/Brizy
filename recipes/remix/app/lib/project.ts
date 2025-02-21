@@ -1,5 +1,5 @@
-import fs from "fs";
 import type { EditorProject } from "@brizy/builder/editor";
+import fs from "fs";
 
 // Replace with call to your database
 export const getProject = (): EditorProject | undefined => {

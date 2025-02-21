@@ -17,7 +17,8 @@
     "tsc": "turbo run tsc",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "check": "turbo run lint tsc test"
+    "prettier-check": "turbo run prettier-check",
+    "check": "turbo run lint tsc test prettier-check"
   },
   "workspaces": [
     "recipes/*",

@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { BreadcrumbsItems } from "@/components/ui/breadcrumb";
 import { RestrictedProAccess } from "@/components/restricted-pro-access";
+import { BreadcrumbsItems } from "@/components/ui/breadcrumb";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { DEMO_PRODUCTS } from "@/constants/demoLinks";
 
 const breadcrumbs: BreadcrumbsItems[] = [

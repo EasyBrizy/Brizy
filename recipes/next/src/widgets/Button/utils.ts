@@ -7,12 +7,12 @@ interface SliderProps {
 
 export const widthCSS = ({ value: { value, unit } }: SliderProps) => ({
   "{{WRAPPER}} .button": {
-    "min-width": `${value}${unit}`
-  }
+    "min-width": `${value}${unit}`,
+  },
 });
 
 export const heightCSS = ({ value: { value, unit } }: SliderProps) => ({
   "{{WRAPPER}} .button": {
-    "min-height": `${value}${unit}`
-  }
+    "min-height": `${value}${unit}`,
+  },
 });

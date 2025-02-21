@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { BreadcrumbsItems } from "@/components/ui/breadcrumb";
 import { CollectionsListWrapper } from "@/components/modules/collections/CollectionList";
+import { BreadcrumbsItems } from "@/components/ui/breadcrumb";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const breadcrumbs: BreadcrumbsItems[] = [
   {

@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { CircleAlert } from "lucide-react";
+import Link from "next/link";
 import { FC } from "react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   url: string;

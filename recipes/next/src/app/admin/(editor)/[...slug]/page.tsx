@@ -10,14 +10,13 @@
  *
  * NB this route is public, and you will need to add authentication
  */
-
-import { Client } from "../client";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { pageData as configPageData, projectData } from "@/brizy.config";
 import { getPage } from "@/lib/item/getPage";
 import { getProject } from "@/lib/project/getProject";
-import { pageData as configPageData, projectData } from "@/brizy.config";
 import { CollectionTypes, isCollectionType } from "@/types";
-import { notFound } from "next/navigation";
+import { Client } from "../client";
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   const [collection, item] = params.slug ?? [];

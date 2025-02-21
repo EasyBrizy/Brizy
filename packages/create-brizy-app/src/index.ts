@@ -1,15 +1,14 @@
 #!/usr/bin/env node
-
-import fs from "fs";
-import path from "path";
-import { program } from "commander";
-import { input, confirm, select } from "@inquirer/prompts";
-import Handlebars from "handlebars";
-import { glob } from "glob";
+import { confirm, input, select } from "@inquirer/prompts";
+import chalk from "chalk";
 import { execSync } from "child_process";
+import { program } from "commander";
+import fs from "fs";
+import { glob } from "glob";
+import Handlebars from "handlebars";
+import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import chalk from "chalk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

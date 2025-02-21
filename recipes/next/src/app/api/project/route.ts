@@ -1,5 +1,5 @@
-import { updateProject } from "@/lib/project/updateProject";
 import { NextResponse } from "next/server";
+import { updateProject } from "@/lib/project/updateProject";
 
 export async function PUT(req: Request) {
   try {

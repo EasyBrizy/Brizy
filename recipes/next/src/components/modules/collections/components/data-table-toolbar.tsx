@@ -1,16 +1,16 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { useMutation } from "react-query";
 import { X } from "lucide-react";
+import { useCallback, useMemo } from "react";
+import { useMutation } from "react-query";
+import { isObject } from "@/components/modules/collections/components/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { statuses } from "./utils";
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { useQueryResponse } from "../core/QueryResponseProvider";
 import { createCollection, deleteSelectedItems } from "../core/_requests";
-import { isObject } from "@/components/modules/collections/components/utils";
-import { useCallback, useMemo } from "react";
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { statuses } from "./utils";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

@@ -3,6 +3,10 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  HeaderGroup,
+  Row,
+  SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -10,18 +14,14 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  HeaderGroup,
-  Row,
-  SortingState,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table";
+import { useState } from "react";
+import { Loading } from "@/components/helpers/Loading";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useQueryResponse } from "../core/QueryResponseProvider";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useState } from "react";
-import { useQueryResponse } from "../core/QueryResponseProvider";
-import { Loading } from "@/components/helpers/Loading";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

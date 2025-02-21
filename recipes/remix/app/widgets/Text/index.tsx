@@ -1,10 +1,10 @@
-import { alignCSS } from "./utils";
+import type { EditorToolbarOptions } from "@brizy/builder";
 import cn from "classnames";
 import { JSX } from "react";
-import type { EditorToolbarOptions } from "@brizy/builder";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";
 import { Props } from "./types";
+import { alignCSS } from "./utils";
 
 const Text = (props: Props): JSX.Element => {
   const {

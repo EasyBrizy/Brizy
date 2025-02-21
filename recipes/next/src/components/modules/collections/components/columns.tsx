@@ -1,14 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Collection } from "../core/_models";
-import { DataTableRowActions } from "./data-table-row-actions";
 import { CheckCircleIcon, Circle } from "lucide-react";
-import { CollectionTypes } from "@/types";
 import Link from "next/link";
+import { Checkbox } from "@/components/ui/checkbox";
+import { CollectionTypes } from "@/types";
+import { Collection } from "../core/_models";
+import { DataTableColumnHeader } from "./data-table-column-header";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Collection>[] = [
   {

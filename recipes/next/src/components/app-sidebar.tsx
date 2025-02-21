@@ -1,10 +1,13 @@
 "use client";
 
-import { ComponentProps, ReactNode } from "react";
 import { BookOpen, CircleAlert, LayoutPanelTop, LifeBuoy, Settings2, SquareTerminal } from "lucide-react";
+import { ComponentProps, ReactNode } from "react";
 import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
+import { Breadcrumbs, BreadcrumbsItems } from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   Sidebar as SidebarComponent,
   SidebarContent,
@@ -14,9 +17,6 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Breadcrumbs, BreadcrumbsItems } from "@/components/ui/breadcrumb";
-import { NavSecondary } from "@/components/nav-secondary";
 
 const data = {
   user: {

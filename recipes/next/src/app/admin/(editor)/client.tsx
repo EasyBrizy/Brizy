@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
 import { Editor } from "@brizy/builder";
 import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 import "@brizy/builder/editor/styles.css";
-import { config } from "@/brizy.config";
-import { thirdPartyComponents } from "@/widgets/thirdPartyComponents";
 import axios from "axios";
+import { useMemo } from "react";
+import { config } from "@/brizy.config";
 import { CollectionTypes } from "@/types";
+import { thirdPartyComponents } from "@/widgets/thirdPartyComponents";
 
 interface Props {
   collection: string;
@@ -72,7 +72,7 @@ export function Client(props: Props) {
         },
       },
     };
-  }, [pageData, pagePreview]);
+  }, [pageData, pagePreview, projectData]);
 
   return (
     <Editor projectData={projectData} pageData={pageData} config={cnf} thirdPartyComponents={thirdPartyComponents} />

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Collection, CollectionsQueryResponse } from "./_models";
 import { ID } from "@/components/helpers/crud-helper/models";
+import { Collection, CollectionsQueryResponse } from "./_models";
 
 const API_URL = `/api`;
 const GET_COLLECTIONS_URL = `${API_URL}/items`;

@@ -1,12 +1,12 @@
 "use client";
 
-import { ProjectSettings } from "@/lib/projectSettings/types";
 import React, { FC, useCallback, useContext, useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { ProjectSettingsContext } from "./Context";
-import { ContextDataItem } from "./types";
 import { WithChildren } from "@/components/helpers";
+import { ProjectSettings } from "@/lib/projectSettings/types";
+import { ProjectSettingsContext } from "./Context";
 import { getProjectSettings, updateProjectSettings } from "./requests";
+import { ContextDataItem } from "./types";
 
 const ProjectSettingsProvider: FC<WithChildren> = ({ children }) => {
   const queryClient = useQueryClient();

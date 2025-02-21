@@ -9,14 +9,13 @@
  * a static file. Subsequent visits will receive the cache. Publishing a page
  * will invalidate the cache as the page is written in /api/editor/route.ts
  */
-
-import { getPage } from "@/lib/item/getPage";
-import { getProject } from "@/lib/project/getProject";
-import { Client } from "./client";
-import { CollectionTypes } from "@/types";
-import { getProjectSettings } from "@/lib/projectSettings";
 import { Metadata } from "next";
 import { MissingPage } from "@/components/MissingPage";
+import { getPage } from "@/lib/item/getPage";
+import { getProject } from "@/lib/project/getProject";
+import { getProjectSettings } from "@/lib/projectSettings";
+import { CollectionTypes } from "@/types";
+import { Client } from "./client";
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   const [collection, item] = params.slug ?? [];

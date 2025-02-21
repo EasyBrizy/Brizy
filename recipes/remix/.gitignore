@@ -1,8 +1,10 @@
 /node_modules/
-pages.database.json
-project.database.json
-.turbo
 /.cache
 /build
-.env
+pages.database.json
+project.database.json
 tsconfig.tsbuildinfo
+.turbo
+.env
+.idea
+.vscode

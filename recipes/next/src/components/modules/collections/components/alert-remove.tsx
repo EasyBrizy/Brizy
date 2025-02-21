@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { WithChildren } from "@/components/helpers";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +12,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { WithChildren } from "@/components/helpers";
 
 interface Props extends WithChildren {
   onConfirm?: VoidFunction;

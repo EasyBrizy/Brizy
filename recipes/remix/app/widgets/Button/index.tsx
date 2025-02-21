@@ -1,5 +1,5 @@
-import cn from "classnames";
 import type { EditorToolbarOptions } from "@brizy/builder";
+import cn from "classnames";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";
 import { Props } from "./types";
@@ -20,6 +20,7 @@ const Button = (props: Props) => {
   });
 
   return (
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       id={customID}
       className={className}

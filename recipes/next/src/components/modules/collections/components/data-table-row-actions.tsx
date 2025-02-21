@@ -1,13 +1,13 @@
 "use client";
 
 import { Edit, Eye, Trash } from "lucide-react";
-import { useMutation } from "react-query";
-import { deleteItem } from "../core/_requests";
-import { useQueryResponse } from "@/components/modules/collections/core/QueryResponseProvider";
-import { CollectionTypes } from "@/types";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";
+import { useMutation } from "react-query";
+import { useQueryResponse } from "@/components/modules/collections/core/QueryResponseProvider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { CollectionTypes } from "@/types";
+import { deleteItem } from "../core/_requests";
 import { AlertRemoveItem } from "./alert-remove";
 
 interface Props {

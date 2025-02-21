@@ -7,6 +7,6 @@ interface SliderProps {
 
 export const sizeCSS = ({ value: { value, unit } }: SliderProps) => ({
   "{{WRAPPER}}": {
-    "max-width": `${value}${unit}`
-  }
+    "max-width": `${value}${unit}`,
+  },
 });

@@ -1,5 +1,5 @@
-import { Item } from "./types";
 import fs from "fs";
+import { Item } from "./types";
 
 export const readPagesDataBase = (): Item[] => {
   const isFileExist = fs.existsSync("pages.database.json");

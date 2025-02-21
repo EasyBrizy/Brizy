@@ -1,20 +1,17 @@
 #!/usr/bin/env node
-
-import fs from "fs";
-import path from "path";
-import { program } from "commander";
-import { input, confirm, select } from "@inquirer/prompts";
-import Handlebars from "handlebars";
-import { glob } from "glob";
+import { confirm, input, select } from "@inquirer/prompts";
+import chalk from "chalk";
 import { execSync } from "child_process";
+import { program } from "commander";
+import fs from "fs";
+import { glob } from "glob";
+import Handlebars from "handlebars";
+import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import chalk from "chalk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const packageJson = JSON.parse(`${fs.readFileSync(path.join(__dirname, "../package.json"))}`);
 
 // Lifted from https://github.com/vercel/next.js/blob/c2d7bbd1b82c71808b99e9a7944fb16717a581db/packages/create-next-app/helpers/get-pkg-manager.ts
 function getPkgManager() {
@@ -108,25 +105,24 @@ program
       const filePath = path.join(templatePath, templateFile);
       const targetPath = filePath.replace(templatePath, appPath).replace(".hbs", "").replace("gitignore", ".gitignore");
 
-      let data;
-
       if (path.extname(filePath) === ".hbs") {
         const templateString = fs.readFileSync(filePath, "utf-8");
-
         const template = Handlebars.compile(templateString);
-        data = template({
+        const data = template({
           appName,
-          editorVersion: `^${packageJson.version}`,
+          editorVersion: "^1",
         });
+        const dir = path.dirname(targetPath);
+
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(targetPath, data, "utf-8");
       } else {
-        data = fs.readFileSync(filePath, "utf-8");
+        const dir = path.dirname(targetPath);
+        fs.mkdirSync(dir, { recursive: true });
+
+        // Copy the file as binary to preserve any format
+        fs.copyFileSync(filePath, targetPath);
       }
-
-      const dir = path.dirname(targetPath);
-
-      fs.mkdirSync(dir, { recursive: true });
-
-      fs.writeFileSync(targetPath, data);
     }
 
     if (packageManager === "yarn") {

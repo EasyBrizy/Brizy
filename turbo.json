@@ -20,6 +20,7 @@
       "dependsOn": ["^build"]
     },
     "test": {},
+    "prettier-check": {},
     "check": {}
   }
 }

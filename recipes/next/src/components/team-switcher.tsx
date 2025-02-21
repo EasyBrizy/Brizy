@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { Logo } from "@/components/logo";
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Logo } from "@/components/logo";
 
 export function TeamSwitcher() {
   return (

@@ -1,6 +1,7 @@
 import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 import brizyIcons from "@brizy/builder/editor/icons.svg";
-import noImage from "../public/no_image_placeholder.svg";
+import { getKits, getKitsBlockData, getKitsMeta } from "@/lib/predefinedBlocks/getKits";
+import { getLayoutPageData, getLayoutPages, getLayoutsMeta } from "@/lib/predefinedBlocks/getLayouts";
 
 export const pageData: EditorPage = {
   id: "1",
@@ -684,174 +685,6 @@ export const projectData: EditorProject = {
   },
 };
 
-//#region Blocks
-
-const kit = {
-  id: "1",
-  title: "DefaultKit",
-};
-
-const kitType = {
-  id: "1",
-  name: "base",
-  title: "Base kit",
-};
-
-const blockMeta = {
-  id: "block 1",
-  type: kitType.name,
-  kitId: kit.id,
-
-  title: "Block 1",
-  keywords: "blank",
-
-  thumbnailWidth: 100,
-  thumbnailHeight: 100,
-  thumbnailSrc: "",
-
-  // These key indicate these block is a blank(no screenshots)
-  blank: "blank",
-
-  cat: ["1"],
-};
-
-const blockData = {
-  id: blockMeta.id,
-  data: {
-    type: "Section2",
-    value: {
-      items: [
-        {
-          type: "Section2Item",
-          value: {
-            items: [],
-          },
-        },
-      ],
-    },
-  },
-};
-
-const category = {
-  id: "1",
-  slug: "category",
-  name: "category",
-  title: "Category #1",
-};
-
-const style = {
-  id: "1",
-  title: "Style #1",
-  fontStyles: [],
-  colorPalette: [
-    {
-      id: "color1" as const,
-      hex: "#cccccc",
-    },
-  ],
-};
-
-const kitData = {
-  id: kit.id,
-  blocks: [blockMeta],
-  categories: [category],
-  types: [kitType],
-  name: kit.title,
-  styles: [style],
-};
-
-const availableKits = [kit];
-const availableKitsMeta = [kitData];
-const availableBlocksData = [blockData];
-
-//#endregion
-
-//#region Layouts
-
-const layoutCategory = {
-  id: "1",
-  title: "Category #1",
-};
-
-const layoutTemplateMeta = {
-  layoutId: "1",
-  name: "Layout #1",
-  cat: [layoutCategory.id],
-  pagesCount: 1,
-  keywords: "default",
-  thumbnailWidth: 100,
-  thumbnailHeight: 100,
-  thumbnailSrc: noImage,
-  blank: false,
-  pro: false,
-};
-
-const layoutTemplatePageData = {
-  id: layoutTemplateMeta.layoutId,
-  data: {
-    blocks: [
-      {
-        type: "Section2",
-        blockId: "1",
-        value: {
-          items: [
-            {
-              type: "Section2Item",
-              value: {
-                items: [],
-              },
-            },
-          ],
-        },
-      },
-      {
-        type: "Section2",
-        blockId: "2",
-        value: {
-          items: [
-            {
-              type: "Section2Item",
-              value: {
-                items: [],
-              },
-            },
-          ],
-        },
-      },
-    ],
-  },
-};
-
-const layoutTemplatePage = {
-  id: layoutTemplatePageData.id,
-  title: "Page #1",
-  thumbnailWidth: 100,
-  thumbnailHeight: 100,
-  thumbnailSrc: noImage,
-};
-
-const layoutTemplateStyle = {
-  id: "1",
-  title: "Style #1",
-  fontStyles: [],
-  colorPalette: [],
-};
-
-const layoutTemplatePages = [
-  {
-    id: layoutTemplateMeta.layoutId,
-    pages: [layoutTemplatePage],
-    styles: [layoutTemplateStyle],
-  },
-];
-
-const layoutMeta = {
-  categories: [layoutCategory],
-  templates: [layoutTemplateMeta],
-};
-
-//#endregion
-
 export const config: EditorConfig = {
   ui: {
     leftSidebar: {
@@ -897,44 +730,61 @@ export const config: EditorConfig = {
     },
 
     defaultKits: {
-      async getKits(res) {
-        res(availableKits);
+      async getKits(res, rej) {
+        try {
+          const kits = await getKits();
+          res(kits);
+        } catch (e) {
+          console.error(e);
+          rej("Fail to get Kits");
+        }
       },
       async getMeta(res, rej, kit) {
-        const data = availableKitsMeta.find((k) => k.id === kit.id);
-
-        if (data) {
-          res(data);
-        } else {
-          rej("Fail to find kit");
+        try {
+          const meta = await getKitsMeta(kit.id);
+          res(meta);
+        } catch (e) {
+          console.error(e);
+          rej("Fail to get kit meta data");
         }
       },
       async getData(res, rej, block) {
-        const { id } = block;
-        const blockData = availableBlocksData.find((b) => b.id === id);
-
-        if (blockData) {
-          res(blockData.data);
-        } else {
-          rej(`Fail to find block with id ${id}`);
+        try {
+          const blockData = await getKitsBlockData(block.id);
+          res(blockData);
+        } catch (e) {
+          console.error(e);
+          rej("Fail to get kit meta data");
         }
       },
     },
     defaultLayouts: {
-      async getMeta(res) {
-        res(layoutMeta);
-      },
-      async getPages(res, rej, layoutId) {
-        const layoutPage = layoutTemplatePages.find((l) => l.id === layoutId);
-
-        if (layoutPage) {
-          res(layoutPage);
-
-          rej(`Fail to find layout page ${layoutId}`);
+      async getMeta(res, rej) {
+        try {
+          const layoutsMeta = await getLayoutsMeta();
+          res(layoutsMeta);
+        } catch (e) {
+          console.error(e);
+          rej("Fail to get layout meta data");
         }
       },
-      async getData(res) {
-        res(layoutTemplatePageData.data);
+      async getPages(res, rej, layoutId) {
+        try {
+          const pages = await getLayoutPages(layoutId);
+          res(pages);
+        } catch (e) {
+          console.error(e);
+          rej(`Fail to get layout ${layoutId}`);
+        }
+      },
+      async getData(res, rej, layout) {
+        try {
+          const page = await getLayoutPageData(layout);
+          res(page);
+        } catch (e) {
+          console.error(e);
+          rej(`Fai to get layout page ${layout.id}`);
+        }
       },
     },
   },

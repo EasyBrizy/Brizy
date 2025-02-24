@@ -1,5 +1,6 @@
 import type { EditorToolbarOptions } from "@brizy/builder";
-import cn from "classnames";
+import { Link } from "@remix-run/react";
+import cn from "clsx";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";
 import { Props } from "./types";
@@ -21,15 +22,15 @@ const Button = (props: Props) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a
+    <Link
       id={customID}
       className={className}
-      href={linkExternal}
+      to={linkExternal || "#"}
       target={linkExternalBlank === "on" ? "_blank" : "_self"}
-      rel={linkExternalRel === "on" ? "noopener nofollow" : "noopener"}
+      rel={`noreferrer ${linkExternalRel === "on" ? "noopener nofollow" : "noopener"}`}
     >
       {text}
-    </a>
+    </Link>
   );
 };
 

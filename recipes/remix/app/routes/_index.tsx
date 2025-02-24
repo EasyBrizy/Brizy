@@ -1,32 +1,73 @@
 import { Preview as BrizyPreview } from "@brizy/builder/preview";
 import brizyPreviewStylesHref from "@brizy/builder/preview/styles.css?url";
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { useEffect } from "react";
 import { MissingPage } from "~/components/MissingPage";
-import { getPage } from "~/lib/page";
-import { getProject } from "~/lib/project";
+import { getProjectSettings } from "~/components/modules/settings/core/requests";
+import { getPage } from "~/lib/item";
+import { getProject } from "~/lib/project/getProject";
+import { CollectionTypes } from "~/types";
+import { createCustomCode } from "~/utils";
 import { thirdPartyComponents } from "~/widgets/thirdPartyComponents";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: brizyPreviewStylesHref, id: "brizy-preview-css" },
 ];
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const path = params.editorPage || "/";
-  const pageData = getPage(path);
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  let collection = params.collection ?? "";
+  let item = params.item;
+
+  if (!item) {
+    item = collection;
+    collection = CollectionTypes.PAGE;
+  }
+
+  const pageData = getPage(collection, item);
   const projectData = getProject();
-  return { pageData, projectData, path: params.editorPage ? `/editor/${path}` : "/editor" };
+
+  const url = new URL(request.url);
+  const origin = url.origin;
+
+  const projectSettings = await getProjectSettings(origin);
+
+  return { pageData, projectData, projectSettings };
 };
 
-export const meta: MetaFunction = () => {
-  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const { projectSettings } = data ?? {};
+
+  if (!projectSettings) {
+    return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
+  }
+
+  const { seo, sharing } = projectSettings;
+  const { title = "", description = "", searchVisibility } = seo ?? {};
+  const { title: sharingTitle = "", description: sharingDescription = "" } = sharing ?? {};
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: sharingTitle },
+    { property: "og:description", content: sharingDescription },
+    { name: "robots", content: searchVisibility ? "index, follow" : "noindex, nofollow" },
+  ];
 };
 
 export default function Home() {
-  const { pageData, projectData, path } = useLoaderData<typeof loader>();
+  const { pageData, projectData, projectSettings } = useLoaderData<typeof loader>();
+
+  const { code } = projectSettings ?? {};
+
+  useEffect(() => {
+    if (code) {
+      createCustomCode(code);
+    }
+  }, [code]);
 
   if (!pageData || !projectData) {
-    return <MissingPage to={path} />;
+    return <MissingPage />;
   }
 
   return <BrizyPreview pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />;

@@ -1,5 +1,5 @@
 import type { EditorToolbarOptions } from "@brizy/builder";
-import cn from "classnames";
+import cn from "clsx";
 import { JSX } from "react";
 import { HOVER, NORMAL } from "../utils";
 import "./index.scss";

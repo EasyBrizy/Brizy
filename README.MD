@@ -5,6 +5,22 @@ Brizy is embeddable and White Label ready, so it can be seamlessly integrated in
 https://user-images.githubusercontent.com/5760683/206679891-8209b498-5905-42db-8be7-ac2b4d090c2d.mp4
 
 ## See Brizy in action
+### Products
+- Page: To do ...(vercel)
+
+### Integrations
+- CMS: To do ... (vercel)
+
+### Recipes
+- NextJS: To do... (vercel)
+- RemixJS: To do... (vercel)
+
+### Deployments
+- Stackblitz: NextJS to do...
+- Stackblitz: RemixJS to do...
+- Stackblitz: Editor to do...
+
+### Enterprise
 - Pages: https://pages.demo.Brizylocal.com
 - Story: https://story.demo.Brizylocal.com
 - Popup: https://popup.demo.Brizylocal.com

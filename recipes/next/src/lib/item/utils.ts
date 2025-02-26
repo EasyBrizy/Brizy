@@ -1,17 +1,17 @@
-import fs from "fs";
+import { existsFile, readFile, writeFile } from "@/lib/files";
 import { Item } from "./types";
 
 export const readPagesDataBase = (): Item[] => {
-  const isFileExist = fs.existsSync("pages.database.json");
+  const isFileExist = existsFile("pages.database.json");
 
   if (!isFileExist) {
-    fs.writeFileSync("pages.database.json", "[]");
+    writeFile("pages.database.json", "[]");
   }
 
-  const items = JSON.parse(fs.readFileSync("pages.database.json", "utf-8"));
+  const items = JSON.parse(readFile("pages.database.json"));
 
   if (!Array.isArray(items)) {
-    fs.writeFileSync("pages.database.json", "[]");
+    writeFile("pages.database.json", "[]");
     return [];
   }
 
@@ -22,7 +22,7 @@ export const addPageToDataBase = (page: Item) => {
   const pages = readPagesDataBase();
   pages.push(page);
 
-  fs.writeFileSync("pages.database.json", JSON.stringify(pages, null, 2));
+  writeFile("pages.database.json", JSON.stringify(pages, null, 2));
 };
 
 export const updatePageInDataBase = (page: Partial<Item>) => {
@@ -38,7 +38,7 @@ export const updatePageInDataBase = (page: Partial<Item>) => {
     ...page.data,
   };
 
-  fs.writeFileSync("pages.database.json", JSON.stringify(pages, null, 2));
+  writeFile("pages.database.json", JSON.stringify(pages, null, 2));
 
   return pages[pageIndex];
 };
@@ -55,7 +55,7 @@ export const deletePageFromDataBase = (id: string) => {
 
   pages.splice(pageIndex, 1);
 
-  fs.writeFileSync("pages.database.json", JSON.stringify(pages, null, 2));
+  writeFile("pages.database.json", JSON.stringify(pages, null, 2));
 
   return page;
 };

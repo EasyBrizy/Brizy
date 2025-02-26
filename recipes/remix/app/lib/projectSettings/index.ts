@@ -1,18 +1,12 @@
-import fs from "fs";
+import { existsFile, readFile, writeFile } from "~/lib/files";
 import { ProjectSettings } from "./types";
 
 export const getProjectSettings = (): ProjectSettings | null => {
-  const setting = fs.existsSync("dashboard.database.json")
-    ? JSON.parse(fs.readFileSync("dashboard.database.json", "utf-8"))
-    : null;
+  const setting = existsFile("dashboard.database.json") ? JSON.parse(readFile("dashboard.database.json")) : null;
 
   return setting?.projectSettings || null;
 };
 
-export const updateProjectSettings = (settings: ProjectSettings) =>
-  fs.writeFileSync(
-    "dashboard.database.json",
-    JSON.stringify({
-      projectSettings: settings,
-    }),
-  );
+export const updateProjectSettings = (settings: ProjectSettings) => {
+  return writeFile("dashboard.database.json", JSON.stringify({ projectSettings: settings }));
+};

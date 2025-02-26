@@ -38,6 +38,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     return notFound();
   }
 
+  console.log("Page Item", item);
+  console.log("Page Collection", collection);
+
   const page = getPage(collection, item);
 
   const pageData = page

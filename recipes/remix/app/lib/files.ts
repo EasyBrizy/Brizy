@@ -1,8 +1,10 @@
 import fs from "fs";
+import path from "path";
 
-function getPath(path: string): string {
-  return process.env.VERCEL ? `/tmp/${path}` : path;
+function getPath(fileName: string): string {
+  return path.join(process.cwd(), fileName);
 }
+
 export function writeFile(fileName: string, data: string) {
   fs.writeFileSync(getPath(fileName), data);
 }

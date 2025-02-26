@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunctionArgs, json } from "@remix-run/node";
+import { ActionFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { deleteItem, getItem, getItems, newItem } from "~/lib/item";
 import { Item } from "~/lib/item/types";
 
@@ -7,7 +7,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const collection = new URL(request.url).searchParams.get("collection");
 
     if (!collection) {
-      return json("Collection not found", {
+      return Response.json("Collection not found", {
         status: 400,
       });
     }
@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       type: collection,
     });
 
-    return json(
+    return Response.json(
       { success: true, data: items },
       {
         status: 200,
@@ -24,7 +24,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     );
   } catch (e) {
     console.error(e);
-    return json("Fail to get items", {
+    return Response.json("Fail to get items", {
       status: 400,
     });
   }
@@ -40,13 +40,13 @@ export const action: ActionFunction = async ({ request }) => {
       case "DELETE":
         return deleteItems(data.ids);
       default:
-        return json("Invalid method", {
+        return Response.json("Invalid method", {
           status: 400,
         });
     }
   } catch (e) {
     console.error(e);
-    return json("Fail to create item", {
+    return Response.json("Fail to create item", {
       status: 400,
     });
   }
@@ -70,30 +70,30 @@ async function addItem(data: Item) {
     // Type string is not assignable to type { items: Block[]; }
     const item = await newItem(schema);
 
-    return json({ success: true, data: item }, { status: 200 });
+    return Response.json({ success: true, data: item }, { status: 200 });
   } catch (e) {
-    return json({ success: false, error: "Fail to update page" }, { status: 400 });
+    return Response.json({ success: false, error: "Fail to update page" }, { status: 400 });
   }
 }
 
 async function deleteItems(ids: string[]) {
   try {
     if (!Array.isArray(ids)) {
-      return json({ success: false, error: "Invalid id" }, { status: 400 });
+      return Response.json({ success: false, error: "Invalid id" }, { status: 400 });
     }
 
     for (const _id of ids) {
       const item = await getItem({ id: _id });
 
       if (!item) {
-        return json({ success: false, error: "Item not found" }, { status: 400 });
+        return Response.json({ success: false, error: "Item not found" }, { status: 400 });
       }
 
       await deleteItem(_id);
     }
 
-    return json({ success: true }, { status: 200 });
+    return Response.json({ success: true }, { status: 200 });
   } catch (e) {
-    return json({ success: false, error: "Fail to delete item" }, { status: 400 });
+    return Response.json({ success: false, error: "Fail to delete item" }, { status: 400 });
   }
 }

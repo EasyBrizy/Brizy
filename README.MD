@@ -28,66 +28,77 @@ The official Brizy documentation can be found on our [documentation website](htt
 The release notes can be found [here](https://github.com/EasyBrizy/Brizy/releases).
 
 ## Quick Start
-Install the package
+Install the package via npm:
 
-```shell
-npm i @brizy/builder -- save
+```bash
+npm install @brizy/builder
 ```
 
-Render the editor:
+## Available Components
 
+### 1. Preview Component
+The `Preview` component allows you to render content in preview mode without editor modules such as the toolbar or sidebar.
+
+#### Example Usage
 ```tsx
-import { useEditor } from "@brizy/builder";
+import type { EditorPage, EditorProject } from "@brizy/builder/preview";
+import { Preview } from "@brizy/builder/preview";
 
-// Create Brizy component Config
-const config = {
-  // Use page builder mode
-  mode: "page",
+// @import css
+import "@brizy/builder/preview/styles.css";
 
-  // Initial Data
-  pageData: {},
-  projectData: {},
+const pageData: EditorPage = {}
+const projectData: EditorProject = {};
 
-  // Save the data to your database
-  onSave(data) {}
+const App: React.FC = () => {
+  return (
+    <div>
+      <h1>Preview Mode</h1>
+      <Preview pageData={pageData} projectData={projectData} />
+    </div>
+  );
 };
 
-
-// Token
-const token = "demo";
-
-
-// Render Brizy editor
-export function Editor() {
-  const { setNodeRef } = useEditor(token, config);
-  return <div ref={setNodeRef} style={{ height: "100vh", overflow: "hidden" }}/>
-}
+export default App;
 ```
 
-Render the page:
+### 2. Editor Mode with Toolbar and Sidebar
+The `Editor` component provides a fully interactive editor mode, equipped with both a toolbar and sidebar to enhance editing functionality.
+This component is essential for creating and managing content within a structured, user-friendly interface.
 
+#### Example Usage
 ```tsx
-import { Preview } from "@brizy/builder/Preview";
-import "@brizy/builder/previewCSS.css";
+import React from "react";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 
-// Initial Data
-const pageData = {};
-const projectData = {};
+// @import css
+import "@brizy/builder/editor/styles.css";
 
-// Config
-const config = {};
+// @import icons
+import brizyIcons from "@brizy/builder/editor/icons/icons.svg";
 
-export function Page() {
-  return (
-    <Preview
-      mode="page"
-      config={config}
-      pageData={pageData}
-      projectData={projectData}
-    />
-  );
-}
+const config: EditorConfig = {
+  urls: {
+    editorIcons: brizyIcons
+  }
+};
+
+const pageData: EditorPage = {}
+const projectData: EditorProject = {};
+
+const Editor: React.FC = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} config={config} />;
+};
+
+export default Editor;
 ```
+
+> **Note:** The `Config` object contains settings for the editor. You can find more details about `Config` in the [Brizy Builder Documentation](https://builder-docs.brizy.io/docs/getting-started/what-is-brizy/).
+
+## Features
+- **Preview Mode:** Render content for viewing purposes without editing features.
+- **Editor Mode:** Fully interactive editor with a customizable toolbar and sidebar.
 
 ## Recipes
 

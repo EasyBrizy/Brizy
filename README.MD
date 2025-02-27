@@ -6,26 +6,26 @@ https://user-images.githubusercontent.com/5760683/206679891-8209b498-5905-42db-8
 
 ## See Brizy in action
 ### Products
-- Page: To do ...(vercel)
+- Page: https://brizy-next-js.onrender.com/admin/pages
 
 ### Integrations
-- CMS: To do ... (vercel)
+- CMS: https://brizy-next-js.onrender.com/admin
 
 ### Recipes
-- NextJS: To do... (vercel)
-- RemixJS: To do... (vercel)
+- NextJS: https://brizy-next-js.onrender.com
+- RemixJS: https://brizy-remix-js.onrender.com
 
 ### Deployments
-- Stackblitz: NextJS to do...
-- Stackblitz: RemixJS to do...
-- Stackblitz: Editor to do...
+- NextJS https://replit.com/@alex1727/brizy-nextjs?v=1
+- RemixJS https://replit.com/@alex1727/brizy-remix?v=1
+- React https://replit.com/@alex1727/Brizy-React?v=1
 
 ### Enterprise
 - Pages: https://pages.demo.Brizylocal.com
 - Story: https://story.demo.Brizylocal.com
 - Popup: https://popup.demo.Brizylocal.com
 - Shopify headless storefront: https://shopify-headless-storefront.vercel.app/products/1
-- Contentful headless storefront: In progress...
+- Contentful headless storefront: https://contenful-integration.vercel.app
 - CMS integration (MongoDB Atlas): https://cms-integration-mongodb-atlas.vercel.app/admin
 - Vercel marketing page: https://vercel-marketing-page.vercel.app
 - Netlify marketing page: https://netlify-marketing-page.vercel.app
@@ -92,7 +92,7 @@ import type { EditorConfig, EditorPage, EditorProject } from "@brizy/builder";
 import "@brizy/builder/editor/styles.css";
 
 // @import icons
-import brizyIcons from "@brizy/builder/editor/icons/icons.svg";
+import brizyIcons from "@brizy/builder/editor/icons.svg";
 
 const config: EditorConfig = {
   urls: {

@@ -1,6 +1,6 @@
 {
   "name": "@brizy/create-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create full app with brizy builder",
   "keywords": [
     "brizy",
@@ -14,7 +14,7 @@
   "private": false,
   "license": "MIT",
   "type": "module",
-  "bin":  "./bin/index.js",
+  "bin": "./bin/index.js",
   "files": [
     "bin",
     "templates"

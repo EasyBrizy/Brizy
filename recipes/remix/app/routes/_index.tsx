@@ -4,9 +4,9 @@ import { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node
 import { useLoaderData } from "@remix-run/react";
 import { useEffect } from "react";
 import { MissingPage } from "~/components/MissingPage";
-import { getProjectSettings } from "~/components/modules/settings/core/requests";
 import { getPage } from "~/lib/item";
 import { getProject } from "~/lib/project/getProject";
+import { getProjectSettings } from "~/lib/projectSettings";
 import { CollectionTypes } from "~/types";
 import { createCustomCode } from "~/utils";
 import { thirdPartyComponents } from "~/widgets/thirdPartyComponents";
@@ -15,7 +15,7 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: brizyPreviewStylesHref, id: "brizy-preview-css" },
 ];
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   let collection = params.collection ?? "";
   let item = params.item;
 
@@ -26,11 +26,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 
   const pageData = getPage(collection, item);
   const projectData = getProject();
-
-  const url = new URL(request.url);
-  const origin = url.origin;
-
-  const projectSettings = await getProjectSettings(origin);
+  const projectSettings = getProjectSettings();
 
   return { pageData, projectData, projectSettings };
 };

@@ -64,4 +64,5 @@ jobs:
           embed-description: |
             🚀 **New Release Alert!**
             A new version of the Open Source Documentation has been released: **${{ inputs.version }}**.
+            Check it out here: https://builder-free-docs.brizy.io
             📦 Dockerhub Image: `br1zy/builder-free-docs`

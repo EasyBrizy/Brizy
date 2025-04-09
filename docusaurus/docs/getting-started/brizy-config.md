@@ -16,6 +16,9 @@ type config = {
   // L10n
   l10n?: Record<string, string>;
 
+  // isRTL
+  isRTL?: boolean;
+
   // API
   api?: {
     /// Media
@@ -116,10 +119,11 @@ Config can be passed as an object when you initialize the editor from the script
 ### First level parameters
 
 | Name               | Type     | Description                                                                                                                                                                                                                                                                                              |
-| :----------------- | :------- |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:-------------------|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `l10n`             | `object` | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations). |
 | `onAutoSave`       | `JSON`   | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                 |
 | `onLoad`           | `JSON`   | Fired when the builder is loaded                                                                                                                                                                                                                                                                         |
+| `isRTL`            | `boolean`| Enables right-to-left (RTL) layout when set to true. Default false.                                                                                                                                                                                                                                      |
 | `autoSaveInterval` | `number` | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                               |
 
 ### UI parameters
@@ -626,5 +630,14 @@ import l10nUK from "/path/to/editor.uk.json";
 
 const config = {
   l10n: l10nUK,
+};
+```
+
+### Example: Right to left (`isRTL`)
+To enable RTL mode set the `isRTL` key in config
+
+```ts
+const config = {
+  isRTL: true,
 };
 ```

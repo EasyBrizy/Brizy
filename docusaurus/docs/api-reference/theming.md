@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 # Theming
 
@@ -19,7 +19,7 @@ Our available color palette includes the following variables:
 - Active Color
 
 <br/>
-To set these variables, you need to specify them in the Brizy config under `config.ui.theme.colors` key.
+To set these variables, you need to specify them in the Editor config under `config.ui.theme.colors` key.
 
 ## Example
 

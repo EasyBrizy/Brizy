@@ -11,7 +11,6 @@ The full config can be seen below:
 
 ```ts
 type config = {
-  projectData: Record<string, unknown>;
   autoSaveInterval?: number;
   
   // L10n
@@ -106,7 +105,6 @@ To be able to start the builder you need to send valid values in the config in t
 
 <ul>
   <li>`ui` - the object that let us to customize the left sidebar order, links or elements, also let us to customize popup settings and also the color variables of builder UI</li>
-  <li>`projectData` - [the JSON that specifies global styles](./project-data.md)</li>
   <li>`urls.editorIcons` - The path to the icons used by the builder.</li>
 </ul>
 
@@ -122,7 +120,6 @@ Config can be passed as an object when you initialize the editor from the script
 
 | Name               | Type      | Description                                                                                                                                                                                                                                                                                                   |
 |:-------------------|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `projectData`      | `object`  | Loads the JSON project specified in the [projectData](./project-data.md) parameter.                                                                                                                                                                                                                           |
 | `l10n`             | `object`  | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations).      |
 | `onAutoSave`       | `JSON`    | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                      |
 | `onLoad`           | `JSON`    | Fired when the builder is loaded                                                                                                                                                                                                                                                                              |

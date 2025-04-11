@@ -8,11 +8,89 @@ Let's create a simple Brizy third-party widget that introduces two new widgets t
 The first will be a basic **Button** widget, and the second will be a more complex widget
 with options contained within the toolbar.
 
-### Basic Example
+### Installation
+
+You can install the library using npm. Open your terminal and run the following command:
+
+```shell
+npx @brizy/create-thirdparty
+cd < my-app >
+```
+
+The previous command will generate the following folder structure:
+
+```shell
+# root directory of your thirdparty folder
+
+├── node_modules/
+├── package.json
+├── package-lock.json
+├── README.md
+├── prettier.config.js
+├── tsconfig.json
+├── README.md
+├── .editorconfig
+└── src
+    ├── Map/
+    │    └── /* will contain all widget logic and style files */
+    ├── Counter/
+    │    └── /* will contain all widget logic and style files */
+    ├── types/
+    │    └── files.d.ts
+    └── config.json
+    └── index.editor.ts
+    └── index.view.ts
+```
+
+To start the build, run the following command in your terminal:
+
+```shell
+npm run build
+```
+
+> For more information about the available scripts, check the [`README`](https://github.com/EasyBrizy/Brizy-Local-Editor/blob/master/packages/scripts/Readme.md).
+
+### Usage
+
+After building the third-party library, you can send it to the editor configuration via HTTP URLs.
+Here's how you can do it:
+
+1. Host the built library files on a server accessible via HTTP.
+2. Obtain the HTTP URLs for the built JavaScript files (e.g., `index.editor.js`).
+3. In the editor configuration, specify these URLs to load the library:
+
+```typescript
+const config = {
+  // Other keys of the config...
+
+  extensions: [
+    {
+      host: "https://<the-build-host-of-library>",
+      path: "",
+    },
+  ],
+};
+```
+
+> For more information about the config of the Editor, check the [`README`](https://github.com/EasyBrizy/Brizy-Local-Editor/blob/master/packages/core/docs/self-hosted.MD#config).
+> Replace `"http://<the-build-host-of-library>"` with the actual HTTP URL of your built library file.
+> By adding this URL to the `extensions` array in your editor configuration, the library will be loaded and available for use within the editor environment. <br />
+> The `host` specifies the server's URL, while `path` indicates the server directory containing the bundles.
+
+To view the new component, follow these steps:
+
+1. Go to the Left Sidebar of the editor.
+2. Look for the "Add Elements" section.
+3. Click on "Add Elements" to expand the section.
+4. You should see a list of available elements or components.
+5. Look for the newly added component within this list.
+   ![image](https://github.com/EasyBrizy/Brizy-Local-Editor/assets/18303258/eb021ebd-7a61-44f7-aa3c-ddf6f1d60b18)
+
+### Example
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
-import { JSX } from "react";
+import { Brizy } from "@brizy/core";
+import React from "react";
 
 export function Button(): JSX.Element {
   return <div className="button">This button will be render in editor</div>;
@@ -22,37 +100,25 @@ export function ButtonView(): JSX.Element {
   return <div className="button button-view">This button will be render in View</div>;
 }
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: {
     editor: Button,
-    view: ButtonView
+    view: ButtonView,
   },
-  title: "My Button"
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-}
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+  title: "My Button",
+});
 ```
 
-### Option Types in Builder  
+### Options types in Builder
 
-When creating custom components, you can include various toolbar options to enhance customization.  
-For detailed information about available options, refer to the [documentation](/docs-internals/brizy-editor/introduction).
+When creating custom components, you have the option to include various toolbar options for further customization.
 
 #### Example:
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
-import { JSX } from "react";
+import { Brizy } from "@brizy/core";
+import React from "react";
 
 interface Props {
   address: string;
@@ -64,21 +130,18 @@ const KEY = "AIzaSyCcywKcxXeMZiMwLDcLgyEnNglcLOyB_qw";
 
 export function Map(props: Props): JSX.Element {
   const { address, zoom } = props;
-  
   const iframeSrc = `${URL}?key=${KEY}&q=${address}&zoom=${zoom}`;
-  
   return (
     <div className="mapThirdComponent" style={{ pointerEvents: "none" }}>
       <iframe src={iframeSrc} title="Map" />
     </div>
   );
 }
-
-const mapModule = {
-  id: "ThirdParty.Map", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Map",
   component: {
     editor: Map,
-    view: Map
+    view: Map,
   },
   title: "My Map",
   options: (props) => {
@@ -94,7 +157,6 @@ const mapModule = {
               title: "Map",
             },
             devices: "desktop",
-            position: 10,
             options: [
               {
                 id: "tabsCurrentElement",
@@ -110,8 +172,8 @@ const mapModule = {
                         type: "inputText",
                         placeholder: "Enter address",
                         default: {
-                          value: "Chisinau"
-                        }
+                          value: "Chisinau",
+                        },
                       },
                       {
                         id: "zoom",
@@ -119,46 +181,24 @@ const mapModule = {
                         type: "slider",
                         config: {
                           min: 1,
-                          max: 21
+                          max: 21,
                         },
                         default: {
                           value: 9,
-                          suffix: "inch"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+                          suffix: "inch",
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ];
-  }
-};
-
-const thirdPartyComponents = {
-  [mapModule.id]: mapModule
-}
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+  },
+});
 ```
-### Usage
-
-To view the new component, follow these steps:
-
-1. Go to the Left Sidebar of the editor.
-2. Look for the "Add Elements" section.
-3. Click on "Add Elements" to expand the section.
-4. You should see a list of available elements or components.
-5. Look for the newly added component within this list.
-
-![image](https://github.com/EasyBrizy/Brizy-Local-Editor/assets/18303258/eb021ebd-7a61-44f7-aa3c-ddf6f1d60b18)
 
 You've now experienced the simplicity of creating your first Brizy widget.

@@ -11,6 +11,8 @@ The full config can be seen below:
 
 ```ts
 type config = {
+  pageData: Record<string, unknown>;
+  projectData: Record<string, unknown>;
   autoSaveInterval?: number;
   
   // L10n
@@ -104,6 +106,8 @@ type config = {
 To be able to start the builder you need to send valid values in the config in the following required keys:
 
 <ul>
+  <li>`pageData` - the JSON with current page structure</li>
+  <li>`projectData` - the JSON that specifies global styles [more](/api-reference/project-data)</li>
   <li>`ui` - the object that let us to customize the left sidebar order, links or elements, also let us to customize popup settings and also the color variables of builder UI</li>
   <li>`urls.editorIcons` - The path to the icons used by the builder.</li>
 </ul>
@@ -118,13 +122,15 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### First level parameters
 
-| Name               | Type      | Description                                                                                                                                                                                                                                                                                                   |
-|:-------------------|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `l10n`             | `object`  | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations).      |
-| `onAutoSave`       | `JSON`    | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                      |
-| `onLoad`           | `JSON`    | Fired when the builder is loaded                                                                                                                                                                                                                                                                              |
-| `isRTL`            | `boolean` | Enables right-to-left (RTL) layout when set to true. Default false.                                                                                                                                                                                                                                           |
-| `autoSaveInterval` | `number`  | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                                    |
+| Name               | Type      | Description                                                                                                                                                                                                                                                                                              |
+|:-------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `pageData`         | `object`  | Loads the JSON page specified in the pageData parameter.                                                                                                                                                                                                                                                 |
+| `projectData`      | `object`  | Loads the JSON project specified in the projectData parameter. [more](/api-reference/project-data)                                                                                                                                                                                                       |
+| `l10n`             | `object`  | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations). |
+| `onAutoSave`       | `JSON`    | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                 |
+| `onLoad`           | `JSON`    | Fired when the builder is loaded                                                                                                                                                                                                                                                                         |
+| `isRTL`            | `boolean` | Enables right-to-left (RTL) layout when set to true. Default false.                                                                                                                                                                                                                                      |
+| `autoSaveInterval` | `number`  | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                               |
 
 ### UI parameters
 

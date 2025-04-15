@@ -32,7 +32,7 @@ See deployment instructions in the section [Deployment](#deployment-steps).
 
 ### Deployment Steps
 
-1. **Prepare Your Widget**: Ensure your widget is deployment-ready by adhering to the guidelines outlined in the [Custom Widgets Development](/docs/development/creating-your-first-addon) section.
+1. **Prepare Your Widget**: Ensure your widget is deployment-ready by adhering to the guidelines outlined in the [Custom Widgets Development](/building-widgets/creating-your-first-widget) section.
 2. **Use Brizy Scripts for Deployment**:
    - Utilize `brizy-scripts` for building and packaging your widget.
    - Run `brizy-scripts build` to compile the widget.

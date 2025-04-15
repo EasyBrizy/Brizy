@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # Deployments
@@ -41,7 +41,7 @@ cd < my-app >
 npm run build
 ```
 
-Read more about [Third Party](/docs-third-party/brizy-widgets/introduction).
+Read more about [Third Party](/building-widgets/introduction). 
 
 ### Usage
 

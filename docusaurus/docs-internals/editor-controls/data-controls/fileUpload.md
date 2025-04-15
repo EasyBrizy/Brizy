@@ -5,7 +5,7 @@ toc_max_heading_level: 4
 
 The `fileUpload` control displays a file chooser section that allows the user to choose one or more files from their device storage.
 
-> You need to add the API configuration handler (`api.customFile.addFile.handler`) for these option types to work fully. For more details, refer to the **[documentation](/getting-started/brizy-config#api-parameters)**.
+> You need to add the API configuration handler (`api.customFile.addFile.handler`) for these option types to work fully. For more details, refer to the **[documentation](/api-reference#api-parameters)**.
 
 Example of the `fileUpload` without selected file:
 

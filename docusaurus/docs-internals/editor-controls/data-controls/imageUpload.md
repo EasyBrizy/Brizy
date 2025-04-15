@@ -7,7 +7,7 @@ toc_max_heading_level: 4
 The `imageUpload` control displays a image selection interface, enabling the user to choose one image from their device storage.
 
 > You need to add the API configuration handler (`api.media.addMedia.handler`) for these option types to work fully. For more details, 
-> refer to the **[documentation](/getting-started/brizy-config#example-media-handler)**.
+> refer to the **[documentation](/api-reference#example-media-handler)**.
 
 Example of the `imageUpload` control:
 

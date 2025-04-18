@@ -121,7 +121,7 @@ To ensure the `export.ts` script is executed in Preview Mode, import it in the `
 // index.view.ts
 import "./export";
 ```
-More details about the `index.view.ts` file can be found in the [Creating Your First Widget ](/docs/development/creating-your-first-addon) guide.
+More details about the `index.view.ts` file can be found in the [Creating Your First Widget ](/building-widgets/creating-your-first-widget) guide.
 
 This ensures that when the page is loaded in Preview Mode, the JavaScript file is executed, adding interactivity to the switcher component.
 

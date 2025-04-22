@@ -5,7 +5,7 @@ toc_max_heading_level: 4
 
 The `gallery` control displays a file chooser section that allows the user to upload multiple images from their device storage.
 
-> You need to add the API configuration handler (`api.media.addMedia.handler`) for these option types to work fully. For more details, refer to the **[documentation](/api-reference#example-media-handler)**.
+> You need to add the API configuration handler (`api.media.addMedia.handler`) for these option types to work fully. For more details, refer to the **[documentation](/api-reference/editor-config/page/#example-media-handler)**.
 
 Example of empty `gallery`:
 

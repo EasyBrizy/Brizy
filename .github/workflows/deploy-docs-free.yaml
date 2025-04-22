@@ -1,14 +1,13 @@
-name: "Build Documentation Image"
+name: "Deploy Free Documentation"
+
+env:
+  branch: "main"
+  docker_image: "br1zy/builder-free-docs"
+  deploy_url: "https://builder-free-docs.brizy.io"
 
 on:
   workflow_dispatch:
     inputs:
-      branch:
-        description: "Branch name"
-        required: true
-        default: "main"
-        type: string
-
       version:
         description: "Version"
         required: true
@@ -23,9 +22,9 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.branch }}
+          ref: ${{ env.branch }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -40,7 +39,7 @@ jobs:
         id: docsMeta
         uses: docker/metadata-action@v5
         with:
-          images: br1zy/builder-free-docs
+          images: ${{ env.docker_image }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -48,7 +47,7 @@ jobs:
           context: ./docusaurus
           file: ./docusaurus/Dockerfile
           push: true
-          tags: br1zy/builder-free-docs:${{ inputs.version }}
+          tags: ${{ env.docker_image }}:${{ inputs.version }}
           labels: ${{ steps.docsMeta.outputs.labels }}
 
       - name: Git Tags
@@ -64,5 +63,5 @@ jobs:
           embed-description: |
             🚀 **New Release Alert!**
             A new version of the Open Source Documentation has been released: **${{ inputs.version }}**.
-            Check it out here: https://builder-free-docs.brizy.io
-            📦 Dockerhub Image: `br1zy/builder-free-docs`
+            Check it out here: ${{ env.deploy_url }}
+            📦 Dockerhub Image: `${{ env.docker_image }}`

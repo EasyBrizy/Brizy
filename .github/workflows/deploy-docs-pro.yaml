@@ -1,0 +1,67 @@
+name: "Deploy Pro Documentation"
+
+env:
+  branch: "docs-pro"
+  docker_image: "br1zy/builder-docs"
+  deploy_url: "https://builder-docs.brizy.io"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        default: "v1.0.0"
+        type: string
+
+jobs:
+  image-build:
+    name: Build Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.branch }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: docsMeta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.docker_image }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./docusaurus
+          file: ./docusaurus/Dockerfile
+          push: true
+          tags: ${{ env.docker_image }}:${{ inputs.version }}
+          labels: ${{ steps.docsMeta.outputs.labels }}
+
+      - name: Git Tags
+        if: success()
+        run: |
+          git tag docs-pro-${{ inputs.version }}
+          git push origin --tags
+
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-description: |
+            🚀 **New Release Alert!**
+            A new version of the Brizy Local Documentation has been released: **${{ inputs.version }}**.
+            Check it out here: ${{ env.deploy_url }}
+            📦 Dockerhub Image: `${{ env.docker_image }}`

@@ -340,7 +340,7 @@ Set the border for `.brz-button` element with CSS using a border control value.
 In the example below, we use the border output value to determine specific classes for the button element.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 import { Icon } from "./Icon";
 
@@ -373,8 +373,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const componentModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -403,16 +403,5 @@ const componentModule = {
       }
     ]
   }
-};
-
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+})
 ```

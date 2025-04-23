@@ -474,7 +474,7 @@ When the switch is enabled (`"on"`), we will render the label.
 We also use the same switch value to add the `"data-disabled"` HTML attribute to the `.brz-button` and to create a `props.size` value for the `<Icon />` component.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import { Icon } from "./Icon";
 import React, { JSX } from "react";
 
@@ -488,7 +488,7 @@ const Button = (props: Props): JSX.Element => {
   const attributes = {
     "data-disabled": showLabel === "off"
   }
-  
+
   return (
     <div className="brz-button" {...attributes}>
       {showLabel === "on" && <span>Click</span>}
@@ -497,8 +497,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -527,16 +527,5 @@ const buttonModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

@@ -317,7 +317,7 @@ following rule: concatenate the `id` of the `boxShadow` control with the value y
 demonstrates how to extract all possible values from the `boxShadow` control and use them to add the shadow to the `div` element.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import { hexToRgba } from "./utils";
 import React, { JSX } from "react";
 
@@ -333,7 +333,7 @@ interface Props {
 }
 
 const Container = (props: Props): JSX.Element => {
-  const { 
+  const {
     boxShadow,
     boxShadowColorOpacity,
     boxShadowColorHex,
@@ -345,8 +345,8 @@ const Container = (props: Props): JSX.Element => {
   } = props;
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         boxShadow: `${boxShadow} ${boxShadowHorizontal}px ${boxShadowVertical}px 
         ${boxShadowBlur}px ${boxShadowSpread}px ${hexToRgba(boxShadowColorHex,boxShadowColorOpacity)}`
       }}
@@ -356,8 +356,8 @@ const Container = (props: Props): JSX.Element => {
   );
 };
 
-const containerModule = {
-  id: "ThirdParty.Container", // Ensure this is unique across all module registrations
+Brizy.registerComponent(Container, {
+  id: "ThirdParty.Container",
   component: { editor: Container, view: Container },
   title: "My Container",
   category: "custom",
@@ -386,16 +386,5 @@ const containerModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [containerModule.id]: containerModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

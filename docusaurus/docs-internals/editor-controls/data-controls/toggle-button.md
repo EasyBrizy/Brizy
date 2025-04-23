@@ -452,7 +452,7 @@ In the example below, we use the `toggleButton` output value (default is `"on"` 
 When the `toggleButton` is enabled (`"on"`), we will render the label.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import { Icon } from "./Icon";
 import React, { JSX } from "react";
 
@@ -462,7 +462,7 @@ interface Props {
 
 const Button = (props: Props): JSX.Element => {
   const { showLabel } = props;
-  
+
   return (
     <div className="brz-button">
       {showLabel === "on" && <span>Click</span>}
@@ -471,8 +471,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -504,16 +504,5 @@ const buttonModule = {
       }
     ]
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+})
 ```

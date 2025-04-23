@@ -307,7 +307,7 @@ This code dynamically adjusts the `margin` style of elements with the class `.br
 In the example below, we use the `margin` property values to dynamically set the inline styles for the span element within the button. The `margin` values can be either in `pixels` ("px") or `percentages` ("%"). The button component accepts props for different types of margins, including a grouped `margin` and individual margins for each side. These props control the spacing around the button’s label.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 type Unit = "px" | "%";
@@ -351,8 +351,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -384,16 +384,5 @@ const buttonModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

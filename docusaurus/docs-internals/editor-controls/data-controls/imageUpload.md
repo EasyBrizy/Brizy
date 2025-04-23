@@ -373,7 +373,7 @@ Set the width and height of the `.brz-image` element based on the value of the c
 In this example, the value of the control is used to display the uploaded image in the HTML.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -385,7 +385,7 @@ interface Props {
 
 const Image = (props: Props): JSX.Element => {
   const { imageImageSrc, imageImageFileName, imageImageWidth, imageImageHeight } = props;
-  
+
   return (
     <div className="brz-img">
       <img src={imageImageSrc} alt={imageImageFileName} width={imageImageWidth} height={imageImageHeight} />
@@ -393,8 +393,8 @@ const Image = (props: Props): JSX.Element => {
   );
 };
 
-const imageModule = {
-  id: "ThirdParty.Image", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Image",
   component: { editor: Image, view: Image },
   title: "My Image",
   category: "custom",
@@ -417,16 +417,5 @@ const imageModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [imageModule.id]: imageModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

@@ -313,7 +313,7 @@ concatenate the `id` of the `backgroundColor` control with the value you wish to
 how to extract the hex color value and use it to change the background color of the container.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 
 interface Props {
   backgroundGradientActivePointer: "start" | "end";
@@ -333,12 +333,12 @@ interface Props {
 
 const Component = (props: Props) => {
   const { backgroundBgColorHex } = props;
-  
+
   return <div className="component" style={{ backgroundColor: backgroundBgColorHex }}>...</div>
 }
 
-const componentModule = {
-  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Component",
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -365,8 +365,8 @@ const componentModule = {
                 label: "Background",
                 options: [
                   {
-                   id: "background",
-                   type: "backgroundColor"
+                    id: "background",
+                    type: "backgroundColor"
                   }
                 ]
               }
@@ -376,16 +376,5 @@ const componentModule = {
       }
     ]
   }
-};
-
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+})
 ```

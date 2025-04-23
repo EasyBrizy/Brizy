@@ -326,7 +326,7 @@ concatenate the `id` of the `animation` control with the value you wish to extra
 how to extract all the values from `entrance` and `hover` animations.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 
 interface Props {
   animationName: string;
@@ -345,20 +345,20 @@ const Component = (props: Props) => {
     animationDelay,
     animationInfiniteAnimation,
     animationDuration,
-    hoverName, 
-    hoverDelay, 
-    hoverInfiniteAnimation, 
+    hoverName,
+    hoverDelay,
+    hoverInfiniteAnimation,
     hoverDuration
   } = props;
-  
+
   return <div className="component">
     <p style={{ color: animationName === "bounce" ? "black" : "red", transition: `color ${animationDuration / 1000}s` }}>Text</p>
     <p style={{ color: hoverAnimation === "brz-buzz" ? "blue" : "yellow", transition: `color ${hoverDuration / 1000}s` }}>Text</p>
   </div>;
 }
 
-const componentModule = {
-  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Component",
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -425,16 +425,5 @@ const componentModule = {
       }
     ]
   }
-};
-
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+})
 ```

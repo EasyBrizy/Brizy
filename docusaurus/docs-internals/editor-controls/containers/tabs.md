@@ -485,9 +485,8 @@ This code dynamically adjusts the `display` style of elements with the class `.b
 In the example below, we define a custom Container component tailored for the Brizy editor. This component facilitates the injection of custom HTML, thereby enhancing customization possibilities. It ensures that when any tab is `active`, the component receives the active tab via props, ensuring that `config.saveTab` is set to `true`.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
-
 
 interface Props {
   tabsColor: string;
@@ -501,8 +500,8 @@ const Container = (props: Props): JSX.Element => {
   );
 };
 
-const containerModule = {
-  id: "ThirdParty.Container", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Container",
   component: { editor: Container, view: Container },
   title: "My Container",
   category: "essentials",
@@ -544,17 +543,6 @@ const containerModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [containerModule.id]: containerModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 
 ```

@@ -307,7 +307,7 @@ In this example shows how to apply basic styles to the gallery images.
 #### Usage in HTML example
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Image {
@@ -328,7 +328,7 @@ const Gallery = (props: Props): JSX.Element => {
   return (
     <div className="brz-gallery">
       {images.map((image) => (
-        <div 
+        <div
           key={image.id}
           style={{
             backgroundImage: `url(${image.fileName})`,
@@ -341,8 +341,9 @@ const Gallery = (props: Props): JSX.Element => {
   );
 };
 
-const galleryModule = {
-  id: "ThirdParty.Gallery", // Ensure this is unique across all module registrations
+
+Brizy.registerComponent({
+  id: "ThirdParty.Gallery",
   component: { editor: Gallery, view: Gallery },
   title: "My Gallery",
   category: "custom",
@@ -370,16 +371,5 @@ const galleryModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [galleryModule.id]: galleryModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

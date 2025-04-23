@@ -300,7 +300,7 @@ Show or hide the `.brz-border` element with CSS using a `inputText` control valu
 The provided code defines a React functional component named `Input`. This component serves as a customizable input control, which can be used in forms or other user interfaces where text input is required.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import classNames from "classnames";
 import React, { JSX } from "react";
 
@@ -309,7 +309,7 @@ interface Props {
   onChange: (v: string) => void;
 }
 
-const Input = (props: Props): JSX.Element => {
+export const Input = (props: Props): JSX.Element => {
   const { value, onChange } = props;
   return (
     <div className="brz-input">
@@ -318,8 +318,8 @@ const Input = (props: Props): JSX.Element => {
   );
 };
 
-const inputModule = {
-  id: "ThirdParty.Input", // Ensure this is unique across all module registrations
+Brizy.registerComponent(Input, {
+  id: "ThirdParty.Input",
   title: "My Input",
   options: (props) => {
     return [
@@ -346,16 +346,5 @@ const inputModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [inputModule.id]: inputModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

@@ -335,7 +335,7 @@ Add transform rotate value to wrapper element .
 In the example below, we use the `transform` output value for rotate and offset effects to add transform style in html element .
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -361,8 +361,8 @@ const Component = (props: Props): JSX.Element => {
   );
 };
 
-const componentModule = {
-  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Component",
   component: { editor: Component, view: Component },
   title: "My Component",
   category: "custom",
@@ -386,16 +386,5 @@ const componentModule = {
       }
     ];
   }
-};
-  
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

@@ -419,8 +419,7 @@ These values can then be utilized as needed, either by passing them to another c
 level.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
-import React, { JSX } from "react";
+import { Brizy } from "@brizy/core";
 
 interface Props {
   width: number;
@@ -429,12 +428,12 @@ interface Props {
 
 const Component = (props: Props): JSX.Element => {
   const { width, widthSuffix } = props;
-  
+
   return <div className="component" style={{ width: `${width}${widthSuffix}` }}>...</div>
 }
 
-const componentModule = {
-  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Component",
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -473,16 +472,5 @@ const componentModule = {
       }
     ]
   }
-};
-
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+})
 ```

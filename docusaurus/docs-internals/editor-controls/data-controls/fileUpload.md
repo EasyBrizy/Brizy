@@ -269,7 +269,7 @@ When the video is uploaded, we will render the label.
 We also use the same video values to add the `"data-disabled"` HTML attribute to the `.brz-button` and to create a `props.size` value for the `<Icon />` component.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -278,11 +278,11 @@ interface Props {
 
 const Button = (props: Props): JSX.Element => {
   const { file } = props;
-    
+
   const isDisabled = !file;
-  
+
   const buttonClassName = isDisabled ? "brz-button brz-button-disabled" : "brz-button";
-  
+
   return (
     <button className={buttonClassName} disabled={isDisabled}>
       Submit
@@ -290,8 +290,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -320,16 +320,5 @@ const buttonModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

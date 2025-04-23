@@ -500,7 +500,7 @@ Change the fontSize of the `.brz-text` element with CSS using custom values from
 In the example below, we use the `editableSelect` output value to determine the size for the button element.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -517,8 +517,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -551,16 +551,5 @@ const buttonModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

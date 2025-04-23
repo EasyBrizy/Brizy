@@ -400,7 +400,7 @@ Change the background color of the `.brz-range` element using a range control va
 In the example below, we use the Range output values ( `priceFrom` and `priceTo` ). The Range component will render a `range` input control with a minimum value of `priceFrom` and a maximum value of `priceTo`.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -420,8 +420,8 @@ const Price = (props: Props): JSX.Element => {
   );
 };
 
-const priceModule = {
-  id: "ThirdParty.Price", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Price",
   component: { editor: Price, view: Price },
   title: "My Price",
   category: "custom",
@@ -450,17 +450,5 @@ const priceModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [priceModule.id]: priceModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
-
+});
 ```

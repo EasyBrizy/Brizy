@@ -236,7 +236,7 @@ This code dynamically adjusts the `filter` properties of elements with the class
 In the example below, we demonstrate how to implement the filters control and apply its values to an image element's CSS properties.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import React, { JSX } from "react";
 
 interface Props {
@@ -260,8 +260,8 @@ const Image = (props: Props): JSX.Element => {
   );
 };
 
-const imageModule = {
-  id: "ThirdParty.Image", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Image",
   component: { editor: Image, view: Image },
   title: "My Image",
   category: "essentials",
@@ -290,16 +290,5 @@ const imageModule = {
       }
     ];
   },
-};
-
-const thirdPartyComponents = {
-  [imageModule.id]: imageModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

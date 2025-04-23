@@ -426,7 +426,7 @@ When the `multiSelect` includes `"evenets"`, we will render the label.
 We also use the same `multiSelect` value to add the `"data-disabled"` HTML attribute to the `.brz-button`.
 
 ```tsx
-import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Brizy } from "@brizy/core";
 import { Icon } from "./Icon";
 import React, { JSX } from "react";
 
@@ -438,11 +438,11 @@ const Button = (props: Props): JSX.Element => {
   const { type } = props;
 
   const parsed = JSON.parse(type);
-  
+
   const attributes = {
     "data-disabled": parsed.includes("events")
   }
-  
+
   return (
     <div className="brz-button" {...attributes}>
       {parsed.includes("events") && <span>Show Events</span>}
@@ -451,8 +451,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-const buttonModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+Brizy.registerComponent({
+  id: "ThirdParty.Button",
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -485,16 +485,5 @@ const buttonModule = {
       }
     ];
   }
-};
-
-const thirdPartyComponents = {
-  [buttonModule.id]: buttonModule
-};
-
-const pageData = {};
-const projectData = {};
-
-const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
-};
+});
 ```

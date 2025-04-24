@@ -165,3 +165,144 @@ Defines the text to be displayed with the control.
   }
 }
 ```
+
+#### Usage in HTML example
+
+```tsx
+import { Brizy } from "@brizy/core";
+import "./index.scss";
+
+export const Editor = (props) => {
+  const { showSecretButton } = props;
+
+  return (
+    <div className="myCustomComponent">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+        scelerisque scelerisque congue. Suspendisse potenti. Quisque purus arcu,
+        maximus feugiat pellentesque eget, volutpat in est. Sed elementum
+        pretium porta.
+      </p>
+      {showSecretButton === "on" && <button>Conditional Button</button>
+      }
+    </div>
+  );
+};
+
+export const View = (props) => {
+  const { showSecretButton } = props;
+
+  return (
+    <div className="myCustomComponent viewClassName">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+        scelerisque scelerisque congue. Suspendisse potenti. Quisque purus arcu,
+        maximus feugiat pellentesque eget, volutpat in est. Sed elementum
+        pretium porta.
+      </p>
+      {showSecretButton === "on" && <button>Conditional Button</button>
+      }
+    </div>
+  );
+};
+
+Brizy.registerComponent({
+  id: "Brizy.ThirdParty.Custom",
+  component: {
+    editor: Editor,
+    view: View,
+  },
+  title: "Custom",
+  category: "Custom",
+  options: () => {
+    return [
+      {
+        selector: ".myCustomComponent",
+        toolbar: [
+          {
+            id: "toolbarSettings",
+            type: "popover",
+            config: { icon: "nc-cog", title: "Settings" },
+            position: 20,
+            options: [
+              {
+                id: "grid",
+                type: "grid",
+                config: {
+                  separator: true,
+                },
+                columns: [
+                  {
+                    id: "grid-settings",
+                    size: 1,
+                    options: [
+                      {
+                        id: "styles",
+                        type: "sidebarTabsButton",
+                        config: {
+                          tabId: "customTab",
+                          text: "My Sidebar",
+                          icon: "nc-cog",
+                        },
+                      },
+                    ],
+                  },
+                  {
+                    id: "grid-effects",
+                    size: 1,
+                    options: [
+                      {
+                        id: "effects",
+                        type: "sidebarTabsButton",
+                        config: {
+                          tabId: "effects",
+                          text: "Effects",
+                          icon: "nc-flash",
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        sidebar: [
+          {
+            id: "sidebarTabs",
+            type: "sidebarTabs",
+            tabs: [
+              {
+                id: "customTab",
+                title: "Custom Tab",
+                label: "Custom",
+                options: [
+                  {
+                    id: "showSecretButton",
+                    label: "Show Secret Button",
+                    type: "switch",
+                    position: 10,
+                    closeTooltip: true,
+                  },
+                ],
+              },
+              {
+                id: "effects",
+                title: ("Effects"),
+                label: ("Effects"),
+                options: [
+                  // Your Options
+                ],
+              },
+              { id: "effects" },
+              // Disable default styles Sidebar
+              { id: "styles", disabled: true },
+            ],
+          },
+        ],
+      },
+    ];
+  },
+});
+
+```

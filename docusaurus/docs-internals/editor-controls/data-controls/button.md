@@ -224,3 +224,67 @@ The `title` property specifies the tooltip text for the button.
   }
 }
 ```
+
+#### Usage in HTML example
+
+```tsx
+import "./index.scss";
+
+export const Editor = (props) => {
+  return (
+    <div className="myCustomComponent">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+        scelerisque scelerisque congue. Suspendisse potenti. Quisque purus arcu,
+        maximus feugiat pellentesque eget, volutpat in est. Sed elementum
+        pretium porta.
+      </p>
+    </div>
+  );
+};
+
+export const View = (props) => {
+  return (
+    <div className="myCustomComponent viewClass">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+        scelerisque scelerisque congue. Suspendisse potenti. Quisque purus arcu,
+        maximus feugiat pellentesque eget, volutpat in est. Sed elementum
+        pretium porta.
+      </p>
+    </div>
+  );
+};
+
+Brizy.registerComponent({
+  id: "Brizy.ThirdParty.Custom",
+  component: {
+    editor: Editor,
+    view: View
+  },
+  title: "Custom",
+  category: "Custom",
+  options: () => {
+    return [
+      {
+        selector: ".myCustomComponent",
+        toolbar: [
+          {
+            id: "clickStuff",
+            type: "button",
+            config: {
+              icon: "nc-shape",
+              title: "Custom Logic",
+              reverseTheme: true
+            },
+            position: 100,
+            onClick: () => {
+              console.log("Your custom logic...");
+            }
+          }
+        ]
+      }
+    ];
+  }
+});
+```

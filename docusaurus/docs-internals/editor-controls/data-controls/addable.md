@@ -15,7 +15,7 @@ allows users to:
 This control is particularly useful for creating dynamic lists or collections of items with consistent attributes, such
 as forms, tables, or task management interfaces.
 
-![Addable Option](/img/controls/addable-overview.png)
+![Addable Option](/img/controls/addable-overview-min.png)
 
 ### Parameters
 
@@ -23,7 +23,7 @@ as forms, tables, or task management interfaces.
 |:--------------------|:-----------------------------------------|:-----------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `id`                | `string`                                 |      -      | The identifier of the key where the addable save data                                                                                                                                                                            |
 | `type`              | `string`                                 |      -      | The type should be `"addable"` to use this control                                                                                                                                                                               |
-| `shape`             | `Array<ControlItem>`                     |      -      | An Array of [**data controls**](/docs-internals/editor-controls/data-controls/internalLink) ex: `"inputText"`, `"number"`, `"textarea"`,`"backgroundColor"` . . .                                                                |
+| `shape`             | `Array<ControlItem>`                     |      -      | An Array of [**data controls**](/docs-internals/editor-controls/data-controls/inputText) ex: `"inputText"`, `"number"`, `"textarea"`,`"backgroundColor"` . . .                                                                   |
 | `roles?`            | `Array<Role>`                            |      -      | Render the control only if the current user's role matches one of the roles in the provided array <br /> <br /> **`type Role = "admin" \| "viewer" \| "editor" \| "designer" \| "manager"`**                                     |
 | `devices?`          | `"all"` \| `"desktop"` \| `"responsive"` |   `"all"`   | Define the devices where the control will be rendered. `"all"` renders the control on all devices. `"desktop"` renders the control only on desktop devices. `"responsive"` renders the control on both tablet and mobile devices |
 | `disabled?`         | 	`boolean`                               |  	`false`   | 	Configure the condition under which the control is disabled or enabled                                                                                                                                                          |
@@ -116,7 +116,7 @@ The keys for the returned values are generated using the id's of **addable id**,
 camelCase([addableId, groupId, controlID]) // myAddableZTLVWZDescription 
 ```
 
-![Addable item key generate](/img/controls/addable-keys.png)
+![Addable item key generate](/img/controls/addable-keys-min.png)
 
 ### Usage
 

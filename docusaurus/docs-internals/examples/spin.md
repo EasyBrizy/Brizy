@@ -1,11 +1,6 @@
----
-toc_min_heading_level: 2
-toc_max_heading_level: 5
----
+# Spin Element
+Below is an example showing how the spinner component (in a simplified form) was built as a third-party component in our editor, using the addable option. This demonstrates how a dynamic list of items can be defined through the configuration.
 
-# Examples
-
-### Spin Element
 ![Spin Element](/img/examples/spin/component.png)
 
 #### Define Component structure
@@ -72,7 +67,7 @@ export const View = (props: Props): ReactElement => {
 };
 ```
 
-##### Define a toolbar 
+##### Define a toolbar
 
 ```tsx showLineNumbers
 export const getToolbar: GetToolbar = ({ t }) => {
@@ -134,5 +129,3 @@ Brizy.registerComponent({
     options: getToolbar,
 });
 ```
-
-

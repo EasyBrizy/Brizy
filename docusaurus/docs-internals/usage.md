@@ -62,9 +62,13 @@ const linkModule = {
 const pageData = {};
 const proejctData = {};
 
+const thirdPartyComponents = {
+  [linkModule.id]: linkModule
+};
+
 const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={proejctData} />
-}
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### Select
@@ -106,8 +110,8 @@ const Translation = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Translation",
+const translationModule = {
+  id: "ThirdParty.Translation", // Ensure this is unique across all module registrations
   component: { editor: Translation, view: Translation },
   title: "Translation",
   category: "custom",
@@ -148,7 +152,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+}
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [translationModule.id]: translationModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### RadioGroup
@@ -178,8 +193,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -211,7 +226,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### TextShadow
@@ -242,8 +268,8 @@ const Paragraph = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Paragraph",
+const paragraphModule = {
+  id: "ThirdParty.Paragraph", // Ensure this is unique across all module registrations
   component: { editor: Paragraph, view: Paragraph },
   title: "Paragraph",
   category: "custom",
@@ -281,7 +307,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [paragraphModule.id]: paragraphModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### Margin
@@ -333,8 +370,8 @@ const Button = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Button",
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
   component: { editor: Button, view: Button },
   title: "My Button",
   category: "custom",
@@ -362,7 +399,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### Transform
@@ -395,8 +443,8 @@ const Transform = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Transform",
+const transformModule = {
+  id: "ThirdParty.Transform", // Ensure this is unique across all module registrations
   component: { editor: Transform, view: Transform },
   title: "Transform",
   category: "custom",
@@ -419,7 +467,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [transformModule.id]: transformModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### Border
@@ -470,8 +529,8 @@ const Wrapper = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Wrapper",
+const wrapperModule = {
+  id: "ThirdParty.Wrapper", // Ensure this is unique across all module registrations
   component: { editor: Wrapper, view: Wrapper },
   title: "My Wrapper",
   category: "custom",
@@ -494,7 +553,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [wrapperModule.id]: wrapperModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### Slider
@@ -532,8 +602,8 @@ const Component = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Component",
+const componentModule = {
+  id: "ThirdParty.Component", // Ensure this is unique across all module registrations
   component: { editor: Component, view: Component },
   title: "Component",
   category: "custom",
@@ -576,7 +646,19 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [componentModule.id]: componentModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
+
 ```
 
 ### Range
@@ -604,8 +686,8 @@ const Price = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.Price",
+const priceModule = {
+  id: "ThirdParty.Price", // Ensure this is unique across all module registrations
   component: { editor: Price, view: Price },
   title: "My Price",
   category: "custom",
@@ -634,7 +716,18 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [priceModule.id]: priceModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```
 
 ### AiText
@@ -660,8 +753,8 @@ const GeneratedText = (props: Props): JSX.Element => {
   );
 };
 
-Brizy.registerComponent({
-  id: "ThirdParty.GeneratedText",
+const generatedTextModule = {
+  id: "ThirdParty.GeneratedText", // Ensure this is unique across all module registrations
   component: { editor: GeneratedText, view: GeneratedText },
   title: "Ai Text",
   category: "custom",
@@ -689,5 +782,16 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [generatedTextModule.id]: generatedTextModule
+};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
 ```

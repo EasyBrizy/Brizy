@@ -381,6 +381,7 @@ Set the font size of the `.brz-text` element with CSS using a `radioGroup` contr
 
 #### Usage in HTML example
 
+##### Icon Size example
 In the example below, we use the `radioGroup` output value to determine the size of the icon in the button element.
 
 ```tsx
@@ -445,6 +446,80 @@ const thirdPartyComponents = {
 
 const pageData = {};
 const projectData = {};
+
+const Page = () => {
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+};
+```
+
+##### Button size example
+
+In the example below, we use the `radioGroup` output value to change the size of the button element.
+
+```tsx
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import React, { JSX } from "react";
+
+interface Props {
+  size: number;
+}
+
+const Button = (props: Props): JSX.Element => {
+  const { size } = props;
+
+  const style = {
+    width: `${size}px`,
+    height: `${size}px`,
+  };
+
+  return (
+    <button style={style} className="brz-button">
+      Click me
+    </button>
+  );
+};
+
+const buttonModule = {
+  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
+  component: { editor: Button, view: Button },
+  title: "My Button",
+  category: "custom",
+  options: (props) => {
+    return [
+      {
+        selector: ".brz-button",
+        toolbar: [
+          {
+            id: "toolbarCurrentElement",
+            type: "popover",
+            config: {
+              icon: "nc-button",
+              title: "Button",
+            },
+            options: [
+              {
+                id: "size",
+                type: "radioGroup",
+                choices: [
+                  { value: 32, icon: "nc-32" },
+                  { value: 48, icon: "nc-48" },
+                  { value: 64, icon: "nc-64" },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  },
+};
+
+const pageData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [buttonModule.id]: buttonModule
+};
 
 const Page = () => {
   return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />

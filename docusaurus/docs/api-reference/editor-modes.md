@@ -31,8 +31,6 @@ Preview Mode allows users to view the final rendering of the page as it will be 
 
 ## Implementing a third-party component for Editor and Preview Modes
 
-The `registerComponent` method of the `Brizy` class from the `@brizy/core` library allows you to add a custom component to the Brizy Editor. To integrate a custom component, you need to create two React components:
-
 1. **Editor Mode Component** – This is used when editing content inside the Brizy Editor.
 2. **Preview Mode Component** – This is used when viewing the content in preview mode. 
 

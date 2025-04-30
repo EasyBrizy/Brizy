@@ -297,54 +297,53 @@ Show or hide the `.brz-border` element with CSS using a `inputText` control valu
 
 #### Usage in HTML example
 
-The provided code defines a React functional component named `Input`. This component serves as a customizable input control, which can be used in forms or other user interfaces where text input is required.
+Using the value entered in the `inputText` control, we can redirect the user based on the typed input.
 
 ```tsx
 import { Brizy } from "@brizy/core";
-import classNames from "classnames";
 import React, { JSX } from "react";
 
 interface Props {
-  value: string;
-  onChange: (v: string) => void;
+  link: string;
 }
 
-export const Input = (props: Props): JSX.Element => {
-  const { value, onChange } = props;
+export const Link = (props: Props): JSX.Element => {
+  const { link } = props;
+
   return (
-    <div className="brz-input">
-      <input type="text" value={value} onChange={({ target: { value } }): void => onChange(value)} />
-    </div>
+    <a className="brz-link" href={link}>
+      Go to : {link}
+    </a>
   );
 };
 
-Brizy.registerComponent(Input, {
-  id: "ThirdParty.Input",
-  title: "My Input",
+Brizy.registerComponent({
+  id: "ThirdParty.Link", // Ensure this is unique across all module registrations
+  component: { editor: Link, view: Link },
+  title: "My Link",
   options: (props) => {
     return [
       {
-        selector: ".brz-input",
+        selector: ".brz-link",
         toolbar: [
           {
             id: "toolbarCurrentElement",
             type: "popover",
             config: {
               icon: "nc-input",
-              title: "Input"
+              title: "Link",
             },
             devices: "desktop",
             options: [
               {
                 id: "link",
                 type: "inputText",
-                devices: "desktop"
-              }
-            ]
-          }
-        ]
-      }
+              },
+            ],
+          },
+        ],
+      },
     ];
-  }
+  },
 });
 ```

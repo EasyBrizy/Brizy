@@ -418,6 +418,9 @@ Specifically, use the `id` of your `slider` to obtain the value, and the `id` co
 These values can then be utilized as needed, either by passing them to another component or by using them at the current 
 level.
 
+In the example below, the`slider`control value is used to set the sizes of the component.The user can adjust the width
+and height using a slider control, which allows them to specify the sizes in pixels or as a percentage 
+
 ```tsx
 import { Editor as BrizyEditor } from "@brizy/builder/editor";
 import React, { JSX } from "react";
@@ -429,13 +432,21 @@ interface Props {
 
 const Component = (props: Props): JSX.Element => {
   const { width, widthSuffix } = props;
-  
-  return <div className="component" style={{ width: `${width}${widthSuffix}` }}>...</div>
+
+  const style = {
+    width: `${width}${widthSuffix}`,
+    height: `${height}${heightSuffix}`,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'red'
+  };
+
+  return <div className="component" style={style}>...</div>
 }
 
 const componentModule = {
   id: "ThirdParty.Component", // Ensure this is unique across all module registrations
-  component: { editor: Component, view: Component },
+  component: {editor: Component, view: Component},
   title: "Component",
   category: "custom",
   options: (props) => {
@@ -462,11 +473,21 @@ const componentModule = {
                 },
                 config: {
                   units: [
-                    { value: "px", unit: "px" },
-                    { value: "%", unit: "%" }
+                    {value: "px", unit: "px"},
+                    {value: "%", unit: "%"}
                   ]
                 }
-              }
+              },
+              {
+                id: "height",
+                type: "slider",
+                config: {
+                  units: [
+                    {value: "px", unit: "px"},
+                    {value: "%", unit: "%"},
+                  ],
+                },
+              },
             ]
           }
         ]
@@ -483,6 +504,6 @@ const pageData = {};
 const projectData = {};
 
 const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents}/>
 };
 ```

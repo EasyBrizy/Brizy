@@ -337,80 +337,84 @@ Set the border for `.brz-button` element with CSS using a border control value.
 
 #### Usage in HTML example
 
-In the example below, we use the border output value to determine specific classes for the button element.
+In the example below, we use the `border` output values to add border style to html element.
 
 ```tsx
 import { Editor as BrizyEditor } from "@brizy/builder/editor";
-import React, { JSX } from "react";
-import { Icon } from "./Icon";
+import React, { JSX, ReactNode } from "react";
+
+type WidthType = "grouped" | "ungrouped";
 
 interface Props {
   borderColorHex: string;
-  borderColorOpacity: number;
-  borderColorPalette: string;
-  borderStyle: string;
-  borderWidthType: "grouped" | "ungrouped";
   borderWidth: number;
-  borderTopWidth: number;
-  borderRightWidth: number;
   borderBottomWidth: number;
   borderLeftWidth: number;
+  borderRightWidth: number;
+  borderTopWidth: number;
+  borderStyle: string;
+  borderWidthType: WidthType;
+  children: ReactNode;
 }
 
-const Button = (props: Props): JSX.Element => {
-  const { border } = props;
+const Wrapper = (props: Props): JSX.Element => {
+  const {
+    borderColorHex,
+    borderWidth,
+    borderBottomWidth,
+    borderLeftWidth,
+    borderTopWidth,
+    borderStyle,
+    borderWidthType,
+    children,
+  } = props;
 
-  const groupedBorder = `${border}px`;
-  const ungroupedBorder = `${borderTop}px ${borderRight}px ${borderBottom}px ${borderLeft}px`;
+  const style = {
+    border:
+      borderWidthType === "grouped"
+        ? `${borderWidth}px ${borderStyle} ${borderColorHex};`
+        : `${borderTopWidth}px ${borderRightWidth}px ${borderBottomWidth}px ${borderLeftWidth}px ${borderStyle} ${borderColorHex}`,
+  };
 
   return (
-    <div
-      className={`brz-button ${border.borderStyle}`}
-      style={border.borderWidthType === "grouped" ? groupedBorder : ungroupedBorder}
-    >
-      Click
+    <div style={style} className="brz-wrapper">
+      {children}
     </div>
   );
 };
 
-const componentModule = {
-  id: "ThirdParty.Button", // Ensure this is unique across all module registrations
-  component: { editor: Button, view: Button },
-  title: "My Button",
+const wrapperModule = {
+  id: "ThirdParty.Wrapper", // Ensure this is unique across all module registrations
+  component: { editor: Wrapper, view: Wrapper },
+  title: "My Wrapper",
   category: "custom",
   options: (props) => {
     return [
       {
-        selector: ".brz-button",
+        selector: ".brz-wrapper",
         toolbar: [
           {
             id: "toolbarCurrentElement",
             type: "popover",
-            config: {
-              icon: "nc-button",
-              title: "Button"
-            },
-            devices: "desktop",
             options: [
               {
                 id: "border",
                 type: "border",
-                devices: "desktop"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-};
-
-const thirdPartyComponents = {
-  [componentModule.id]: componentModule
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const pageData = {};
-const projectData = {};
+const proejctData = {};
+
+const thirdPartyComponents = {
+  [wrapperModule.id]: wrapperModule
+};
 
 const Page = () => {
   return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />

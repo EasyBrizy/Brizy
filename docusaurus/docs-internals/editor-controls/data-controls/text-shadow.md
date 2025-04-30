@@ -280,12 +280,13 @@ interface Props {
 
 const Component = (props: Props): JSX.Element => {
   const { textShadowColorHex, textShadowBlur, textShadowHorizontal, textShadowVertical } = props;
-
+  const style = {
+    textShadow: `${textShadowHorizontal}px ${textShadowVertical}px ${textShadowBlur}px ${textShadowColorHex}`,
+  };
+  
   return (
     <div className="component">
-        <p style={{
-          textShadow: `${textShadowHorizontal}px ${textShadowVertical}px ${textShadowBlur}px ${textShadowColorHex}`
-        }}>
+        <p style={style}>
           text
         </p>
     </div>

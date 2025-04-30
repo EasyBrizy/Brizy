@@ -3,6 +3,9 @@ sidebar_position: 6
 ---
 
 # Deployments
+This section covers the available methods for deploying the editor in different environments. Depending on your project’s needs, you can either use the prebuilt version hosted via CDN or opt for a self-hosted setup, which gives you full control over the build and deployment process.
+
+Each deployment method has its own advantages and requirements, which will be detailed below.
 
 ## CDN version
 

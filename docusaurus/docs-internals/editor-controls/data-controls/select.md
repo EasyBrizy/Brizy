@@ -605,6 +605,7 @@ Change the `.brz-text` element color with CSS using a `select` control value.
 
 #### Usage in HTML example
 
+##### Gender select example
 In the example below, we use the `select` output value to determine which icon to render in the button element.
 When the selected value is `"male"`, we will render the male icon inside the button and the female icon if the `"female"` value is selected.
 
@@ -666,5 +667,88 @@ Brizy.registerComponent({
       }
     ];
   }
+});
+```
+
+##### Language select example
+The `select` control value will be used to display a hello message in different languages based on the selected value.
+
+```tsx
+import { Brizy } from "@brizy/core";
+import React, { JSX } from "react";
+
+interface Props {
+  language: string;
+}
+
+const Translation = (props: Props): JSX.Element => {
+  const { language } = props;
+
+  let hello = "";
+
+  switch (language) {
+    case "en":
+      hello = "Hello";
+      break;
+    case "de":
+      hello = "Hallo";
+      break;
+    case "fr":
+      hello = "Bonjour";
+      break;
+    case "es":
+      hello = "Hola";
+      break;
+  }
+
+  return (
+    <div className="brz-translate">
+      <h3>{hello}</h3>
+    </div>
+  );
+};
+
+Brizy.registerComponent({
+  id: "ThirdParty.Translation", // Ensure this is unique across all module registrations
+  component: { editor: Translation, view: Translation },
+  title: "Translation",
+  category: "custom",
+  options: (props) => {
+    return [
+      {
+        selector: ".brz-translate",
+        toolbar: [
+          {
+            id: "toolbarCurrentElement",
+            type: "popover",
+            options: [
+              {
+                id: "language",
+                type: "select",
+                choices: [
+                  {
+                    title: "English",
+                    value: "en",
+                  },
+                  {
+                    title: "German",
+                    value: "de",
+                  },
+                  {
+                    title: "French",
+                    value: "fr",
+                  },
+                  {
+                    title: "Spanish",
+                    value: "es",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  },
 });
 ```

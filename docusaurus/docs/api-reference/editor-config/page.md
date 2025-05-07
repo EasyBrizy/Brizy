@@ -38,6 +38,26 @@ type config = {
         handler: (res: Response<Array<FormFieldsOption>>, rej: Response<string>) => void;
       };
     };
+    /// Fonts
+    fonts?: {
+      upload?: {
+        get(res: Response<Array<UploadedFont>>, rej: Response<string>): void;
+        upload(
+          res: Response<UploadFont>,
+          rej: Response<string>,
+          data: {
+            files: FontFile;
+            name: string;
+            id: string;
+          }
+        ): void;
+        delete(
+          res: Response<string>,
+          rej: Response<string>,
+          fontId: string
+        ): void;
+      };
+    };
   };
 
   // L10n
@@ -257,13 +277,16 @@ Dynamic content can be configured in 2 ways
 
 ### Integrations parameters
 
-| Name                                  | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-|:--------------------------------------|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `integrations.form.action`            | `string`   | Replace the URL with your own. This is the link where we send the information from the contact form element when the end user submits the form.                                                                                                                                                                                                                                                                                                                                                      |
-| `integrations.form.recaptcha.siteKey` | `string`   | ReCaptcha Site Key                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `integrations.form.fields.label`      | `string`   | Defines the text displayed in the editor UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `integrations.form.fields.handler`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the `resolve(value)` function to pass it to the editor. In case you want to cancel the operation, call the `reject()` function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
-
+| Name                                  | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|:--------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `integrations.form.action`            | `string`   | Replace the URL with your own. This is the link where we send the information from the contact form element when the end user submits the form.                                                                                                                                                                                                                                                                                                                                                          |
+| `integrations.form.recaptcha.siteKey` | `string`   | ReCaptcha Site Key                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `integrations.form.fields.label`      | `string`   | Defines the text displayed in the editor UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `integrations.form.fields.handler`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the `resolve(value)` function to pass it to the editor. In case you want to cancel the operation, call the `reject()` function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.     |
+| `integrations.fonts.upload`           | `object`   | This object provides the `upload`, `get`, and `delete` functions for managing custom fonts.For more details, see the [API reference](/api-reference/custom-fonts).                                                                                                                                                                                                                                                                                                                                       |
+| `integrations.fonts.upload.get`       | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.         |
+| `integrations.fonts.upload.upload`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, you can call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
+| `integrations.fonts.upload.delete`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, you can call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 ### API parameters
 
 | Name                             | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |

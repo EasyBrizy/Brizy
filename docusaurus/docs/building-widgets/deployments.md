@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Brizy.io Cloud
+# Brizy Cloud Deployment
 
 Using Third Party Widgets inside Brizy.io Cloud.
 If you want to deploy your widgets to the Brizy.io Cloud platform, you must understand some basic information about the platform.

@@ -18,7 +18,7 @@ Find out how to initialise the Editor from Brizy's CDN infrastructure from the V
   <a href="https://user-images.githubusercontent.com/10077249/206906576-cc654003-9b6d-4661-88dd-affb63ba538d.mp4">Download</a>.
 </video>
 
-## Usage 
+## Usage
 Below is an example of how to integrate the editor into your page using the CDN, showing the necessary HTML structure.
 
 ```html
@@ -52,6 +52,8 @@ Below is an example of how to integrate the editor into your page using the CDN,
   });
 </script>
 ```
+
+> For more details, view the [Releases](https://github.com/EasyBrizy/Brizy-Local-Editor/releases).
 
 ## API Interface
 

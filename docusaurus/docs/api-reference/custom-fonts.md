@@ -16,7 +16,7 @@ With this API, you can:
 - Retrieve font metadata (name, weights, styles, category).
 
 This feature is accessible in the editor via the “Add New Font” popup:  
-![Image](https://cdn.discordapp.com/attachments/1074978765165297665/1369536159335714876/image.png?ex=681c3771&is=681ae5f1&hm=f58df48aeef400f465ada81ef99a0cfff5a6dfdfb2dbbd2ba035e25ad2c0f04f&)
+![Image](/img/prompts/add-fonts.png)
 
 
 ## API Integration

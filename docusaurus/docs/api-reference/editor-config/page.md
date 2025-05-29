@@ -413,26 +413,6 @@ Split:
 <img src="http://localhost:7788/media/iW=5000&iH=any/1234/picture.jpg" />
 ```
 
-[ImageKit](https://imagekit.io) example:
-
-```ts
-const config = {
-  api: {
-    media: {
-      mediaResizeUrl: "https://ik.imagekit.io/demo", // ImageKit HOST
-      imagePatterns: {
-        full: "{{ [baseUrl] }}/tr:{{ w-[cW] }},{{ h-[cH] }},c-maintain-ratio/{{ [fileName] }}",
-        split: "{{ [baseUrl] }}/tr:{{ w-[iW] }},c-at_max/{{ [fileName] }}",
-        original: "{{ [baseUrl] }}/tr:orig-true/{{ [fileName] }}",
-      },
-    },
-  },
-};
-```
-
-**Full**: Used inside the Image element where cropping or resizing of the image is needed.
-**Original**: Used when the builder tries to access the original URL of the image, for example, as a background for Section, Column, or Row.
-**Split**: Used when the builder tries to access the resized URL for the image, for example, as a background.
 
 > This case(split) is usually used when the client uploads very large images (e.g., 10MB), and we need to resize them to a smaller size (e.g., 1MB). In this case iH=any
 
@@ -502,7 +482,66 @@ const config = {
 };
 ```
 
-#### Default LeftSidebar TabsOrder
+### [ImageKit](https://imagekit.io) example:
+
+```ts
+const config = {
+  api: {
+    media: {
+      mediaResizeUrl: "https://ik.imagekit.io/demo", // ImageKit HOST
+      imagePatterns: {
+        full: "{{ [baseUrl] }}/tr:{{ w-[cW] }},{{ h-[cH] }},c-maintain-ratio/{{ [fileName] }}",
+        split: "{{ [baseUrl] }}/tr:{{ w-[iW] }},c-at_max/{{ [fileName] }}",
+        original: "{{ [baseUrl] }}/tr:orig-true/{{ [fileName] }}",
+      },
+    },
+  },
+};
+```
+
+#### Configuring Brizy Predefined Blocks with ImageKit
+
+If you need to use Brizy's predefined blocks with the ImageKit platform, follow the steps below to configure ImageKit to fetch images from Brizy's CDN.
+
+---
+
+#### Step 1: Connect an External Storage
+
+Create an external storage configuration in ImageKit.
+
+1. Go to **Storage Settings** in your ImageKit dashboard.
+2. Select the storage type:
+   **`Web Folder - HTTP(S) server and Magento, Shopify, WordPress, etc.`**
+3. Follow the official [ImageKit documentation](https://imagekit.io/docs/integration/connect-external-storage) for more details.
+
+<img class="brz-img--border" src="/img/imagekit.jpg" alt="ImageKit Configuration" />
+
+---
+
+#### Step 2: Configure Brizy Integration
+
+Use the following configuration object to integrate Brizy with ImageKit:
+
+```ts
+const config = {
+  api: {
+    media: {
+      mediaResizeUrl: "https://ik.imagekit.io/demo", // ImageKit Host URL
+      imagePatterns: {
+        full: "{{ [baseUrl] }}/tr:{{ w-[cW] }},{{ h-[cH] }},c-maintain-ratio/{{ [uid] }}/{{ [fileName] }}", // Requires [uid] & [fileName]
+        split: "{{ [baseUrl] }}/tr:{{ w-[iW] }},c-at_max/{{ [uid] }}/{{ [fileName] }}", // Requires [uid] & [fileName]
+        original: "{{ [baseUrl] }}/tr:orig-true/{{ [uid] }}/{{ [fileName] }}", // Requires [uid] & [fileName]
+      },
+    },
+  },
+};
+```
+
+**Full**: Used inside the Image element where cropping or resizing of the image is needed.<br/>
+**Original**: Used when the builder tries to access the original URL of the image, for example, as a background for Section, Column, or Row.<br/>
+**Split**: Used when the builder tries to access the resized URL for the image, for example, as a background.
+
+### Default LeftSidebar TabsOrder
 
 ```ts
 const defaultConfigModulesGroup = {

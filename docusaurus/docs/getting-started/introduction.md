@@ -16,7 +16,7 @@ If you have any questions regarding Brizy, feel free to join us on **[GitHub](ht
 Or **[book a discovery call](https://www.brizy.io/saas-website-builder)** for hands-on support and consultancy.
 
 # Licence
-TODO: Need to review
+Open-source under MIT
 
 ## Free
 

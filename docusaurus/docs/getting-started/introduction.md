@@ -15,17 +15,18 @@ If you have any questions regarding Brizy, feel free to join us on **[GitHub](ht
 
 Or **[book a discovery call](https://www.brizy.io/saas-website-builder)** for hands-on support and consultancy.
 
-# Licence
-TODO: Need to review
+### Editor Type
+- Story https://story.demo.brizylocal.com/
+- Popup https://popup.demo.brizylocal.com/
+- Page https://pages.demo.brizylocal.com/
 
-## Demos
+### Integrations
+- Shopify https://cms-integration-mongodb-atlas.vercel.app/admin/products
+- MongoDB https://cms-integration-mongodb-atlas.vercel.app
+- Multipage https://cms-integration-mongodb-atlas.vercel.app/admin/menu
+- Contentfull https://contenful-integration.vercel.app
 
-- Pages https://pages.demo.brizylocal.com
-- Multipages ( vercel, netlify, render )
-- Story https://story.demo.brizylocal.com
-- Popup https://popup.demo.brizylocal.com
-
-## Integrations
-- Shopify
-- Contentful
-- CMS ( mongoDB atlas )
+### Marketing Pages
+- Vercel https://vercel-marketing-page.vercel.app
+- Render https://render-marketing-page.vercel.app
+- Netlify https://netlify-marketing-page.vercel.app

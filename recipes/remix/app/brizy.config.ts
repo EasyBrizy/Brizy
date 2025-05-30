@@ -708,6 +708,22 @@ export const config: EditorConfig = {
           type: "reorderBlock",
         },
       ],
+      bottomTabsOrder: [
+        {
+          id: "more",
+          type: "more",
+        },
+      ],
+      more: {
+        options: [
+          {
+            type: "link",
+            icon: "nc-back",
+            label: "Go to Dashboard",
+            link: "/admin",
+          },
+        ],
+      },
     },
   },
   urls: {

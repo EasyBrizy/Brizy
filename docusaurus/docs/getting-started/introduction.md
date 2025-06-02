@@ -49,7 +49,9 @@ To help you hit the ground running, we’ve created a set of ready-made Brizy Lo
 Each recipe is fully functional and serves as a practical starting point for developers looking to integrate Brizy Local into their tech stack.
 
 You can explore, clone, and customize these implementations for your own projects:
+
 👉 [Next.js Example](https://brizy-next-js.onrender.com)
+
 👉 [Remix Example](https://brizy-remix-js.onrender.com) 
 
 
@@ -61,9 +63,11 @@ These lightweight deployments are ideal for prototyping, exploring integrations,
 
 Choose your preferred framework and launch instantly:
 
-👉 [Next.js Deployment](https://replit.com/@alex1727/brizy-nextjs?v=1) 
-👉 [Remix Deployment](https://replit.com/@alex1727/brizy-remix?v=1) 
-👉 [React Deployment](https://replit.com/@alex1727/Brizy-React?v=1) 
+👉 [Next.js Deployment](https://replit.com/@alex1727/brizy-nextjs?v=1)
+
+👉 [Remix Deployment](https://replit.com/@alex1727/brizy-remix?v=1)
+
+👉 [React Deployment](https://replit.com/@alex1727/Brizy-React?v=1)
 
 ---
 
@@ -80,7 +84,9 @@ Brizy Local PRO builds on the Free version with a comprehensive set of premium w
 Use the demos below to see Brizy Local PRO in action and experience the difference it can make for your product or platform:
 
 👉 [Page Builder Demo](https://pages.demo.brizylocal.com)
+
 👉 [Popup Builder Demo](https://popup.demo.brizylocal.com)
+
 👉 [Stories Builder Demo](https://story.demo.brizylocal.com)
 
 ### Integrations
@@ -93,9 +99,12 @@ These examples are built to inspire and accelerate your own custom implementatio
 Explore the demos below to see Brizy Local PRO in action with real data and multiple integration scenarios:
 
 👉 [Shopify Integration](https://cms-integration-mongodb-atlas.vercel.app/admin/products) – Manage and edit Shopify product content directly via Brizy.
+
 👉 [MongoDB Integration](https://cms-integration-mongodb-atlas.vercel.app) – Connect to a MongoDB Atlas database for real-time content delivery.
+
 👉 [Multipage Navigation](https://cms-integration-mongodb-atlas.vercel.app/admin/menu) – Demonstrates multi-page structure and custom routing.
-👉 [Contentful Integration](https://contenful-integration.vercel.app) – Sync Brizy with Contentful for structured, headless content management. 
+
+👉 [Contentful Integration](https://contenful-integration.vercel.app) – Sync Brizy with Contentful for structured, headless content management.
 
 ### Marketing Pages
 
@@ -107,5 +116,7 @@ These pages highlight how Brizy Local can help you launch polished, high-convers
 Explore the live demos:
 
 👉 [Vercel Marketing Page](https://vercel-marketing-page.vercel.app)
+
 👉 [Render Marketing Page](https://render-marketing-page.vercel.app)
+
 👉 [Netlify Marketing Page](https://netlify-marketing-page.vercel.app)

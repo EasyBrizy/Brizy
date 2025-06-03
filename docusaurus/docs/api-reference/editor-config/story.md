@@ -48,13 +48,9 @@ type config = {
             files: FontFile;
             name: string;
             id: string;
-          }
+          },
         ): void;
-        delete(
-          res: Response<string>,
-          rej: Response<string>,
-          fontId: string
-        ): void;
+        delete(res: Response<string>, rej: Response<string>, fontId: string): void;
       };
     };
   };
@@ -200,7 +196,7 @@ Config can be passed as an object when you initialize the editor from the script
 ### First level parameters
 
 | Name               | Type                               | Description                                                                                                                                                                                                                                                                                                           |
-|:-------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :----------------- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `container`        | `HTMLElement`                      | Brizy Plugin will load into HTML element.                                                                                                                                                                                                                                                                             |
 | `mode`             | `"page"` \| `"popup"` \| `"story"` | Default `"page"`                                                                                                                                                                                                                                                                                                      |
 | `pageData`         | `object`                           | Loads the JSON page specified in the pageData parameter.                                                                                                                                                                                                                                                              |
@@ -217,7 +213,7 @@ Config can be passed as an object when you initialize the editor from the script
 ### UI parameters
 
 | Name                              | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-|:----------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :-------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui.theme.colors`                 | `object`   | We can customize the color variables in builder's UI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `ui.prompts.blockAdder.activeTab` | `string`   | Indicate the default tab that opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `ui.prompts.blockAdder.category`  | `string`   | Indicate the category that will be displayed when the default tab opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -255,7 +251,7 @@ Dynamic content can be configured in 2 ways
 #### DynamicContent array of choices
 
 | Name                                      | Type    | Description                                                          |
-|:------------------------------------------|:--------|:---------------------------------------------------------------------|
+| :---------------------------------------- | :------ | :------------------------------------------------------------------- |
 | `dynamicContent.groups[DCTypes.image]`    | `array` | Takes array of ConfigDCItem for all Element what persis ImageUpload  |
 | `dynamicContent.groups[DCTypes.link]`     | `array` | Takes array of ConfigDCItem for all Element what persis Link         |
 | `dynamicContent.groups[DCTypes.richText]` | `array` | Takes array of ConfigDCItem for all Element what persis Content html |
@@ -270,12 +266,10 @@ Dynamic content can be configured in 2 ways
 | `dynamicContent.groups[DCTypes.link].handler`     | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ label:"My_Placeholder", placeholder:"{{ my_placeholder }}" })` ). In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 | `dynamicContent.groups[DCTypes.richText].handler` | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ label:"My_Placeholder", placeholder:"{{ my_placeholder }}" })` ). In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 
-
-
 ### Integrations parameters
 
 | Name                                  | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-|:--------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------------------------ | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `integrations.form.action`            | `string`   | Replace the URL with your own. This is the link where we send the information from the contact form element when the end user submits the form.                                                                                                                                                                                                                                                                                                                                                          |
 | `integrations.form.recaptcha.siteKey` | `string`   | ReCaptcha Site Key                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `integrations.form.fields.label`      | `string`   | Defines the text displayed in the editor UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -288,7 +282,7 @@ Dynamic content can be configured in 2 ways
 ### API parameters
 
 | Name                             | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-|----------------------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `api.media.mediaResizeUrl`       | `string`   | This is the URL for the image resizer service. There are two image resizer service options: hosted by Brizy and self hosted. If you choose to use the image resizer service hosted by Brizy, you don't have to change the media.brizylocal.com URL. For the self hosted version you need to replace the media.brizylocal.com with the URL of your image resizer service. Setup your own image resizer service like [this](https://github.com/EasyBrizy/Brizy-Local-Image-Resizer#image-resizer)                                                                                                               |
 | `api.media.imagePatterns`        | `object`   | This is an object with `full`, `original`, and `split` keys. It's used to control the final URLs for all builder resize and crop operations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `api.media.addMedia.handler`     | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.                                                                                                              |
@@ -308,11 +302,10 @@ Dynamic content can be configured in 2 ways
 | `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components. |
 | `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                  |
 
-
 ### Elements parameters
 
 | Name                            | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|:--------------------------------|:------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------------------ | :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `elements.menu.createMenuLabel` | `string`                | Allows you to customize the placeholder text shown in the editor when no menu has been created. If left unspecified, the editor will default to displaying `'Create a menu'`.                                                                                                                                                                                                                                                                                                                    |
 | `elements.menu.onOpen`          | `function`              | This function is triggered when the placeholder labeled `createMenuLabel` is clicked for a menu that hasn't been created yet. It should contain the main logic for creating the menu, which will then be passed into the editor configuration to display the newly created menu.                                                                                                                                                                                                                 |
 | `elements.form.inputTypes`      | `Array<FormInputTypes>` | Defines the input types available in the `Form` toolbar. If no value is specified, all input types will be displayed by default.                                                                                                                                                                                                                                                                                                                                                                 |
@@ -345,6 +338,11 @@ const config = {
   },
 };
 ```
+
+:::tip
+For third-party element development, you can use the **`@brizy/cloud-media-upload`** library to easily set up the editor configuration.
+For more details, see the [section](/api-reference/media-upload).
+:::
 
 ### Example Media Handler with Brizy Image Resizer & AWS S3
 
@@ -581,7 +579,7 @@ const defaultConfigModulesGroup = {
         },
       ],
     },
-  }
+  },
 };
 ```
 
@@ -709,6 +707,7 @@ const config = {
 ```
 
 ### Example: Right to left (`isRTL`)
+
 To enable RTL mode set the `isRTL` key in config
 
 ```ts
@@ -747,7 +746,6 @@ export type FormInputTypes =
   | "Tel"
   | "Password";
 ```
-
 
 ### Using Output data from `onSave` and `publish` functions
 

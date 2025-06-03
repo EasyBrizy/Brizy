@@ -48,13 +48,9 @@ type config = {
             files: FontFile;
             name: string;
             id: string;
-          }
+          },
         ): void;
-        delete(
-          res: Response<string>,
-          rej: Response<string>,
-          fontId: string
-        ): void;
+        delete(res: Response<string>, rej: Response<string>, fontId: string): void;
       };
     };
   };
@@ -91,7 +87,7 @@ type config = {
       scrollPageBehind?: boolean;
       clickOutsideToClose?: boolean;
     };
-    
+
     theme?: Theme;
 
     leftSidebar?: {
@@ -151,7 +147,7 @@ type config = {
 
     // Default Popups
     defaultPopups?: DefaultPopups; // More information about the type https://github.com/EasyBrizy/Brizy-Local-Editor/blob/master/packages/core/src/types/types.ts
-    
+
     // Screebnshots
     screenshots?: {
       screenshotUrl?: string;
@@ -212,7 +208,7 @@ Config can be passed as an object when you initialize the editor from the script
 ### First level parameters
 
 | Name               | Type                               | Description                                                                                                                                                                                                                                                                                                           |
-|:-------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :----------------- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `container`        | `HTMLElement`                      | Brizy Plugin will load into HTML element.                                                                                                                                                                                                                                                                             |
 | `mode`             | `"page"` \| `"popup"` \| `"story"` | Default `"page"`                                                                                                                                                                                                                                                                                                      |
 | `pageData`         | `object`                           | Loads the JSON page specified in the pageData parameter.                                                                                                                                                                                                                                                              |
@@ -229,7 +225,7 @@ Config can be passed as an object when you initialize the editor from the script
 ### UI parameters
 
 | Name                                    | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-|:----------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :-------------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui.popupSettings.displayCondition`     | `boolean`  | Takes true or false values and lets you turn on or off the global [display conditions](https://user-images.githubusercontent.com/10077249/206892163-024f4fcd-d127-4c28-8a60-ea21e3982b3c.png) option together with the [display conditions popup](https://user-images.githubusercontent.com/10077249/206892176-23ed85ee-4f66-4c83-8ebb-a64117daa124.png).                                                                                                                                                                                                                                                                  |
 | `ui.popupSettings.deletePopup`          | `boolean`  | Takes true or false values and lets you turn on or off the [delete popup option](https://user-images.githubusercontent.com/10077249/206904265-7e79f65f-0288-4473-be14-afb5dcea6fbb.png). Turn off the delete option when you want to load your json templates in the pageDate parameter. Turning off the delete option will also remove the posibility to [access the premade Brizy templates](https://user-images.githubusercontent.com/10077249/206904279-f55a472a-5508-4594-b40f-6c9d20a90bd9.png) inside the editor.                                                                                                   |
 | `ui.popupSettings.embedded`             | `boolean`  | Takes true of false values and lets you turn on or off [Vertical align, Horizontal align, Scroll Page Behind and Close Button](https://user-images.githubusercontent.com/18303258/212686108-a43883df-574f-4b30-b795-5d48e93b3d08.png).                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -275,7 +271,7 @@ Dynamic content can be configured in 2 ways
 #### DynamicContent array of choices
 
 | Name                                      | Type    | Description                                                          |
-|:------------------------------------------|:--------|:---------------------------------------------------------------------|
+| :---------------------------------------- | :------ | :------------------------------------------------------------------- |
 | `dynamicContent.groups[DCTypes.image]`    | `array` | Takes array of ConfigDCItem for all Element what persis ImageUpload  |
 | `dynamicContent.groups[DCTypes.link]`     | `array` | Takes array of ConfigDCItem for all Element what persis Link         |
 | `dynamicContent.groups[DCTypes.richText]` | `array` | Takes array of ConfigDCItem for all Element what persis Content html |
@@ -285,7 +281,7 @@ Dynamic content can be configured in 2 ways
 #### DynamicContent option parameters
 
 | Name                                              | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|:--------------------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------------------------------------ | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `dynamicContent.groups[DCTypes.image].handler`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ label:"My_Placeholder", placeholder:"{{ my_placeholder }}" })` ). In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 | `dynamicContent.groups[DCTypes.link].handler`     | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ label:"My_Placeholder", placeholder:"{{ my_placeholder }}" })` ). In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 | `dynamicContent.groups[DCTypes.richText].handler` | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor ( example of resolve: `resolve({ label:"My_Placeholder", placeholder:"{{ my_placeholder }}" })` ). In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
@@ -293,7 +289,7 @@ Dynamic content can be configured in 2 ways
 ### Integrations parameters
 
 | Name                                  | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-|:--------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------------------------ | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `integrations.form.action`            | `string`   | Replace the URL with your own. This is the link where we send the information from the contact form element when the end user submits the form.                                                                                                                                                                                                                                                                                                                                                          |
 | `integrations.form.recaptcha.siteKey` | `string`   | ReCaptcha Site Key                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `integrations.form.fields.label`      | `string`   | Defines the text displayed in the editor UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -306,7 +302,7 @@ Dynamic content can be configured in 2 ways
 ### API parameters
 
 | Name                             | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|----------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `api.media.mediaResizeUrl`       | `string`   | This is the URL for the image resizer service. There are two image resizer service options: hosted by Brizy and self hosted. If you choose to use the image resizer service hosted by Brizy, you don't have to change the media.brizylocal.com URL. For the self hosted version you need to replace the media.brizylocal.com with the URL of your image resizer service. Setup your own image resizer service like [this](https://github.com/EasyBrizy/Brizy-Local-Image-Resizer#image-resizer)                                                                                           |
 | `api.media.imagePatterns`        | `object`   | This is an object with `full`, `original`, and `split` keys. It's used to control the final URLs for all builder resize and crop operations.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `api.media.addMedia.handler`     | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.                                                                                          |
@@ -326,11 +322,10 @@ Dynamic content can be configured in 2 ways
 | `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components. |
 | `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                  |
 
-
 ### Elements parameters
 
 | Name                            | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|:--------------------------------|:------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------------------ | :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `elements.menu.createMenuLabel` | `string`                | Allows you to customize the placeholder text shown in the editor when no menu has been created. If left unspecified, the editor will default to displaying `'Create a menu'`.                                                                                                                                                                                                                                                                                                                    |
 | `elements.menu.onOpen`          | `function`              | This function is triggered when the placeholder labeled `createMenuLabel` is clicked for a menu that hasn't been created yet. It should contain the main logic for creating the menu, which will then be passed into the editor configuration to display the newly created menu.                                                                                                                                                                                                                 |
 | `elements.form.inputTypes`      | `Array<FormInputTypes>` | Defines the input types available in the `Form` toolbar. If no value is specified, all input types will be displayed by default.                                                                                                                                                                                                                                                                                                                                                                 |
@@ -363,6 +358,11 @@ const config = {
   },
 };
 ```
+
+:::tip
+For third-party element development, you can use the **`@brizy/cloud-media-upload`** library to easily set up the editor configuration.
+For more details, see the [section](/api-reference/media-upload).
+:::
 
 ### Example Media Handler with Brizy Image Resizer & AWS S3
 
@@ -424,7 +424,6 @@ Split:
 ```html
 <img src="http://localhost:7788/media/iW=5000&iH=any/1234/picture.jpg" />
 ```
-
 
 > This case(split) is usually used when the client uploads very large images (e.g., 10MB), and we need to resize them to a smaller size (e.g., 1MB). In this case iH=any
 
@@ -753,6 +752,7 @@ const config = {
 ```
 
 ### Example: Right to left (`isRTL`)
+
 To enable RTL mode set the `isRTL` key in config
 
 ```ts
@@ -791,7 +791,6 @@ export type FormInputTypes =
   | "Tel"
   | "Password";
 ```
-
 
 ### Using Output data from `onSave` and `publish` functions
 

@@ -1,4 +1,5 @@
 import React from "react";
+import "@/app/admin.css";
 
 export default function EditorLayout({
   children,
@@ -7,7 +8,7 @@ export default function EditorLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased cms">{children}</body>
     </html>
   );
 }

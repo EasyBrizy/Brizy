@@ -55,7 +55,7 @@ const toolbarOptions: EditorToolbarOptions = ({ t, device }) => [
         options: [
           {
             id: "text",
-            type: "inputText",
+            type: "textarea",
             label: t("Text"),
             default: {
               value: "Text",

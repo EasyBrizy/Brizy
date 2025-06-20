@@ -44,7 +44,7 @@ Explore the demos below to see Brizy Local PRO in action with real data and mult
 
 👉 [Multipage Navigation](https://cms-integration-mongodb-atlas.vercel.app/admin/menu) – Demonstrates multi-page structure and custom routing.
 
-👉 [Contentful Integration](https://contenful-integration.vercel.app) – Sync Brizy with Contentful for structured, headless content management. 
+👉 [Contentful Integration](https://contenful-integration.vercel.app) – Sync Brizy with Contentful for structured, headless content management.
 
 ### Marketing Pages
 

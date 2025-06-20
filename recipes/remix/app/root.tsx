@@ -1,11 +1,14 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useMatches } from "@remix-run/react";
 import { ReactNode } from "react";
 import appStylesHref from "./tailwind.css?url";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: appStylesHref }];
 
 export function Layout({ children }: { children: ReactNode }) {
+  const [, template] = useMatches();
+  const isEditor = typeof template?.params?.collection === "string";
+  const className = isEditor ? "editor" : "cms";
   return (
     <html lang="en">
       <head>
@@ -14,7 +17,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className={className}>
         {children}
         <ScrollRestoration />
         <Scripts />

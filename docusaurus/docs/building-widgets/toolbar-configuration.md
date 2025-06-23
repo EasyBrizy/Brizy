@@ -14,14 +14,16 @@ export function Button() {
   return (
     <div className="button">
         This button will be render in editor
-    </div>);
+    </div>
+  );
 }
 
 export function ButtonView() {
   return (
     <div className="button button-view">
       This button will be render in View
-    </div>);
+    </div>
+  );
 }
 
 Brizy.registerComponent({

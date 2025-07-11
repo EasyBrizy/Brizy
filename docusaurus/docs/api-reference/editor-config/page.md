@@ -98,6 +98,8 @@ type config = {
         onClose?: VoidFunction;
       };
     };
+    
+    help?: Help;
 
     publish?: {
       handler: (res: Response<void>, rej: Response<string>, extra: Output) => void;
@@ -215,23 +217,32 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### UI parameters
 
-| Name                              | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| :-------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ui.theme.colors`                 | `object`   | We can customize the color variables in builder's UI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `ui.prompts.blockAdder.activeTab` | `string`   | Indicate the default tab that opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ui.prompts.blockAdder.category`  | `string`   | Indicate the category that will be displayed when the default tab opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `ui.leftSidebar.topTabsOrder`     | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements` key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png). |
-| `ui.leftSidebar.bottomTabsOrder`  | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png).  |
-| `ui.leftSidebar.more.options`     | `Array`    | Lets you add more links in the [More dropdown](https://user-images.githubusercontent.com/10077249/206904832-5af03a48-991a-4c90-aead-2d7dea82c9d5.png) in the left sidebar.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `ui.leftSidebar.cms.onOpen`       | `function` | Is a function for Opening External Modals with onClose Callback for CMS Icon Deactivation you can see [here](https://github.com/EasyBrizy/Brizy-Local-Editor/assets/18303258/bd0e52df-9143-4986-9152-6397324bc2ff).                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `ui.leftSidebar.cms.onClose`      | `function` | Is a function for Closing External Modals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `ui.publish.handler`              | `function` | A function assigned to the bottom-right "Publish" save button.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `ui.features.link`                | `object`   | Allows you to control which link options are enabled in the toolbar. It accepts the following keys: `internalLink`, `linkExternal`, `linkUpload`, `linkAnchor`, and `linkPopup`. Any key set to `true` will be enabled in the toolbar for elements. If this object is null, all link options will be enabled by default.                                                                                                                                                                                                                                                                                                   |
-| `ui.features.link.linkUpload`     | `boolean`  | Allows you to enable or disable the [LinkUpload option](https://github.com/user-attachments/assets/5c1b0a88-9638-42f4-8ae6-1d6481a03fb8) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `ui.features.link.internalLink`   | `boolean`  | Allows you to enable or disable the [InternalLink option](https://github.com/user-attachments/assets/af3fcfda-701c-4cae-ba3c-3734da625cd4) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ui.features.link.linkExtenal`    | `boolean`  | Allows you to enable or disable the [LinkExternal option](https://github.com/user-attachments/assets/394e9f13-8fe3-434a-8323-1c4d3a29f6e1) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ui.features.link.linkAnchor`     | `boolean`  | Allows you to enable or disable the [LinkAnchor option](https://github.com/user-attachments/assets/5f7c9188-0605-4427-8740-50b56ca849a3) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `ui.features.link.linkPopup`      | `boolean`  | Allows you to enable or disable the [LinkPopup option](https://github.com/user-attachments/assets/dabe41bb-358f-4304-a0c6-522db1ded999) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Name                                               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|:---------------------------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ui.theme.colors`                                  | `object`   | We can customize the color variables in builder's UI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `ui.prompts.blockAdder.activeTab`                  | `string`   | Indicate the default tab that opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `ui.prompts.blockAdder.category`                   | `string`   | Indicate the category that will be displayed when the default tab opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `ui.leftSidebar.topTabsOrder`                      | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements` key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png). |
+| `ui.leftSidebar.bottomTabsOrder`                   | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png).  |
+| `ui.leftSidebar.more.options`                      | `Array`    | Lets you add more links in the [More dropdown](https://user-images.githubusercontent.com/10077249/206904832-5af03a48-991a-4c90-aead-2d7dea82c9d5.png) in the left sidebar.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `ui.leftSidebar.cms.onOpen`                        | `function` | Is a function for Opening External Modals with onClose Callback for CMS Icon Deactivation you can see [here](https://github.com/EasyBrizy/Brizy-Local-Editor/assets/18303258/bd0e52df-9143-4986-9152-6397324bc2ff).                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `ui.leftSidebar.cms.onClose`                       | `function` | Is a function for Closing External Modals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `ui.publish.handler`                               | `function` | A function assigned to the bottom-right "Publish" save button.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `ui.features.link`                                 | `object`   | Allows you to control which link options are enabled in the toolbar. It accepts the following keys: `internalLink`, `linkExternal`, `linkUpload`, `linkAnchor`, and `linkPopup`. Any key set to `true` will be enabled in the toolbar for elements. If this object is null, all link options will be enabled by default.                                                                                                                                                                                                                                                                                                   |
+| `ui.features.link.linkUpload`                      | `boolean`  | Allows you to enable or disable the [LinkUpload option](https://github.com/user-attachments/assets/5c1b0a88-9638-42f4-8ae6-1d6481a03fb8) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `ui.features.link.internalLink`                    | `boolean`  | Allows you to enable or disable the [InternalLink option](https://github.com/user-attachments/assets/af3fcfda-701c-4cae-ba3c-3734da625cd4) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `ui.features.link.linkExtenal`                     | `boolean`  | Allows you to enable or disable the [LinkExternal option](https://github.com/user-attachments/assets/394e9f13-8fe3-434a-8323-1c4d3a29f6e1) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `ui.features.link.linkAnchor`                      | `boolean`  | Allows you to enable or disable the [LinkAnchor option](https://github.com/user-attachments/assets/5f7c9188-0605-4427-8740-50b56ca849a3) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `ui.features.link.linkPopup`                       | `boolean`  | Allows you to enable or disable the [LinkPopup option](https://github.com/user-attachments/assets/dabe41bb-358f-4304-a0c6-522db1ded999) in the toolbar for all link elements. By default, this option is turned off.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `ui.help.showIcon`                                 | `boolean`  | Allow you to enable or disable the Help videos icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `ui.help.header.src`                               | `string`   | Allows you to control the source of the header "Getting Started" video preview Thumbnail URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `ui.help.header.url`                               | `string`   | Allows you to control the source of the header "Getting Started" video URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `ui.help.video`                                    | `array`    | Allows you to control the source of the help videos. properties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `ui.help.idHelpVideosIcons.addElementsHelpVideo`   | `string`   | Allows you to control the id of the help videos which are used to left sidebar add elements. properties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `ui.help.idHelpVideosIcons.blocksLayoutsHelpVideo` | `string`   | Allows you to control the id of the help videos which are inside blocks prompt.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ui.help.idHelpVideosIcons.fontsHelpVideo`         | `string`   | Allows you to control the id of the help videos which are used inside fonts prompt. properties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ui.help.idHelpVideosIcons.formHelpVideo`          | `string`   | Allows you to control the id of the help videos which are used inside form prompt. properties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+
 
 ### DynamicContent parameters
 
@@ -327,6 +338,463 @@ Dynamic content can be configured in 2 ways
 ## Examples
 
 ---
+
+### Help Videos
+
+Builder accepted help videos to display in the editor to help users understand how to use the editor. 
+These videos are used to provide step-by-step instructions on how to use the editor's features and functionalities.
+
+We provide a default predefined video.
+
+```ts
+{
+  ui: {
+    help: {
+      showIcon: true, // enable functionality
+      header: {
+        src: "https://b-cloud.b-cdn.net/WordPress+Editor+Help+Videos/Getting-started-video-thumb.jpg",
+        url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/1.+GET+STARTED/1.+Builder+Overview.mp4",
+      },
+      video: [
+        {
+          id: "0c",
+          category: "Get Started",
+          items: [
+            {
+              title: "Builder Overview",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/1.+GET+STARTED/1.+Builder+Overview.mp4",
+              id: "0",
+            },
+            {
+              title: "How to Build a Page",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/1.+GET+STARTED/2.+How+to+Build+a+Page.mp4",
+              id: "1",
+            },
+            {
+              title: "Preview Publish Update",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/1.+GET+STARTED/3.+Preview+Publish+Update.mp4",
+              id: "2",
+            },
+          ],
+        },
+        {
+          id: "1c",
+          category: "The Basics",
+          items: [
+            {
+              title: "Blocks",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/1.+Blocks.mp4",
+              id: "3",
+            },
+            {
+              title: "Saved Blocks & Layouts",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/2.+Saved+Blocks+&+Layouts.mp4",
+              id: "4",
+            },
+            {
+              title: "Premade Layouts",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/3.+Premade+Layouts.mp4",
+              id: "5",
+            },
+            {
+              title: "The Elements",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/4.+The+Elements.mp4",
+              id: "6",
+            },
+            {
+              title: "Reorder Blocks",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/5.+Reorder+Blocks.mp4",
+              id: "7",
+            },
+            {
+              title: "Global Styling",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/6.+Global+Styling.mp4",
+              id: "8",
+            },
+            {
+              title: "Links",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/7.+Links.mp4",
+              id: "9",
+            },
+            {
+              title: "Fonts",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/8.+Fonts.mp4",
+              id: "10",
+            },
+            {
+              title: "Paddings & Margins",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/9.+Padding+&+Margins.mp4",
+              id: "11",
+            },
+            {
+              title: "Responsive Design",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/10.+Responsive+Design.mp4",
+              id: "12",
+            },
+            {
+              title: "Headers & Footers",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/11.+Headers+&+Footers.mp4",
+              id: "13",
+            },
+            {
+              title: "Menus & Navigation",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/12.+Menus+&+Navigation.mp4",
+              id: "14",
+            },
+            {
+              title: "Global Blocks",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/13.+Global+Blocks.mp4",
+              id: "15",
+            },
+            {
+              title: "Animations",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/14.+Animations.mp4",
+              id: "16",
+            },
+            {
+              title: "Multilingual",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/2.+THE+BASICS/15.+Multilingual.mp4",
+              id: "17",
+            },
+          ],
+        },
+        {
+          id: "2c",
+          category: "Dynamic Content",
+          items: [
+            {
+              title: "Blogging",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/3.+DYNAMIC+CONTENT/1.+Blogging.mp4",
+              id: "18",
+            },
+            {
+              title: "Dynamic Elements",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/3.+DYNAMIC+CONTENT/2.+Dynamic+Elements.mp4",
+              id: "19",
+            },
+            {
+              title: "Dynamic Templates",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/3.+DYNAMIC+CONTENT/3.+Dynamic+Templates.mp4",
+              id: "20",
+            },
+            {
+              title: "Advanced Custom Fields & Assets",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/3.+DYNAMIC+CONTENT/4.+Advanced+Custom+Fields+&+Assets.mp4",
+              id: "21",
+            },
+          ],
+        },
+        {
+          id: "3c",
+          category: "Users & Membership",
+          items: [
+            {
+              title: "Users & Roles",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/4.+USERS+&+MEMBERSHIP/1.+Users+&+Roles.mp4",
+              id: "22",
+            },
+            {
+              title: "Membership Blocks",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/4.+USERS+&+MEMBERSHIP/2.+Membership+Blocks.mp4",
+              id: "23",
+            },
+          ],
+        },
+        {
+          id: "4c",
+          category: "Marketing Tools",
+          items: [
+            {
+              title: "Popup Builder",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/5.+MARKETING+TOOLS/1.+Popup+Builder.mp4",
+              id: "24",
+            },
+            {
+              title: "Global Popups & Triggers",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/5.+MARKETING+TOOLS/2.+Global+Popups+&+Triggers.mp4",
+              id: "25",
+            },
+            {
+              title: "Contact Form & Integrations",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/5.+MARKETING+TOOLS/3.+Contact+Form+&+Integrations.mp4",
+              id: "26",
+            },
+            {
+              title: "Web Stories",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/5.+MARKETING+TOOLS/4.+Web+Stories.mp4",
+              id: "27",
+            },
+          ],
+        },
+        {
+          id: "5c",
+          category: "Global Settings",
+          items: [
+            {
+              title: "SEO",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/1.+SEO.mp4",
+              id: "28",
+            },
+            {
+              title: "Social Sharing",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/2.+Social+Sharing.mp4",
+              id: "29",
+            },
+            {
+              title: "Custom CSS",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/3.+Custom+CSS.mp4",
+              id: "30",
+            },
+            {
+              title: "Code Inject",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/4.+Code+Inject.mp4",
+              id: "31",
+            },
+            {
+              title: "Redirects",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/5.+Redirects.mp4",
+              id: "32",
+            },
+            {
+              title: "System Pages",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/6.+GLOBAL+SETTINGS/6.+System+Pages.mp4",
+              id: "33",
+            },
+          ],
+        },
+        {
+          id: "6c",
+          category: "Cool Features",
+          items: [
+            {
+              title: "Shortcuts",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/7.+COOL+FEATURES/1.+Shortcuts.mp4",
+              id: "34",
+            },
+            {
+              title: "Webhooks",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/7.+COOL+FEATURES/2.+Webhooks.mp4",
+              id: "35",
+            },
+            {
+              title: "Export & Import",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/7.+COOL+FEATURES/3.+Export+&+Import.mp4",
+              id: "36",
+            },
+            {
+              title: "Collaborate",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/7.+COOL+FEATURES/4.+Collaborate.mp4",
+              id: "37",
+            },
+          ],
+        },
+        {
+          id: "7c",
+          category: "The Elements",
+          items: [
+            {
+              title: "Rows & Columns",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/1.+Rows+&+Columns.mp4",
+              id: "38",
+            },
+            {
+              title: "Text",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/2.+Text.mp4",
+              id: "39",
+            },
+            {
+              title: "Button",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/3.+Button.mp4",
+              id: "40",
+            },
+            {
+              title: "Icon",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/4.+Icon.mp4",
+              id: "41",
+            },
+            {
+              title: "Image",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/5.+Image.mp4",
+              id: "42",
+            },
+            {
+              title: "Audio",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/6.+Audio.mp4",
+              id: "43",
+            },
+            {
+              title: "Video",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/7.+Video.mp4",
+              id: "44",
+            },
+            {
+              title: "Spacer",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/8.+Spacer.mp4",
+              id: "45",
+            },
+            {
+              title: "Line",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/9.+Line.mp4",
+              id: "46",
+            },
+            {
+              title: "Map",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/10.+Map.mp4",
+              id: "47",
+            },
+            {
+              title: "Embed",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/11.+Embed.mp4",
+              id: "48",
+            },
+            {
+              title: "Icon Box",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/12.+Icon+Box.mp4",
+              id: "49",
+            },
+            {
+              title: "Counter",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/13.+Counter.mp4",
+              id: "50",
+            },
+            {
+              title: "Countdown",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/14.+Countdown.mp4",
+              id: "51",
+            },
+            {
+              title: "Tabs",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/15.+Tabs.mp4",
+              id: "52",
+            },
+            {
+              title: "Progress",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/16.+Progress.mp4",
+              id: "53",
+            },
+            {
+              title: "Accordion",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/17.+Accordion.mp4",
+              id: "54",
+            },
+            {
+              title: "Menu",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/18.+Menu.mp4",
+              id: "55",
+            },
+            {
+              title: "Gallery",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/19.+Gallery.mp4",
+              id: "56",
+            },
+            {
+              title: "Carousel",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/20.+Carousel.mp4",
+              id: "57",
+            },
+            {
+              title: "Rating",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/21.+Rating.mp4",
+              id: "58",
+            },
+            {
+              title: "Playlist",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/22.+Playlist.mp4",
+              id: "59",
+            },
+            {
+              title: "Table",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/23.+Table.mp4",
+              id: "60",
+            },
+            {
+              title: "Timeline",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/24.+Timeline.mp4",
+              id: "61",
+            },
+            {
+              title: "Switcher",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/25.+Switcher.mp4",
+              id: "62",
+            },
+            {
+              title: "Lottie",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/26.+Lottie.mp4",
+              id: "63",
+            },
+            {
+              title: "Login/register",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/27.+Login+register.mp4",
+              id: "64",
+            },
+            {
+              title: "Translation",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/28.+Translation.mp4",
+              id: "65",
+            },
+            {
+              title: "Alert",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/29.+Alert.mp4",
+              id: "66",
+            },
+            {
+              title: "Facebook",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/30.+Facebook.mp4",
+              id: "67",
+            },
+            {
+              title: "Twitter",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/31.+Twitter.mp4",
+              id: "68",
+            },
+            {
+              title: "Calendly",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/32.+Calendly.mp4",
+              id: "69",
+            },
+            {
+              title: "Comments",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/33.+Comments.mp4",
+              id: "70",
+            },
+            {
+              title: "Posts",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/34.+Posts.mp4",
+              id: "71",
+            },
+            {
+              title: "Assets",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/35.+Assets.mp4",
+              id: "72",
+            },
+            {
+              title: "User Elements",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/36.+User+Elements.mp4",
+              id: "73",
+            },
+            {
+              title: "Breadcrumbs",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/Breadcrumbs.mp4",
+              id: "74",
+            },
+            {
+              title: "Post Navigation",
+              url: "https://b-cloud.b-cdn.net/Cloud+Editor+Help+Videos/8.+THE+ELEMENTS/Post+Navigation.mp4",
+              id: "75",
+            },
+          ],
+        },
+      ],
+      idHelpVideosIcons: {
+        addElementsHelpVideo: "6",
+        blocksLayoutsHelpVideo: "4",
+        fontsHelpVideo: "11",
+        formHelpVideo: "26",
+      },
+    }
+  }
+}
+```
 
 ### Example Media Handler
 

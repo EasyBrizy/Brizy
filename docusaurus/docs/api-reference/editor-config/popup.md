@@ -353,7 +353,10 @@ Dynamic content can be configured in 2 ways
 Builder accepted help videos to display in the editor to help users understand how to use the editor. 
 These videos are used to provide step-by-step instructions on how to use the editor's features and functionalities.
 
-We provide a default predefined video.
+:::tip
+We provide a default predefined video used within **Brizy.io**. While these videos are not representative of **Brizy.local**, they are offered as examples to help you understand how to implement this functionality.
+In **Brizy.local**, you will need to create your own custom videos with your specific interfaces and configuration options.
+:::
 
 ```ts
 {

@@ -1,5 +1,17 @@
 [
   {
+    "id": "blank",
+    "cat": [],
+    "title": "blank",
+    "type": "base",
+    "keywords": "",
+    "thumbnailHeight": 311,
+    "thumbnailWidth": 600,
+    "pro": false,
+    "kitId": "1",
+    "blank": "blank"
+  },
+  {
     "id": "block1",
     "type": "base",
     "kitId": "1",

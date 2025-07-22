@@ -1,5 +1,24 @@
 [
   {
+    "id": "blank",
+    "data": {
+      "blockId": "blankId",
+      "type": "Section2",
+      "value": {
+        "_id": "ASg1bsA_t4",
+        "items": [
+          {
+            "type": "Section2Item",
+            "value": {
+              "_id": "sajhnga2dz111",
+              "items": []
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
     "id": "block1",
     "data": {
       "blockId": "1",

@@ -732,6 +732,7 @@ export const config: EditorConfig = {
     //@ts-expect-error: remove ts-expect-erro after https://github.com/bagrinsergiu/blox-editor/issues/29518 ,and eidtor is updated
     worker: "/workers",
     assets: "/static",
+    screenshot: "/static/screenshots",
   },
   api: {
     media: {

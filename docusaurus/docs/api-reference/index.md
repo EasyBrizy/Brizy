@@ -12,7 +12,7 @@ The full config can be seen below:
 ```ts
 type config = {
   autoSaveInterval?: number;
-  
+
   // L10n
   l10n?: Record<string, string>;
 
@@ -60,7 +60,7 @@ type config = {
       blockAdder?: {
         activeTab?: "template" | "blocks" | "saved" | "global";
         category?: string;
-      }
+      };
     };
 
     leftSidebar?: {
@@ -85,6 +85,9 @@ type config = {
   // Urls
   urls: {
     editorIcons: string;
+    worker: string;
+    assets: string;
+    screenshot: string;
     pagePreview?: string;
   };
 
@@ -113,21 +116,21 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### First level parameters
 
-| Name               | Type      | Description                                                                                                                                                                                                                                                                                                   |
-|:-------------------|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `l10n`             | `object`  | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations).      |
-| `onAutoSave`       | `JSON`    | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                      |
-| `onLoad`           | `JSON`    | Fired when the builder is loaded                                                                                                                                                                                                                                                                              |
-| `isRTL`            | `boolean` | Enables right-to-left (RTL) layout when set to true. Default false.                                                                                                                                                                                                                                           |
-| `autoSaveInterval` | `number`  | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                                    |
+| Name               | Type      | Description                                                                                                                                                                                                                                                                                              |
+| :----------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `l10n`             | `object`  | A data structure maps keys to localized strings for localization, with available keys listed [here](https://github.com/EasyBrizy/Brizy/blob/master/packages/core/docs/l10n.ts) and existing translations [here](https://github.com/EasyBrizy/Brizy-Local-Editor/tree/master/packages/core-translations). |
+| `onAutoSave`       | `JSON`    | Fired after Auto Save happened in editor                                                                                                                                                                                                                                                                 |
+| `onLoad`           | `JSON`    | Fired when the builder is loaded                                                                                                                                                                                                                                                                         |
+| `isRTL`            | `boolean` | Enables right-to-left (RTL) layout when set to true. Default false.                                                                                                                                                                                                                                      |
+| `autoSaveInterval` | `number`  | Default `2000`. Set a `ms` delay for `onAutoSave` function                                                                                                                                                                                                                                               |
 
 ### UI parameters
 
 | Name                              | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-|:----------------------------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :-------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui.theme.colors`                 | `object`   | We can customize the color variables in builder's UI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `ui.prompts.blockAdder.activeTab` | `string`   | Indicate the default tab that opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ui.prompts.blockAdder.category`  | `string`   | Indicate the category that will be displayed when the default tab opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `ui.prompts.blockAdder.activeTab` | `string`   | Indicate the default tab that opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `ui.prompts.blockAdder.category`  | `string`   | Indicate the category that will be displayed when the default tab opens in the Block Adder.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `ui.leftSidebar.topTabsOrder`     | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements` key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png). |
 | `ui.leftSidebar.bottomTabsOrder`  | `Array`    | Lets you control the order and visibility of the [icons in the left sidebar at the top](https://user-images.githubusercontent.com/10077249/206904478-d11e2fb3-addb-48c1-8dce-123868e8d8ac.png). This property accepts an array of objects in the format: `[{ id: string, type: LeftSidebarOption }]` If the type is `"addElements"`, an additional key, `elements`, must be provided. The `elements key accepts an array that specifies the elements to display within the current tab [icons in the addElements](https://user-images.githubusercontent.com/18303258/230393691-1f0e5198-43e7-43ee-ab06-8d8d0f5f9c03.png).  |
 | `ui.leftSidebar.more.options`     | `Array`    | Lets you add more links in the [More dropdown](https://user-images.githubusercontent.com/10077249/206904832-5af03a48-991a-4c90-aead-2d7dea82c9d5.png) in the left sidebar.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -155,10 +158,13 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### Urls parameters
 
-| Name               | type     | Description                                                                                                       |
-| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components. |
-| `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                  |
+| Name               | type     | Description                                                                                                               |
+| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components.         |
+| `urls.pagePreview` | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                          |
+| `urls.worker`      | `string` | Public base URL for web worker scripts like `screenshots.worker.min.js`, which are dynamically loaded by the application. |
+| `urls.assets`      | `string` | Base URL for static editor assets such as screenshot placeholders and other resource files.                               |
+| `urls.screenshot`  | `string` | Public URL used by the editor to load block screenshot images.                                                            |
 
 ## Examples
 
@@ -627,6 +633,7 @@ const config = {
 ```
 
 ### Example: Right to left (`isRTL`)
+
 To enable RTL mode set the `isRTL` key in config
 
 ```ts

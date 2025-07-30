@@ -729,9 +729,9 @@ export const config: EditorConfig = {
   urls: {
     editorIcons: brizyIcons,
     pagePreview: "/",
-    //@ts-expect-error: remove ts-expect-erro after https://github.com/bagrinsergiu/blox-editor/issues/29518 ,and eidtor is updated
     worker: "/workers",
     assets: "/static",
+    screenshot: "https://brz-screenshots.b-cdn.net/",
   },
   api: {
     media: {

@@ -44,6 +44,38 @@ export function Client(props: Props) {
         ...config.urls,
         pagePreview,
       },
+      api: {
+        ...config.api,
+        screenshots: {
+          update: async (res, rej, data) => {
+            try {
+              const { id } = data;
+              const response = await fetch(`/api/screenshots/${id}`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+              });
+              const resData = await response.json();
+              res({ id: resData.id });
+            } catch {
+              rej("Failed to update screenshot");
+            }
+          },
+          create: async (res, rej, data) => {
+            try {
+              const response = await fetch("/api/screenshots", {
+                method: "POST",
+                body: JSON.stringify(data),
+              });
+
+              const resData = await response.json();
+              const { id } = resData;
+              res({ id });
+            } catch {
+              rej("Unable to create screenshot:");
+            }
+          },
+        },
+      },
       ui: {
         ...config.ui,
         publish: {

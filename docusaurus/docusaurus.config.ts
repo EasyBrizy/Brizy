@@ -61,6 +61,17 @@ const config: Config = {
 
         //#endregion
 
+        //#region AI
+
+        {
+          to: "/docs-ai",
+          label: "AI",
+          position: "right",
+          activeBaseRegex: `/docs-ai/`,
+        },
+
+        //#endregion
+
         //#region Others
 
         {
@@ -118,6 +129,15 @@ const config: Config = {
         id: "docs-internals",
         path: "docs-internals",
         routeBasePath: "docs-internals",
+        sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "docs-ai",
+        path: "docs-ai",
+        routeBasePath: "docs-ai",
         sidebarPath: require.resolve("./sidebars.js"),
       },
     ],

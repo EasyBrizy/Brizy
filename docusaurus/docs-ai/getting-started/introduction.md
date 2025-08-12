@@ -11,67 +11,164 @@ Brizy AI is a powerful AI-driven website builder that enables you to create stun
 
 Brizy AI combines the power of artificial intelligence with a sophisticated website builder to deliver an unparalleled web development experience. It leverages advanced language models and design algorithms to generate complete websites based on your business requirements and preferences.
 
-### Key Features
+### Core Concept
 
-- **AI-Powered Content Generation**: Automatically creates headings, descriptions, testimonials, and business content
-- **Intelligent Design**: Generates layouts and styling that match your brand and industry
+Brizy AI operates as a **session-based AI service** that:
+1. **Collects Requirements**: Gathers business information and preferences
+2. **Generates Content**: Creates AI-powered text, images, and layouts
+3. **Builds Templates**: Produces Brizy Editor-compatible templates
+4. **Delivers Results**: Provides ready-to-use website content
+
+## Key Features
+
+### AI-Powered Content Generation
+- **Automatic Text Creation**: Generates headings, descriptions, testimonials, and business content
+- **Industry-Specific Content**: Tailors content to your business sector
 - **Multi-Language Support**: Built-in translation capabilities for global reach
+- **SEO-Optimized Content**: Creates search engine friendly content
+
+### Intelligent Design System
+- **Smart Layout Generation**: Creates responsive layouts that match your brand
+- **Color Scheme Optimization**: Automatically selects complementary color palettes
+- **Typography Matching**: Chooses fonts that align with your industry
+- **Visual Hierarchy**: Implements proper design principles
+
+### Integration Capabilities
 - **Stock Image Integration**: Seamless integration with Unsplash for high-quality visuals
 - **Location-Based Services**: Google Places integration for local business optimization
-- **Session-Based Workflow**: Secure, stateful integration for reliable project generation
+- **Social Media Integration**: Facebook API integration for enhanced functionality
 - **Brizy Editor Compatibility**: Direct integration with the Brizy page builder
 
-### How It Works
+### Technical Features
+- **Session-Based Workflow**: Secure, stateful integration for reliable project generation
+- **RESTful API**: Clean, predictable API endpoints for easy integration
+- **Docker Deployment**: Containerized service for easy setup and scaling
+- **Cloud Storage**: AWS S3 integration for asset management
+
+## How It Works
 
 Brizy AI operates through a sophisticated session-based workflow:
 
-1. **Session Creation**: Initialize a secure session with your API credentials
-2. **AI Platform Interaction**: Users interact with the AI interface to define requirements
-3. **Content Generation**: AI generates pages, layouts, and styling based on inputs
-4. **Template Delivery**: Retrieve generated content as Brizy Editor-compatible strings
-5. **Editor Integration**: Import generated content directly into the Brizy Editor
+### 1. Session Creation
+- Initialize a secure session with your API credentials
+- Receive a unique session ID and AI platform URL
+- Session maintains state throughout the entire process
 
-### Use Cases
+### 2. AI Platform Interaction
+- Users are redirected to the AI interface
+- Interactive form collects business requirements:
+  - **Business Name**: Company or website name
+  - **Industry**: Business sector or category
+  - **Information**: Additional details and preferences
+  - **Pages**: Required website pages
 
-- **Business Websites**: Create professional websites for any industry
-- **Landing Pages**: Generate high-converting landing pages with AI-optimized content
-- **Portfolio Sites**: Build stunning portfolio websites with intelligent layouts
-- **E-commerce**: Generate product pages and business descriptions
-- **Local Business**: Create location-optimized websites with local SEO content
+### 3. Content Generation
+- AI analyzes requirements and industry context
+- Generates appropriate content using fine-tuned models
+- Selects relevant templates and styling
+- Creates location-specific content when applicable
 
-### Technology Stack
+### 4. Template Delivery
+- AI compiles generated content into Brizy Editor format
+- Returns both page content and global project styles
+- Content is ready for immediate use in Brizy Editor
 
-- **AI Models**: Fine-tuned OpenAI GPT models for specialized content generation
-- **Cloud Storage**: AWS S3 integration for asset management
-- **Image Services**: Unsplash API for stock photography
-- **Location Services**: Google Places API for local business data
-- **Containerization**: Docker-based deployment for easy setup and scaling
-- **API-First**: RESTful API design for seamless integration
+### 5. Editor Integration
+- Import generated content directly into the Brizy Editor
+- Apply global styles and color schemes
+- Customize and refine as needed
+- Publish your AI-generated website
 
-### Integration Capabilities
+## Use Cases
 
-Brizy AI is designed for easy integration into existing workflows:
+### Business Websites
+- **Professional Business Sites**: Create comprehensive business websites
+- **Service-Based Businesses**: Generate service-focused content and layouts
+- **E-commerce Sites**: Build product pages and business descriptions
+- **Portfolio Websites**: Create stunning portfolio presentations
 
-- **Partner Integration**: Session-based API for third-party applications
-- **Callback System**: Secure redirect workflow for seamless user experience
-- **Data Export**: Brizy Editor-compatible output format
-- **Customizable**: Configurable AI models and styling options
-- **Scalable**: Docker-based architecture for production deployments
+### Landing Pages
+- **High-Converting Pages**: Generate landing pages with AI-optimized content
+- **Lead Generation**: Create forms and call-to-action elements
+- **Product Launches**: Build launch pages with compelling copy
+- **Event Pages**: Generate event-specific landing pages
+
+### Local Business
+- **Location-Optimized Sites**: Create location-specific content
+- **Local SEO**: Generate location-based keywords and content
+- **Service Area Pages**: Build area-specific service descriptions
+- **Contact Information**: Automatically include local business details
+
+### Specialized Applications
+- **Restaurant Websites**: Menu integration and reservation systems
+- **Real Estate Sites**: Property listings and agent profiles
+- **Healthcare Sites**: Medical practice information and services
+- **Educational Sites**: Course information and enrollment pages
+
+## Technology Stack
+
+### AI & Machine Learning
+- **OpenAI GPT Models**: Fine-tuned models for specialized content generation
+- **Custom Training**: Industry-specific model training for better results
+- **Content Optimization**: AI-powered content improvement and SEO
+
+### Cloud Infrastructure
+- **AWS S3**: Cloud storage for assets and configurations
+- **Docker Containers**: Containerized deployment for scalability
+- **RESTful APIs**: Clean API design for seamless integration
+
+### External Services
+- **Unsplash API**: High-quality stock photography integration
+- **Google Places API**: Location-based data and search functionality
+- **Facebook API**: Social media integration and user data
+- **Translation Services**: Multi-language content generation
+
+### Development Tools
+- **Docker**: Containerization for easy deployment
+- **API-First Design**: RESTful API for integration flexibility
+- **Session Management**: Secure stateful workflows
+- **Error Handling**: Comprehensive error management
 
 ## Getting Started
 
+### Quick Start
 To see Brizy AI in action, visit our [live demo](https://ai.brizy.io).
 
-For setup instructions, proceed to the [Requirements](./requirements.md) guide to configure your environment.
+### Setup Process
+1. **Review Requirements**: Check system requirements and API keys needed
+2. **Configure Environment**: Set up Docker and environment variables
+3. **Deploy Service**: Launch Brizy AI using Docker or Docker Compose
+4. **Integrate API**: Implement API calls in your application
+5. **Test Workflow**: Verify the complete session-based workflow
 
-## Documentation Structure
-
+### Documentation Structure
 - **[Requirements](./requirements.md)**: System requirements and API key setup
 - **[Usage](./usage.md)**: Docker deployment and environment configuration
 - **[API Reference](../api-reference/index.md)**: Complete API documentation and integration guide
+- **[Templates & Structures](../api-reference/templates-structures.md)**: Template creation and placeholder system
 
-## Join our Community
+## Support & Community
 
-If you have any questions regarding Brizy AI, feel free to join us on **[GitHub](https://github.com/EasyBrizy/Brizy-Local-Editor)** or **[Discord](https://brizy.io)**.
+### Getting Help
+- **Email Support**: [support@Brizy.io](mailto:support@Brizy.io)
+- **GitHub Issues**: [Report Bugs](https://github.com/EasyBrizy/Brizy-Local-Editor/issues)
+- **Documentation**: Comprehensive guides and API reference
 
+### Community Resources
+- **GitHub Repository**: [Brizy Local Editor](https://github.com/EasyBrizy/Brizy-Local-Editor)
+- **Discord Community**: [Join our Discord](https://brizy.io)
+- **Developer Forum**: Community discussions and support
+
+### Professional Services
 For hands-on support and consultancy, **[book a discovery call](https://www.brizy.io/saas-website-builder)** with our team.
+
+## Next Steps
+
+Ready to get started? Follow these steps:
+
+1. **Review Requirements**: Check the [Requirements](./requirements.md) guide
+2. **Set Up Environment**: Follow the [Usage](./usage.md) guide for deployment
+3. **Integrate API**: Use the [API Reference](../api-reference/index.md) for implementation
+4. **Create Templates**: Learn about [Templates & Structures](../api-reference/templates-structures.md)
+
+Start building AI-powered websites with Brizy AI today!

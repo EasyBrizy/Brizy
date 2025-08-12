@@ -13,9 +13,13 @@ This guide shows you how to set up and use Brizy AI with Docker. Brizy AI runs a
 Run Brizy AI directly using Docker with all required environment variables:
 
 ```bash
+
+# Only for development
 docker run -d \
   --name brizy-ai \
   -p 80:80 \
+  -p APP_HTTP_SCHEME=http \
+  -p APP_ENV=dev \
   -e APP_URL=http://localhost \
   -e APP_ENCODE_KEY=base64:dGVzdA== \
   -e AMAZON_S3_REGION=Bucket Region \
@@ -66,8 +70,9 @@ services:
     ports:
       - "80:80"
     environment:
-      # Base Configuration
+      # Base Configuration For developmnt
       APP_URL: http://localhost
+      APP_ENV: dev
       APP_ENCODE_KEY: base64:dGVzdA==
       APP_HTTP_SCHEME: http
       
@@ -129,6 +134,7 @@ docker-compose up -d
 | Variable | Description | Example |
 |----------|-------------|---------|
 | **APP_URL** | The public base URL where Brizy AI will be accessible. Set this to the domain or IP where users will access the service. | `https://example.com` |
+| **APP_ENV** | Environment mode (`dev` or `prod`). Use `dev` in development and `prod` in production for security. | `dev` |
 | **APP_ENCODE_KEY** | Secret key used for encrypting sensitive data (e.g., cookies, tokens). Must start with `base64:` followed by your base64-encoded key. Should be a secure, random string. Never share or expose this value. | `base64:dGVzdA==` |
 | **APP_HTTP_SCHEME** | Protocol scheme for the app (`http` or `https`). Use `https` in production for security. | `http` |
 | **AMAZON_S3_REGION** | AWS region where your S3 bucket is hosted. Must match your actual AWS S3 region. | `region` |

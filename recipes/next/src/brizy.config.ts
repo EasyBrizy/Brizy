@@ -729,6 +729,8 @@ export const config: EditorConfig = {
   urls: {
     editorIcons: brizyIcons,
     pagePreview: "/",
+    worker: "/workers",
+    assets: "/static",
   },
   api: {
     media: {

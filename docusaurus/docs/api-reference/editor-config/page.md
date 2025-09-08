@@ -246,7 +246,9 @@ Config can be passed as an object when you initialize the editor from the script
 
 ### DynamicContent parameters
 
-Builder wrapped all outside placeholder inside builder placeholder `{{ placeholder content='Base64(SOME EXTERNAL PLACEHOLDER)' }}`
+Builder wrapped all outside placeholder inside builder placeholder 
+
+`{{ placeholder content='Base64(SOME EXTERNAL PLACEHOLDER)' }}`
 
 #### Builder added extra attributes for `placeholder`
 
@@ -258,11 +260,13 @@ Example: `{{ placeholder content='Base64( {{ featured_image }} )' cW='200' cH='2
 
 Example: `{{ placeholder content='Base64( {{ post_title }} )' entityType='pages' entityId='page1' }}`
 
-Dynamic content can be configured in 2 ways
+For more information about DynamicContent and how to replace it, please refer to the [Dynamic Content](/api-reference/dynamic-content) documentation.
+
+#### Dynamic content can be configured in 2 ways
 
 1. Send an array of placeholder in config via:
 
-#### DynamicContent array of choices
+##### DynamicContent array of choices
 
 | Name                                      | Type    | Description                                                          |
 | :---------------------------------------- | :------ | :------------------------------------------------------------------- |
@@ -272,7 +276,7 @@ Dynamic content can be configured in 2 ways
 
 2. Send a handler function that sends the placeholder over the response function
 
-#### DynamicContent option parameters
+##### DynamicContent option parameters
 
 | Name                                              | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | :------------------------------------------------ | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

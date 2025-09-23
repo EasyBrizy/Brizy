@@ -1,7 +1,3 @@
----
-sidebar_position: 4
----
-
 # Adding options to the Sidebar
 
 By default, widget options in **Brizy** live in the widget toolbar. When you want some of those options to open and be configured inside the editor sidebar, you must add a sidebar trigger in the toolbar and provide a `sidebar` configuration.

@@ -4,9 +4,13 @@ sidebar_position: 1
 
 # API Reference
 
-The Brizy AI platform provides a RESTful API for integrating AI-powered project generation into your applications. The API supports session-based workflows and secure authentication using API keys.
+The Brizy AI platform provides a RESTful API for integrating AI-powered project generation into your applications. 
+
+The API supports session-based workflows and secure authentication using API keys.
 
 ## Quick Start
+
+After running the AI using the steps in the [Usage Guide](../getting-started/usage.md), you can fetch the results with the session ID.
 
 ### Authentication
 
@@ -172,4 +176,3 @@ For API support and questions:
 - [Usage Guide](../getting-started/usage.md) - Setup and configuration
 - [Requirements](../getting-started/requirements.md) - System requirements and API keys
 - [Templates & Structures](./templates-structures.md) - Template creation and placeholders
-

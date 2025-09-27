@@ -46,10 +46,10 @@ docker run -d \
   -e APP_FACEBOOK_API_VERSION=v23.0 \
   -e APP_UNSPLASH_TRAFFIC_SOURCE_URL=http://example.com \
   -e APP_UNSPLASH_API_KEY=EXAMPLE KEY \
-  -e APP_GET_TEMPLATE_PROJECT_URL=https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-project-template \
-  -e APP_GET_TEMPLATE_PAGE_URL=https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-page-template \
-  -e APP_GET_JSON_HTML_TEMPLATES_URL=https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-template \
-  -e APP_GET_JSON_HTML_STYLES_URL=https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-styles \
+  -e APP_GET_TEMPLATE_PROJECT_URL=https://template-mk.b-cdn.net/api/ai-project-template \
+  -e APP_GET_TEMPLATE_PAGE_URL=https://template-mk.b-cdn.net/api/ai-page-template \
+  -e APP_GET_JSON_HTML_TEMPLATES_URL=https://template-mk.b-cdn.net/api/ai-list-template \
+  -e APP_GET_JSON_HTML_STYLES_URL=https://template-mk.b-cdn.net/api/ai-list-styles \
   -e APP_VALIDATE_API_KEY_URL=http://example.com/validate \
   -e SENTRY_LARAVEL_DSN= \
   -e SENTRY_TRACES_SAMPLE_RATE= \
@@ -111,10 +111,10 @@ services:
       APP_UNSPLASH_API_KEY: EXAMPLE KEY
       
       # Template URLs
-      APP_GET_TEMPLATE_PROJECT_URL: https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-project-template
-      APP_GET_TEMPLATE_PAGE_URL: https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-page-template
-      APP_GET_JSON_HTML_TEMPLATES_URL: https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-template
-      APP_GET_JSON_HTML_STYLES_URL: https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-styles
+      APP_GET_TEMPLATE_PROJECT_URL: https://template-mk.b-cdn.net/api/ai-project-template
+      APP_GET_TEMPLATE_PAGE_URL: https://template-mk.b-cdn.net/api/ai-page-template
+      APP_GET_JSON_HTML_TEMPLATES_URL: https://template-mk.b-cdn.net/api/ai-list-template
+      APP_GET_JSON_HTML_STYLES_URL: https://template-mk.b-cdn.net/api/ai-list-styles
       APP_VALIDATE_API_KEY_URL: http://example.com/validate
       
       # Sentry (Optional)
@@ -161,10 +161,10 @@ docker-compose up -d
 | **APP_FACEBOOK_API_VERSION** | Facebook api version for Facebook integration. | `v23.0` |
 | **APP_UNSPLASH_API_KEY** | API key for Unsplash image search. Required for fetching stock images. Obtain from Unsplash Developers portal. | `1234` |
 | **APP_UNSPLASH_TRAFFIC_SOURCE_URL** | The URL reported to Unsplash as the traffic source. Set to your app or company website. | `https://example.com` |
-| **APP_GET_TEMPLATE_PROJECT_URL** | Endpoint to fetch project templates (JSON). Used for project scaffolding. | `https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-project-template` |
-| **APP_GET_TEMPLATE_PAGE_URL** | Endpoint to fetch page templates (JSON). Used for page generation. | `https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-page-template` |
-| **APP_GET_JSON_HTML_TEMPLATES_URL** | Endpoint to fetch all HTML preview templates (JSON). Used for template previews. | `https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-template` |
-| **APP_GET_JSON_HTML_STYLES_URL** | Endpoint to fetch all global style templates (JSON). Used for style/theme selection. | `https://phplaravel-1109775-4184176.cloudwaysapps.com/api/ai-list-styles` |
+| **APP_GET_TEMPLATE_PROJECT_URL** | Endpoint to fetch project templates (JSON). Used for project scaffolding. | `https://template-mk.b-cdn.net/api/ai-project-template` |
+| **APP_GET_TEMPLATE_PAGE_URL** | Endpoint to fetch page templates (JSON). Used for page generation. | `https://template-mk.b-cdn.net/api/ai-page-template` |
+| **APP_GET_JSON_HTML_TEMPLATES_URL** | Endpoint to fetch all HTML preview templates (JSON). Used for template previews. | `https://template-mk.b-cdn.net/api/ai-list-template` |
+| **APP_GET_JSON_HTML_STYLES_URL** | Endpoint to fetch all global style templates (JSON). Used for style/theme selection. | `https://template-mk.b-cdn.net/api/ai-list-styles` |
 | **APP_VALIDATE_API_KEY_URL** | Endpoint to validate API keys. Used for internal or admin validation of API access. | `https://example.com/validate-key` |
 | **SENTRY_LARAVEL_DSN** | DSN for Sentry error tracking. Leave empty if not using Sentry. | `""` |
 | **SENTRY_TRACES_SAMPLE_RATE** | Sentry traces sample rate (0-1). Controls how much tracing data is sent. | `""` |

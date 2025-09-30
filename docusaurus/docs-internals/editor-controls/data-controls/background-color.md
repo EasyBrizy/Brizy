@@ -389,3 +389,24 @@ const Page = () => {
   return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
 };
 ```
+
+#### Usage in sidebar example
+
+The `backgroundColor` can also be integrated into the sidebar. For improved user experience, it should remain minimized by default and only be rendered as a tooltip on click when invoked within a popover.
+
+```js
+{
+  id: "backgroundColors",
+  type: "popover",
+  label: "Background",
+  config: {
+    title: "Background",
+    icon: {
+      style: {
+        backgroundColor: "green"
+      }
+    }
+  },
+  options: [{ id: "buttonBgColor", type: "backgroundColor" }]
+}
+```

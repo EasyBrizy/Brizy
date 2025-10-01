@@ -312,3 +312,25 @@ Brizy.registerComponent({
   }
 });
 ```
+
+
+#### Usage in sidebar example
+
+The `colorPicker` can also be integrated into the sidebar. For improved user experience, it should remain minimized by default and only be rendered as a tooltip on click when invoked within a popover.
+
+```js
+{
+  id: "colors",
+  type: "popover",
+  label: "Color",
+  config: {
+    title: "Color",
+    icon: {
+      style: {
+        backgroundColor: "red"
+      }
+    }
+  },
+  options: [{ id: "colorButton", type: "colorPicker" }]
+}
+```

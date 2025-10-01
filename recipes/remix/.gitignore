@@ -9,3 +9,4 @@ tsconfig.tsbuildinfo
 .idea
 .vscode
 dashboard.database.json
+public/workers/screenshots*

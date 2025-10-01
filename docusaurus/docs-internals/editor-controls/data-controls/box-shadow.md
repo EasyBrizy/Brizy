@@ -388,3 +388,24 @@ Brizy.registerComponent(Container, {
   }
 });
 ```
+
+#### Usage in sidebar example
+
+The `boxShadow` can also be integrated into the sidebar. For improved user experience, it should remain minimized by default and only be rendered as a tooltip on click when invoked within a popover.
+
+```js
+{
+  id: "boxShadowColors",
+  type: "popover",
+  label: "Box Shadow",
+  config: {
+    title: "Box Shadow",
+    icon: {
+      style: {
+        backgroundColor: "yellow"
+      }
+    }
+  },
+  options: [{ id: "buttonBoxShadowColor", type: "boxShadow" }]
+}
+```

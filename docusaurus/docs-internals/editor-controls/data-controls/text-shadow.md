@@ -347,3 +347,24 @@ const Page = () => {
   return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
 };
 ```
+
+#### Usage in sidebar example
+
+The `textShadow` can also be integrated into the sidebar. For improved user experience, it should remain minimized by default and only be rendered as a tooltip on click when invoked within a popover.
+
+```js
+{
+  id: "textShadowColors",
+  type: "popover",
+  label: "Text Shadow",
+  config: {
+    title: "Text Shadow",
+    icon: {
+      style: {
+        backgroundColor: "blue"
+      }
+    }
+  },
+  options: [{ id: "buttonTextShadowColor", type: "textShadow" }]
+}
+```

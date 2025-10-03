@@ -2,16 +2,18 @@
   "name": "{{appName}}",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "remix vite:dev --port=3000",
-    "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js",
+    "build": "npm run setup:workers && remix vite:build",
+    "dev": "npm run setup:workers && remix vite:dev --port=3000",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "npm run setup:workers && remix-serve ./build/server/index.js",
     "tsc": "tsc",
+    "setup:workers": "node ./utils/setupWorkers.mjs",
     "prettier-check": "prettier --check \"./app/**/*.{ts,tsx}\"",
-    "prettier-format": "prettier --write \"./app/**/*.{ts,tsx,md}\""
-  },
+    "prettier-format": "prettier --write \"./app/**/*.{ts,tsx}\""
+  }, 
   "dependencies": {
     "@brizy/builder": "{{editorVersion}}",
     "@radix-ui/react-alert-dialog": "^1.1.6",

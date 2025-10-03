@@ -731,6 +731,9 @@ export const config: EditorConfig = {
     pagePreview: "/",
     worker: "/workers",
     assets: "/static",
+    // For speed-up screenshots with bunnyCDN need to setup the CDN link that cache our `/api/screenshots/` endpoint
+    // See docs: https://builder-free-docs.brizy.io/guides/performance/screenshot-caching
+    screenshot: "/api/screenshots/",
   },
   api: {
     media: {

@@ -1,138 +1,5 @@
----
-title: Dynamic Content
----
+# Menu Placeholders
 
-When using the builder, certain strings in the HTML output may appear in the following format:
-
-`{{ placeholder content='Base64(SOME EXTERNAL PLACEHOLDER)' }}`
-
-This structure occurs because the builder wraps all external placeholders within its own placeholder syntax.
-These placeholders are encoded in Base64 for processing and are designed to represent dynamic content.
-
-
-## Replacing Placeholders
-To replace the content of builder placeholders with their actual values, you can use the [Brizy-Content-Placeholder](https://www.npmjs.com/package/@brizy/content-placeholder) library.
-This library is specifically designed to decode and replace such placeholders dynamically, ensuring that the final rendered HTML displays the intended content seamlessly.
-
-Example usage:
-
-```ts
-import {
-  ContentPlaceholder,
-  ContextInterface,
-  Extractor,
-  Registry,
-  Replacer,
-  EmptyContext
-} from "@brizy/content-placeholder";
-
-export class BuilderPlaceholder extends ContentPlaceholder {
-  constructor() {
-    super("Builder Placeholder", "placeholder");
-  }
-
-  support(placeholderName: string): boolean {
-    return placeholderName === this.placeholder;
-  }
-
-  async getValue(context: ContextInterface, placeholder: ContentPlaceholder): Promise<string> {
-    const { content, ...attrs } = placeholder.getAttributes() ?? {
-      content: "",
-    };
-
-    if (!content)
-    {
-      return "";
-    }
-
-    const decodedContent = atob(content);
-    const extractor = new Extractor();
-
-    const [contentPlaceholders] = extractor.extractIgnoringRegistry(decodedContent);
-
-    if (contentPlaceholders.length === 0) {
-      return "";
-    }
-
-    const contentPlaceholder = contentPlaceholders[0];
-    const placeholderAttrs = contentPlaceholder.getAttributes();
-
-    contentPlaceholder.setAttributes({
-      ...placeholderAttrs,
-      ...attrs,
-    });
-
-    return contentPlaceholder.buildPlaceholder();
-  }
-
-  getConfigStructure(): any {
-    return {
-      id: this.getUid(),
-      label: this.getLabel(),
-      name: this.getPlaceholder(),
-      placeholder: this.buildPlaceholder(),
-      attr: this.getAttributes(),
-      varyAttr: this.getVaryAttributes(),
-    };
-  }
-
-  getFallbackValue(context: ContextInterface, placeholder: ContentPlaceholder): string {
-    return "";
-  }
-
-  getLabel(): string {
-    return "";
-  }
-
-  getVaryAttributes(): string {
-    return "";
-  }
-
-  setLabel(label: string): void {}
-
-  shouldFallbackValue(value: string, context: ContextInterface, placeholder: ContentPlaceholder): boolean {
-    return false;
-  }
-}
-
-export const replacePlaceholders =  async (html:string): Promise<string> => {
-  const context = new EmptyContext();
-
-  const registry = new Registry();
-  const builderInstance = new BuilderPlaceholder();
-  registry.registerPlaceholder(builderInstance);
-
-  const replacer = new Replacer(registry);
-
-  return await replacer.replacePlaceholders(html, context);
-};
-```
-
-This code snippet demonstrates how to use the `Brizy-Content-Placeholder` library to replace builder placeholders in HTML content.
-The `replacePlaceholders` function decodes and replaces the placeholders dynamically, ensuring that the final HTML output displays the intended content.
-
-For example, given the following HTML content with builder placeholders:
-```html
-<div>
-  <p>Hi {{placeholder content='e3t1c2VybmFtZX19'}}</p>
-  <p>I wanted to personally welcome you to {{placeholder content="e3tjb21wYW55LW5hbWV9fQ=="}}</p>
-  <p>If you have any questions, you can always email us to {{placeholder content="e3tvdXItZW1haWx9fQ=="}}</p>
-  <span>Best Regards.</span>
-</div>
-```
-The `replacePlaceholders` function will replace the placeholders with their actual values, resulting in the following output:
-```html
-<div>
-  <p>Hi {{username}}</p>
-  <p>I wanted to personally welcome you to {{company-name}}</p>
-  <p>If you have any questions, you can always email us to {{our-email}}</p>
-  <span>Best Regards.</span>
-</div>
-```
-
-
-## Usage
-### Menu Placeholders
 The HTML output(after extracting the original placeholders from builder placeholder) containing a menu will typically have the following structure:
 
 ```html
@@ -189,6 +56,7 @@ Below is a detailed explanation of each placeholder used in the menu HTML struct
 **Group Placeholders**
 
 - **`{{group}}`**
+
   - Indicates the start of a menu group.
   - A menu group contains a collection of menu items that are related or grouped together for a specific purpose.
 
@@ -201,14 +69,17 @@ Below is a detailed explanation of each placeholder used in the menu HTML struct
 **Menu Loop Placeholders**
 
 - **`{{menu_loop menuId="myMenuId"}}`**
+
   - Starts iterating over the menu items for the menu identified by `menuId`.
   - Example: If `menuId="mainMenu"`, this loop processes all items in the "mainMenu."
   - The optional attribute `recursive="1"` can be included to iterate through submenus.
 
 - **`{{end_menu_loop}}`**
+
   - Marks the end of the iteration through the menu items.
 
 - **`{{menu_loop_submenu}}`**
+
   - Starts iterating over the submenu items of the current menu item.
   - Submenus are nested menus under a primary menu item.
 
@@ -220,25 +91,30 @@ Below is a detailed explanation of each placeholder used in the menu HTML struct
 **Menu Item-Specific Placeholders**
 
 - **`{{menu_item_classname}}`**
+
   - Contains the class name of the current menu item.
   - Used to style or customize the menu item's appearance.
 
 - **`{{menu_item_uid}}`**
+
   - A unique identifier (UID) for the current menu item.
   - Example: `menu_item_uid="30385160-5ec3-44fd-85dc-251ccad495fb"`.
   - Useful for uniquely identifying and referencing each item.
 
 - **`{{menu_item_href}}`**
+
   - The hyperlink (URL) for the current menu item.
   - Example: `<a href="{{menu_item_href}}">` generates `<a href="https://example.com">`.
 
 - **`{{menu_item_target}}`**
+
   - The target attribute of the menu item's link.
   - Controls how the link opens. Common values:
     - `_self` (default): Opens in the same tab.
     - `_blank`: Opens in a new tab.
 
 - **`{{menu_item_title}}`**
+
   - The title or text label of the menu item.
   - Example: `{{menu_item_title}}` renders the name displayed on the menu.
 
@@ -251,10 +127,12 @@ Below is a detailed explanation of each placeholder used in the menu HTML struct
 **Mega Menu Placeholders**
 
 - **`{{mega_menu}}`**
+
   - Contains the content for the mega menu.
   - A mega menu is a larger dropdown-style menu that displays additional information or links.
 
 - **`{{mega_menu_value itemId="someItemId"}}`**
+
   - Starts defining the content for a specific mega menu item, identified by its `itemId`.
   - Example: `itemId="30385160-5ec3-44fd-85dc-251ccad495fb"` is used to specify the item content.
 
@@ -266,13 +144,13 @@ Below is a detailed explanation of each placeholder used in the menu HTML struct
 **Menu Item Icon Placeholders**
 
 - **`{{menu_item_icon_value itemId="someItemId"}}`**
+
   - Defines the icon for a specific menu item, identified by its `itemId`.
   - Example: If `itemId="12345"`, the icon displayed is linked to this ID.
 
 - **`{{end_menu_item_icon_value}}`**
   - Marks the end of the definition for the specified menu item icon.
 
-
 For replacing the placeholders in the menu HTML structure, you can follow these examples :
-https://github.com/EasyBrizy/builder/tree/main/packages/brizy-content-placeholder/src/examples/menu 
+https://github.com/EasyBrizy/builder/tree/main/packages/brizy-content-placeholder/src/examples/menu
 https://github.com/EasyBrizy/builder/blob/main/packages/brizy-content-placeholder/src/tests/replacer.test.ts#L110

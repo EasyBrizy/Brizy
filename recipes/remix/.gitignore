@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 .vscode
 dashboard.database.json
 public/workers/screenshots*
+tmp/screenshots

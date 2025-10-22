@@ -1,6 +1,7 @@
 ---
 toc_max_heading_level: 4
 ---
+
 # Typography
 
 The `typography` control provides a comprehensive set of features for manipulating text on a web page. It supports loading fonts from Google Fonts or custom sources, altering CSS properties related to text appearance (such as strikethrough, bold, italic, underline, uppercase, and lowercase), and selecting or adding fonts from global styles. Additionally, it allows for adjusting text size, weight, line height, and letter spacing.
@@ -12,7 +13,7 @@ Example of the control:
 ### Parameters
 
 | Name                    | Type                                     |      Default       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-|:------------------------|:-----------------------------------------|:------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :---------------------- | :--------------------------------------- | :----------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `id`                    | `string`                                 |         -          | The identifier of the key where the `typography` will save your data                                                                                                                                                                                                                                                                                                                                                                        |
 | `type`                  | `string`                                 |         -          | Type should be `"typography"` to use this control                                                                                                                                                                                                                                                                                                                                                                                           |
 | `className?`            | `string`                                 |         -          | The custom CSS class name that will be set on the control. It can be used to modify the control styles                                                                                                                                                                                                                                                                                                                                      |
@@ -35,7 +36,7 @@ Standard definition with only the required keys. This control will be displayed 
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography"
 }
 ```
@@ -143,7 +144,7 @@ It will be rendered on all devices. This value can be skipped because it is set 
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   devices: "all"
 }
@@ -153,16 +154,17 @@ Rendering will occur only on `desktop`.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   devices: "desktop"
 }
 ```
+
 The display is limited to responsive modes, specifically `tablet` and `mobile`.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   devices: "responsive"
 }
@@ -174,8 +176,8 @@ Control will be disabled. Normally, here should be your dynamic condition.
 
 ```js
 {
-  id: "typography", 
-  type: "typography", 
+  id: "typography",
+  type: "typography",
   disabled: true
 }
 ```
@@ -194,16 +196,16 @@ const getToolbarContols = ({ getValue }) => {
       type: "select",
       choices: [
         { title: "Youtube", value: "youtube" },
-        { title: "Custom", value: "custom" }
-      ]
+        { title: "Custom", value: "custom" },
+      ],
     },
     {
       id: "typography",
       type: "typography",
-      disabled: videoType === "custom"
-    }
-  ]
-}
+      disabled: videoType === "custom",
+    },
+  ];
+};
 ```
 
 #### Config `fontFamily` example
@@ -212,7 +214,7 @@ Determines whether the font family can be selected.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     fontFamily: false
@@ -222,11 +224,11 @@ Determines whether the font family can be selected.
 
 #### Config `fontSize` examples
 
-Rewrite the default minimum boundary for font size.  If the user inputs a value lower than this, it will be automatically corrected to this minimum value.
+Rewrite the default minimum boundary for font size. If the user inputs a value lower than this, it will be automatically corrected to this minimum value.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     fontSize: {
@@ -236,11 +238,11 @@ Rewrite the default minimum boundary for font size.  If the user inputs a value 
 }
 ```
 
-Rewrite the default maximum boundary for font size.  If the user inputs a value higher than this, it will be automatically corrected to this maximum value.
+Rewrite the default maximum boundary for font size. If the user inputs a value higher than this, it will be automatically corrected to this maximum value.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     fontSize: {
@@ -254,7 +256,7 @@ Rewrite both the default minimum and maximum boundaries for font size.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     fontSize: {
@@ -271,7 +273,7 @@ Rewrite the default minimum boundary for line height. If the user inputs a value
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     lineHeight: {
@@ -285,7 +287,7 @@ Rewrite the default maximum boundary for line height. If the user inputs a value
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     lineHeight: {
@@ -299,7 +301,7 @@ Rewrite both the default minimum and maximum boundaries for line height.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     lineHeight: {
@@ -316,7 +318,7 @@ Rewrite the default minimum boundary for letter spacing. If the user inputs a va
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     letterSpacing: {
@@ -330,7 +332,7 @@ Rewrite the default maximum boundary for letter spacing. If the user inputs a va
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     letterSpacing: {
@@ -344,7 +346,7 @@ Rewrite both the default minimum and maximum boundaries for line height.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     letterSpacing: {
@@ -361,7 +363,7 @@ Determines whether the text can be formatted as subscript.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     scriptChoices: ["sub"]
@@ -373,7 +375,7 @@ Determines whether the text can be formatted as subscript or superscript.
 
 ```js
 {
-  id: "typography", 
+  id: "typography",
   type: "typography",
   config: {
     scriptChoices: ["sub", "super"]
@@ -390,6 +392,7 @@ In the `default` object you can set the default values for any `typography` prop
   id: "typography",
   type: "typography",
   default: {
+    fontFamily: "open_sans", // Font family must be in lowercase with underscores
     fontFamilyType: "google",
     fontSize: 12,
     fontSizeSuffix: "px",
@@ -408,6 +411,24 @@ In the `default` object you can set the default values for any `typography` prop
   }
 }
 ```
+
+**Important:** When setting a default value for `fontFamily`, the font name must be formatted as a "trip ID":
+
+* Convert the font name to lowercase.
+* Replace all spaces with underscores.
+
+**Examples:**
+
+* `"Open Sans"` → `"open_sans"`
+
+* `"Roboto Condensed"` → `"roboto_condensed"`
+
+* `"Times New Roman"` → `"times_new_roman"`
+
+* Ensure the selected font exists and is available in the font list (shown on the left side of the control). If the font is not found, the editor will automatically fall back to the default font.
+
+![Typography](/img/controls/typography.png)
+
 
 #### CSS examples (`selector`, `style`)
 
@@ -440,8 +461,8 @@ Using the value from the `typography` control change the font weight and letter 
 
 #### Usage in HTML example
 
-To retrieve the control's return value, access the necessary values from the component's props using the following rule: 
-concatenate the `id` of the `typography` control with the value you wish to extract. The example below demonstrates 
+To retrieve the control's return value, access the necessary values from the component's props using the following rule:
+concatenate the `id` of the `typography` control with the value you wish to extract. The example below demonstrates
 how to extract 5 values from the `typography` control and use them to change some styles of a `h1` element.
 
 ```tsx
@@ -469,27 +490,23 @@ interface Props {
 }
 
 const Component = (props: Props): JSX.Element => {
-  const { 
-    titleFontSize, 
-    titleFontSizeSuffix,
-    titleFontWeight,
-    titleLineHeight,
-    titleFontFamily
-  } = props;
+  const { titleFontSize, titleFontSizeSuffix, titleFontWeight, titleLineHeight, titleFontFamily } = props;
 
-  return <div className="component">
-    <h1 
-      style={{
-        fontSize: `${titleFontSize}${titleFontSizeSuffix}`,
-        fontWeight: titleFontWeight,
-        lineHeight: titleLineHeight,
-        fontFamily: titleFontFamily
-      }}
-    >
-      Title
-    </h1>
-  </div>
-}
+  return (
+    <div className="component">
+      <h1
+        style={{
+          fontSize: `${titleFontSize}${titleFontSizeSuffix}`,
+          fontWeight: titleFontWeight,
+          lineHeight: titleLineHeight,
+          fontFamily: titleFontFamily,
+        }}
+      >
+        Title
+      </h1>
+    </div>
+  );
+};
 
 const componentModule = {
   id: "ThirdParty.Component", // Ensure this is unique across all module registrations
@@ -506,7 +523,7 @@ const componentModule = {
             type: "popover",
             config: {
               icon: "nc-font",
-              title: "Typography"
+              title: "Typography",
             },
             options: [
               {
@@ -528,24 +545,24 @@ const componentModule = {
                   strike: false,
                   uppercase: false,
                   lowercase: false,
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const thirdPartyComponents = {
-  [componentModule.id]: componentModule
+  [componentModule.id]: componentModule,
 };
 
 const pageData = {};
 const projectData = {};
 
 const Page = () => {
-  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />
+  return <BrizyEditor pageData={pageData} projectData={projectData} thirdPartyComponents={thirdPartyComponents} />;
 };
 ```

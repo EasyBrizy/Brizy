@@ -11,7 +11,7 @@ const mapModule = {
   title: "My Map",
   options: () => [
     {
-      selector: ".mapThirdComponent",
+      selector: ".brz-ui-ed-map-content",
       toolbar: [
         {
           id: "toolbarCurrentElement",
@@ -133,7 +133,7 @@ const mapModule = {
   title: "My Map",
   options: () => [
     {
-      selector: ".mapThirdComponent",
+      selector: ".brz-ui-ed-map-content",
       toolbar: [
         {
           id: "toolbarCurrentElement",
@@ -208,6 +208,7 @@ const mapModule = {
   ],
 };
 ```
+
 ![Sidebar Example](/img/controls/sidebar-option-example.png)
 
 ---
@@ -223,7 +224,7 @@ const mapModule = {
   title: "My Map",
   options: () => [
     {
-      selector: ".mapThirdComponent",
+      selector: ".brz-ui-ed-map-content",
       toolbar: [
         {
           id: "toolbarCurrentElement",
@@ -307,11 +308,194 @@ const mapModule = {
   ],
 };
 ```
+
 ![Sidebar With Disabled Options](/img/controls/sidebar-options-disabled.png)
 
 ---
 
-## 6. References
+## 6. Example C: Add a Typography control with label display block
+
+```js
+const mapModule = {
+  id: "ThirdParty.Map",
+  component: { editor: Map, view: Map },
+  title: "My Map",
+  options: () => [
+    {
+      selector: ".brz-ui-ed-map-content",
+      toolbar: [
+        {
+          id: "toolbarCurrentElement",
+          type: "popover",
+          config: { icon: "nc-pin", title: "Map" },
+          devices: "desktop",
+          position: 10,
+          options: [
+            {
+              id: "tabsCurrentElement",
+              type: "tabs",
+              tabs: [
+                {
+                  id: "tabCurrentElement",
+                  label: "Map",
+                  options: [
+                    {
+                      id: "address",
+                      label: "Address",
+                      type: "inputText",
+                      placeholder: "Enter address",
+                      default: { value: "Chisinau" },
+                    },
+                    {
+                      id: "zoom",
+                      label: "Zoom",
+                      type: "slider",
+                      config: { min: 1, max: 21 },
+                      default: { value: 9, suffix: "inch" },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        // Sidebar trigger
+        { id: "advancedSettings", type: "advancedSettings", title: "Settings" },
+      ],
+      sidebar: [
+        {
+          id: "sidebarTabs",
+          type: "sidebarTabs",
+          tabs: [
+            {
+              id: "styles",
+              title: "Styling",
+              label: "Styling",
+              options: [
+                {
+                  id: "settingsTabs",
+                  type: "tabs",
+                  config: { align: "start" },
+                  tabs: [
+                    {
+                      id: "settingsStyling",
+                      label: "Basic",
+                      options: [
+                        { id: "typography", type: "typography", label: "Typography" },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+![Typography Control](/img/controls/typography-sidebar-block.png)
+
+## 7. Example D: Add a Typography popover control with label display inline
+
+```js
+const mapModule = {
+  id: "ThirdParty.Map",
+  component: { editor: Map, view: Map },
+  title: "My Map",
+  options: () => [
+    {
+      selector: ".brz-ui-ed-map-content",
+      toolbar: [
+        {
+          id: "toolbarCurrentElement",
+          type: "popover",
+          config: { icon: "nc-pin", title: "Map" },
+          devices: "desktop",
+          position: 10,
+          options: [
+            {
+              id: "tabsCurrentElement",
+              type: "tabs",
+              tabs: [
+                {
+                  id: "tabCurrentElement",
+                  label: "Map",
+                  options: [
+                    {
+                      id: "address",
+                      label: "Address",
+                      type: "inputText",
+                      placeholder: "Enter address",
+                      default: { value: "Chisinau" },
+                    },
+                    {
+                      id: "zoom",
+                      label: "Zoom",
+                      type: "slider",
+                      config: { min: 1, max: 21 },
+                      default: { value: 9, suffix: "inch" },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        // Sidebar trigger
+        { id: "advancedSettings", type: "advancedSettings", title: "Settings" },
+      ],
+      sidebar: [
+        {
+          id: "sidebarTabs",
+          type: "sidebarTabs",
+          tabs: [
+            {
+              id: "styles",
+              title: "Styling",
+              label: "Styling",
+              options: [
+                {
+                  id: "settingsTabs",
+                  type: "tabs",
+                  config: { align: "start" },
+                  tabs: [
+                    {
+                      id: "typographyPopover",
+                      type: "popover",
+                      label: t("Typography"),
+                      config: {
+                        title: t("Typography"),
+                        icon: "nc-font", // You can use any icon from the editor
+                        size: "auto",
+                      },
+                      options: [
+                        { id: "typography2", type: "typography" }
+                      ]
+                    }
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+The configuration above will display as follows:
+
+![Typography Popover Control](/img/controls/typography-sidebar-inline.png)
+
+Clicking the icon will open the typography control:
+
+![Typography Control](/img/controls/typography-sidebar-popover.png)
+
+## 8. References
 
 - [Brizy Controls Introduction](/docs-internals/editor-controls/introduction)
 - [Advanced Settings Control](/docs-internals/editor-controls/data-controls/advancedSettings)

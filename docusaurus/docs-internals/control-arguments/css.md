@@ -310,6 +310,47 @@ The CSS output will be like below:
   }
 }
 ```
+#### Palette CSS variables in style arguments
+
+For color-related controls, the argument object passed to `style` includes additional helper keys that expose the selected palette as a CSS variable. These keys are only present for the `style` function (they are not persisted in the control value) and are `null` when no palette is selected.
+
+- colorPicker: `value.paletteVar`
+- backgroundColor: `value.paletteVar` (solid), `value.gradientPaletteVar` (gradient end color)
+- textShadow: `value.paletteVar`
+- border: `value.colorPaletteVar`
+- boxShadow: `value.paletteVar`
+
+Use these helpers to prefer CSS variables over raw colors. Note: the CSS variable value is an rgb triplet in the format `r,g,b`, so you can use it inside `rgba(...)`.
+
+Available CSS variable names follow this format and correspond to global color swatches:
+
+- `--brz-global-color1`
+- `--brz-global-color2`
+- `--brz-global-color3`
+- `--brz-global-color4`
+- `--brz-global-color5`
+- `--brz-global-color6`
+- `--brz-global-color7`
+- `--brz-global-color8`
+
+If no palette swatch is selected, the corresponding `*PaletteVar` key is `null`.
+
+Example using a palette variable with rgba in a style function:
+
+```js
+{
+  id: "color",
+  type: "colorPicker",
+  style: ({ value }) => ({
+    "{{WRAPPER}} .brz-text": {
+      // rgba(var(--brz-global-colorN), opacity)
+      color: value.paletteVar
+        ? `rgba(var(${value.paletteVar}), ${value.opacity})`
+        : value.hex
+    }
+  })
+}
+```
 
 ### Note
 

@@ -126,6 +126,10 @@ type config = {
       addMedia?: {
         handler: (resolve: Response<AddMediaData>, reject: Response<string>, extra: AddMediaExtra) => void;
       };
+
+      addMediaGallery?: {
+        handler: (resolve: Response<Array<AddMediaData>>, reject: Response<string>, extra: AddMediaExtra) => void;
+      };
     };
 
     // File
@@ -308,6 +312,7 @@ For more information about DynamicContent and how to replace it, please refer to
 | `api.media.mediaResizeUrl`       | `string`   | This is the URL for the image resizer service. There are two image resizer service options: hosted by Brizy and self hosted. If you choose to use the image resizer service hosted by Brizy, you don't have to change the media.brizylocal.com URL. For the self hosted version you need to replace the media.brizylocal.com with the URL of your image resizer service. Setup your own image resizer service like [this](https://github.com/EasyBrizy/Brizy-Local-Image-Resizer#image-resizer)                                                                                                                              |
 | `api.media.imagePatterns`        | `object`   | This is an object with `full`, `original`, and `split` keys. It's used to control the final URLs for all builder resize and crop operations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `api.media.addMedia.handler`     | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.                                                                                                                             |
+| `api.media.addMediaGallery.handler` | `function` | Is a function with a Promise-like signature for handling multiple image uploads (used by the gallery control). This function lets you use your own logic to retrieve multiple images. Once the images are available, you must call the resolve(value) function with an array of `AddMediaData` objects to pass them to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.                                                                                                                             |
 | `api.customFile.fileUrl`         | `string`   | This is the URL for your resources the final URL will be `api.customFile.fileUrl/${fileName}`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `api.customFile.addFile.handler` | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.                                                                                                                             |
 | `api.defaultKits.label`          | `string`   | Defines the text displayed in the editor UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -838,6 +843,79 @@ The builder uses two keys: `uid` and `fileName`, or only `uid` (with file extens
 The main idea is to resolve problems with the duplication of images.
 If the duplication was resolved by some media upload gallery, then send only `fileName` to `uid`.
 For example: `resolve({uid: "picture.png"})`.
+
+### Example Media Gallery Handler
+
+The `addMediaGallery` handler is used when users upload multiple images through the gallery control. It should resolve with an array of `AddMediaData` objects.
+
+**Note:** You can provide either:
+- Both `uid` and `fileName`
+- Only `uid` (with file extension)
+- Only `fileName` (the `uid` will automatically be set to the `fileName`)
+
+```ts
+const config = {
+  api: {
+    media: {
+      addMediaGallery: {
+        handler(resolve, reject, extra) {
+          // extra: { acceptedExtensions: Array<string> }
+          const input = document.createElement("input");
+          input.type = "file";
+          input.multiple = true; // Allow multiple file selection
+          input.accept = extra.acceptedExtensions.join(",");
+
+          input.addEventListener("change", function (e) {
+            const { files } = e.target;
+
+            if (files && files.length) {
+              const uploadPromises = Array.from(files).map((file) => {
+                return new Promise((res, rej) => {
+                  // Upload logic here (e.g., to your server or S3)
+                  const fileName = file.name;
+                  const uid = crypto.randomUUID();
+
+                  // Simulate upload
+                  setTimeout(() => {
+                    // Option 1: Provide both uid and fileName
+                    res({
+                      uid: uid,
+                      fileName: fileName,
+                    });
+
+                    // Option 2: Provide only fileName (uid will automatically become fileName)
+                    // res({
+                    //   fileName: fileName,
+                    // });
+
+                    // Option 3: Provide only uid (with file extension)
+                    // res({
+                    //   uid: fileName,
+                    // });
+                  }, 100);
+                });
+              });
+
+              Promise.all(uploadPromises)
+                .then((results) => {
+                  resolve(results);
+                })
+                .catch((error) => {
+                  reject(`Failed to upload images: ${error.message}`);
+                });
+            } else {
+              resolve([]);
+            }
+          });
+
+          // Open Upload Window
+          input.click();
+        },
+      },
+    },
+  },
+};
+```
 
 ### Image Patterns
 

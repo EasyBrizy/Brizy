@@ -19,17 +19,23 @@ as forms, tables, or task management interfaces.
 
 ### Parameters
 
-| Name                | Type                                     |   Default   | Description                                                                                                                                                                                                                      |
-|:--------------------|:-----------------------------------------|:-----------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `id`                | `string`                                 |      -      | The identifier of the key where the addable save data                                                                                                                                                                            |
-| `type`              | `string`                                 |      -      | The type should be `"addable"` to use this control                                                                                                                                                                               |
-| `shape`             | `Array<ControlItem>`                     |      -      | An Array of [**data controls**](/docs-internals/editor-controls/data-controls/inputText) ex: `"inputText"`, `"number"`, `"textarea"`,`"backgroundColor"` . . .                                                                   |
-| `roles?`            | `Array<Role>`                            |      -      | Render the control only if the current user's role matches one of the roles in the provided array <br /> <br /> **`type Role = "admin" \| "viewer" \| "editor" \| "designer" \| "manager"`**                                     |
-| `devices?`          | `"all"` \| `"desktop"` \| `"responsive"` |   `"all"`   | Define the devices where the control will be rendered. `"all"` renders the control on all devices. `"desktop"` renders the control only on desktop devices. `"responsive"` renders the control on both tablet and mobile devices |
-| `disabled?`         | 	`boolean`                               |  	`false`   | 	Configure the condition under which the control is disabled or enabled                                                                                                                                                          |
-| `config?.title`     | `string`                                 |  option id  | Setup title                                                                                                                                                                                                                      |
-| `config?.icon`      | `string`                                 | `nc-iframe` | Setup icon                                                                                                                                                                                                                       |
-| `config?.showCount` | `boolean`                                |    false    | Enable / Disable Message of the number of items                                                                                                                                                                                  |
+| Name                       | Type                                     |           Default            | Description                                                                                                                                                                                                                      |
+| :------------------------- | :--------------------------------------- | :--------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                       | `string`                                 |              -               | The identifier of the key where the addable save data                                                                                                                                                                            |
+| `type`                     | `string`                                 |              -               | The type should be `"addable"` to use this control                                                                                                                                                                               |
+| `shape`                    | `Array<ControlItem>`                     |              -               | An Array of [**data controls**](/docs-internals/editor-controls/data-controls/inputText) ex: `"inputText"`, `"number"`, `"textarea"`,`"backgroundColor"` . . .                                                                   |
+| `roles?`                   | `Array<Role>`                            |              -               | Render the control only if the current user's role matches one of the roles in the provided array <br /> <br /> **`type Role = "admin" \| "viewer" \| "editor" \| "designer" \| "manager"`**                                     |
+| `devices?`                 | `"all"` \| `"desktop"` \| `"responsive"` |           `"all"`            | Define the devices where the control will be rendered. `"all"` renders the control on all devices. `"desktop"` renders the control only on desktop devices. `"responsive"` renders the control on both tablet and mobile devices |
+| `disabled?`                | `boolean`                                |           `false`            | Configure the condition under which the control is disabled or enabled                                                                                                                                                           |
+| `config?.title`            | `string`                                 |          option id           | Setup title                                                                                                                                                                                                                      |
+| `config?.icon`             | `string`                                 |         `nc-iframe`          | Setup icon                                                                                                                                                                                                                       |
+| `config?.showCount`        | `boolean`                                |            false             | Enable / Disable Message of the number of items                                                                                                                                                                                  |
+| `config?.optionGroupTitle` | `string`                                 |           "Widget"           | Customize the title prefix for newly created groups. The title format will be `{optionGroupTitle} {index}` (e.g., "Widget 0", "Widget 1")                                                                                        |
+| `config?.sidebarHeadTitle` | `string`                                 |      "Addable Widgets"       | Customize the title displayed in the sidebar header                                                                                                                                                                              |
+| `config?.addNewGroupTitle` | `string`                                 |       "Add New Widget"       | Customize the text displayed on the button that adds new groups                                                                                                                                                                  |
+| `config?.emptyMessage`     | `string`                                 | "You do not have any option" | Customize the message displayed when there are no items in the addable control                                                                                                                                                   |
+| `config?.className`        | `string`                                 |              -               | Add custom CSS class name to the sidebar container                                                                                                                                                                               |
+| `config?.extraLabel`       | `string`                                 |              -               | Display additional text label next to the icon button                                                                                                                                                                            |
 
 ### Example of control definition: {#shape-definition}
 
@@ -41,6 +47,12 @@ as forms, tables, or task management interfaces.
     title: "MyAddableTitle",
     icon: "nc-hover-move",
     showCount: true,
+    optionGroupTitle: "Item",
+    sidebarHeadTitle: "My Items",
+    addNewGroupTitle: "Add New Item",
+    emptyMessage: "No items available",
+    className: "custom-sidebar",
+    extraLabel: "Manage"
   },
   shape: [
     {
@@ -65,7 +77,7 @@ The Addable returns an array of Groups, with the Following structure:
 Array<{
   id: string;
   title: string;
-}>
+}>;
 ```
 
 Using the group IDs, we can collect data based on this predefined structure [(shape)](#shape-definition), ensuring
@@ -78,22 +90,22 @@ Example of returned value :
 ```js
 [
   {
-    "id": "zTLVWZ",
-    "title": "Widget 0"
+    id: "zTLVWZ",
+    title: "Widget 0",
   },
   {
-    "id": "ellf5q",
-    "title": "Widget 1"
+    id: "ellf5q",
+    title: "Widget 1",
   },
   {
-    "id": "rp7YOA",
-    "title": "Widget 2"
+    id: "rp7YOA",
+    title: "Widget 2",
   },
   {
-    "id": "zmYmSn",
-    "title": "Widget 3"
-  }
-]
+    id: "zmYmSn",
+    title: "Widget 3",
+  },
+];
 ```
 
 ### Key Generation
@@ -113,7 +125,7 @@ The keys for the returned values are generated using the id's of **addable id**,
 // groupID = "zTLVWZ" //(for example the id of firstGroup)
 // optionIDFromShape = "description"
 
-camelCase([addableId, groupId, controlID]) // myAddableZTLVWZDescription 
+camelCase([addableId, groupId, controlID]); // myAddableZTLVWZDescription
 ```
 
 ![Addable item key generate](/img/controls/addable-keys-min.png)
@@ -121,7 +133,9 @@ camelCase([addableId, groupId, controlID]) // myAddableZTLVWZDescription
 ### Usage
 
 #### Roles example
+
 Show the control only to users with admin and designer privileges.
+
 ```js
 {
   id: "myAddable",
@@ -139,9 +153,10 @@ Show the control only to users with admin and designer privileges.
 }
 ```
 
-
 #### Config `title` example
+
 Displays the title set to the left of control
+
 ```js
 {
   id: "myAddable",
@@ -162,7 +177,9 @@ Displays the title set to the left of control
 ```
 
 #### Config `icon` example
+
 Set-up a "menu" icon for the open button
+
 ```js
 {
   id: "myAddable",
@@ -177,13 +194,15 @@ Set-up a "menu" icon for the open button
       label: "description label",
       type: "inputText"
     },
-    // ... 
+    // ...
   ]
 }
 ```
 
 #### Config `showCount` example
-Show number of groups 
+
+Show number of groups
+
 ```js
 {
   id: "myAddable",
@@ -203,13 +222,152 @@ Show number of groups
 }
 ```
 
+#### Config `optionGroupTitle` example
+
+Customize the title prefix for newly created groups
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    optionGroupTitle: "Item"
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
+#### Config `sidebarHeadTitle` example
+
+Customize the title displayed in the sidebar header
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    sidebarHeadTitle: "My Custom Items"
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
+#### Config `addNewGroupTitle` example
+
+Customize the text displayed on the button that adds new groups
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    addNewGroupTitle: "Add New Item"
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
+#### Config `emptyMessage` example
+
+Customize the message displayed when there are no items
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    emptyMessage: "No items available. Click to add one."
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
+#### Config `className` example
+
+Add custom CSS class name to the sidebar container
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    className: "my-custom-sidebar"
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
+#### Config `extraLabel` example
+
+Display additional text label next to the icon button
+
+```js
+{
+  id: "myAddable",
+  type: "addable",
+  config: {
+    // highlight-next-line
+    extraLabel: "Manage"
+  },
+  shape: [
+    {
+      id: "description",
+      label: "description label",
+      type: "inputText"
+    },
+    // ...
+  ]
+}
+```
+
 #### Disabled examples
+
 Control will be disabled. Normally, here should be your dynamic condition.
 
 ```js
 {
   id: "myAddable",
-  type: "addable", 
+  type: "addable",
   // highlight-next-line
   disabled: true
   shape: [
@@ -230,7 +388,7 @@ It will be rendered on all devices. This value can be skipped because it is set 
 ```js
 {
   id: "myAddable",
-  type: "addable", 
+  type: "addable",
   // highlight-next-line
   devices: "all"
   shape: [
@@ -249,7 +407,7 @@ Rendering will occur only on `desktop`.
 ```js
 {
   id: "myAddable",
-  type: "addable", 
+  type: "addable",
   // highlight-next-line
   devices: "desktop"
   shape: [
@@ -264,10 +422,11 @@ Rendering will occur only on `desktop`.
 ```
 
 The display is limited to responsive modes, specifically `tablet` and `mobile`.
+
 ```js
 {
   id: "myAddable",
-  type: "addable", 
+  type: "addable",
   // highlight-next-line
   devices: "responsive"
   shape: [
@@ -294,21 +453,18 @@ function List(props) {
   //   { id: "ellf5q", title: "Widget 1" }
   // ]
 
-  const values = myAddable?.map(
-    ({ id: groupId }) => {
-      const descriptionKey = camelCase(["myAddable", groupId, "description"]);
-      // descriptionKey = "myAddableZTLVWZDescription"
+  const values = myAddable?.map(({ id: groupId }) => {
+    const descriptionKey = camelCase(["myAddable", groupId, "description"]);
+    // descriptionKey = "myAddableZTLVWZDescription"
 
-      const scoreKey = camelCase(["myAddable", groupId, "score"]);
-      // scoreKey = "myAddableZTLVWZScore"
+    const scoreKey = camelCase(["myAddable", groupId, "score"]);
+    // scoreKey = "myAddableZTLVWZScore"
 
-      return {
-        description: props[descriptionKey],
-        score: props[scoreKey],
-      };
-    },
-  );
-
+    return {
+      description: props[descriptionKey],
+      score: props[scoreKey],
+    };
+  });
 
   return (
     <ul className="score-list">
@@ -327,38 +483,40 @@ Brizy.registerComponent({
   title: "Items list",
   category: "custom",
   options: (props) => {
-    return [{
-      selector: ".score-list",
-      toolbar: [
-        {
-          id: "toolbarCurrentElement",
-          type: "popover",
-          config: {
-            icon: "nc-text",
-            title: "Text",
-          },
-          devices: "desktop",
-          options: [
-            {
-              id: "myAddable",
-              type: "addable",
-              shape: [
-                {
-                  id: "description",
-                  label: "description label",
-                  type: "inputText",
-                },
-                {
-                  id: "score",
-                  label: "score label",
-                  type: "number",
-                },
-              ],
+    return [
+      {
+        selector: ".score-list",
+        toolbar: [
+          {
+            id: "toolbarCurrentElement",
+            type: "popover",
+            config: {
+              icon: "nc-text",
+              title: "Text",
             },
-          ],
-        },
-      ],
-    }];
+            devices: "desktop",
+            options: [
+              {
+                id: "myAddable",
+                type: "addable",
+                shape: [
+                  {
+                    id: "description",
+                    label: "description label",
+                    type: "inputText",
+                  },
+                  {
+                    id: "score",
+                    label: "score label",
+                    type: "number",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
   },
 });
-``` 
+```

@@ -444,7 +444,18 @@ The display is limited to responsive modes, specifically `tablet` and `mobile`.
 
 ```js
 import React from "react";
-import { Brizy } from "@brizy/core";
+import { Editor as BrizyEditor } from "@brizy/builder/editor";
+import { Preview as BrizyPreview } from "@brizy/builder/preview";
+import type { EditorThirdPartyComponents } from "@brizy/builder/editor";
+import type { PreviewThirdPartyComponents } from "@brizy/builder/preview";
+
+// Utility function to convert array of strings to camelCase
+const camelCase = (strings) => {
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+  return strings.reduce((acc, str) => {
+    return acc === "" ? str : acc + capitalize(str);
+  }, "");
+};
 
 function List(props) {
   const { myAddable } = props;
@@ -477,9 +488,12 @@ function List(props) {
   );
 }
 
-Brizy.registerComponent({
-  id: "Thirdparty.List",
-  component: { editor: List, view: List },
+const ListModule = {
+  id: "Thirdparty.List", // Ensure this is unique across all module registrations
+  component: {
+    editor: List,
+    view: List,
+  },
   title: "Items list",
   category: "custom",
   options: (props) => {
@@ -518,5 +532,38 @@ Brizy.registerComponent({
       },
     ];
   },
-});
+};
+
+const thirdPartyComponents: EditorThirdPartyComponents = {
+  [ListModule.id]: ListModule,
+};
+
+const pageData = {};
+const projectData = {};
+
+// Example usage in Editor mode
+const EditorPage = () => {
+  return (
+    <BrizyEditor
+      pageData={pageData}
+      projectData={projectData}
+      thirdPartyComponents={thirdPartyComponents}
+    />
+  );
+};
+
+// Example usage in Preview mode
+const previewThirdPartyComponents: PreviewThirdPartyComponents = {
+  [ListModule.id]: ListModule,
+};
+
+const PreviewPage = () => {
+  return (
+    <BrizyPreview
+      pageData={pageData}
+      projectData={projectData}
+      thirdPartyComponents={previewThirdPartyComponents}
+    />
+  );
+};
 ```

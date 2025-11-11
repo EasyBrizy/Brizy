@@ -25,6 +25,7 @@ Brizy.registerComponent({
     view: ButtonView,
   },
   title: "Button",
+  truncate: false,
   category: "custom",
   categoryOrder: 1,
   options: () => [],
@@ -36,6 +37,7 @@ Brizy.registerComponent({
 - `id` - the unique component ID. While invisible to the user, it's essential for the builder to distinguish this widget from others.
 - `component` - an object containing editor and view keys, each specifying the React component to be rendered in the respective mode.
 - `title` - the widget's display name within the user interface.
+- `truncate` - controls how long titles are displayed. When `true` (default), long titles are truncated with an ellipsis ("..."). When `false`, titles wrap to multiple lines by word.
 - `category` - the widget category where your custom widget will be grouped.
 - `categoryOrder` - specifies the order of categories in the sidebar. The lowest order value will place the category at the top. If multiple elements are registered in the same category with different `categoryOrder` values, the lowest value will be applied to the entire category.
 - `options` - specifies the toolbar controls. Read more [here](/docs-internals/editor-controls/introduction).

@@ -446,6 +446,14 @@ The display is limited to responsive modes, specifically `tablet` and `mobile`.
 import React from "react";
 import { Brizy } from "@brizy/core";
 
+// Utility function to convert array of strings to camelCase
+const camelCase = (strings) => {
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+  return strings.reduce((acc, str) => {
+    return acc === "" ? str : acc + capitalize(str);
+  }, "");
+};
+
 function List(props) {
   const { myAddable } = props;
   // myAddable = [

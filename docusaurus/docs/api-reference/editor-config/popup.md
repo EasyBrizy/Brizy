@@ -338,10 +338,11 @@ For more information about DynamicContent and how to replace it, please refer to
 
 ### Urls parameters
 
-| Name               | type     | Description                                                                                                       |
-| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components. |
-| `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                  |
+| Name               | type     | Description                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components.                                                                                                                                                                 |
+| `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                                                                                                                                                                                  |
+| `urls.googleFonts` | `string` | Base URL for Google Fonts CSS loading and DNS prefetch/preconnect optimization. Used directly as the base URL when generating Google Fonts CSS links (query parameters are appended). Also used for DNS prefetch and preconnect links. Defaults to `"https://fonts.bunny.net/css"` for CSS links and `"https://fonts.bunny.net"` for prefetch if not provided. |
 
 ### Elements parameters
 
@@ -1316,6 +1317,123 @@ const config = {
   isRTL: true,
 };
 ```
+
+### Example: Google Fonts URL (`urls.googleFonts`)
+
+The `googleFonts` URL is used for two purposes:
+
+1. **DNS Prefetch/Preconnect Optimization**: Adds performance optimization links to prefetch and preconnect to the Google Fonts domain
+2. **Google Fonts CSS Loading**: Used directly as the base URL when generating Google Fonts CSS links (query parameters are appended)
+
+**How it works:**
+
+- When generating font CSS links, the editor uses `urls.googleFonts` directly and appends query parameters (defaults to `"https://fonts.bunny.net/css"` if not provided)
+- DNS prefetch and preconnect links use the domain from `urls.googleFonts` (defaults to `"https://fonts.bunny.net"` if not provided)
+
+**Example configuration:**
+
+```ts
+const config = {
+  urls: {
+    googleFonts: "https://fonts.bunny.net/css", // Full URL including /css path
+  },
+};
+```
+
+**Example with Google Fonts API:**
+
+If you're using Google Fonts API, include the `/css` path:
+
+```ts
+const config = {
+  urls: {
+    googleFonts: "https://fonts.googleapis.com/css", // Full URL with /css path
+  },
+};
+```
+
+**Example with custom CDN:**
+
+If you're using a custom CDN that supports the Google Fonts API format:
+
+```ts
+const config = {
+  urls: {
+    googleFonts: "https://cdn.example.com/fonts/css", // Custom CDN endpoint
+  },
+};
+```
+
+**Expected format:**
+
+The custom CDN endpoint must support the same format as Google Fonts API. The editor will append query parameters in this format:
+
+```
+{baseUrl}?family={fontFamily1}:{weights1}|{fontFamily2}:{weights2}&subset={subsets}&display=swap
+```
+
+Where:
+- `family`: Font families separated by `|`, each with format `FontName:weight1,weight2` (e.g., `Roboto:400,700|Open+Sans:300,400,600`)
+- `subset`: Comma-separated list of character subsets (e.g., `arabic,bengali,cyrillic,latin-ext`)
+- `display`: Always set to `swap` for font-display optimization
+
+**Response format:**
+
+The CDN endpoint must return CSS text with `@font-face` declarations in the same format as Google Fonts API. The response should be valid CSS containing `@font-face` rules for each requested font variant.
+
+Example response format:
+
+```css
+/* latin */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://cdn.example.com/fonts/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://cdn.example.com/fonts/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Additional subsets and font families... */
+```
+
+The response should:
+
+- Be a CSS file response with `Content-Type: text/css` header
+- Contain `@font-face` declarations for all requested font variants
+- Include proper `unicode-range` declarations for each subset
+- Use `font-display: swap` as specified in the query parameter
+- Provide font file URLs (woff2, woff, or other web font formats)
+
+**Supported fonts:**
+
+The editor supports all Google Fonts available through the Google Fonts API. For a complete list of available fonts, font families, weights, and subsets, refer to the [Google Fonts API documentation](https://developers.google.com/fonts/docs/css2).
+
+**Example generated URLs:**
+
+When fonts are used, the editor will generate:
+
+- CSS link: `https://fonts.googleapis.com/css?family=Roboto:400,700|Open+Sans:300,400&subset=arabic,bengali,cyrillic,cyrillic-ext,devanagari,greek,greek-ext,gujarati,hebrew,khmer,korean,latin-ext,tamil,telugu,thai,vietnamese&display=swap`
+- Prefetch link: `<link rel="dns-prefetch" href="https://fonts.googleapis.com">`
+- Preconnect link: `<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>`
+
+**Note:** If `googleFonts` is not provided, the editor defaults to `"https://fonts.bunny.net/css"` for CSS links. This option is useful when you need to:
+
+- Use a different font service (e.g., Google Fonts API, custom CDN)
+- Implement custom caching strategies
+- Comply with specific data privacy requirements
+- Optimize font loading performance
 
 ### Video Types
 

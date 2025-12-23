@@ -23,12 +23,14 @@ Example of the same controls without `group` control:
 |:-------------|:-----------------------------------------|:------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `id`         | `string`                                 |      -       | The identifier of the key where the switch will save your data                                                                                                                                                                                                                                                                          |
 | `type`       | `string`                                 |      -       | Type should be `"group"` to use this control                                                                                                                                                                                                                                                                                            |
+| `label?`     | `string`                                 |      -       | The label displayed on the left side of the control                                                                                                                                                                                                                                                                                     |
 | `position?`  | `number`                                 |      -       | The position of the control in toolbar                                                                                                                                                                                                                                                                                                  |
 | `className?` | `string`                                 |      -       | The custom CSS class name that will be set on the control. It can be used to modify the control styles.                                                                                                                                                                                                                                 |
 | `roles?`     | `Array<Role>`                            |      -       | Render the control only if the current user's role matches one of the roles in the provided array. <br /> <br /> **`type Role = "admin" \| "viewer" \| "editor" \| "designer" \| "manager"`**                                                                                                                                           | string`**                                                                                                                                                                                                                                                                                                  |
 | `devices?`   | `"all"` \| `"desktop"` \| `"responsive"` |   `"all"`    | Define the devices where the control will be rendered. `"all"` renders the control on all devices. `"desktop"` renders the control only on desktop devices. `"responsive"` renders the control on both tablet and mobile devices.                                                                                                       |
 | `states?`    | `Array<State>`                           | [`"normal"`] | Allows for different styles based on the element's state <br/> <br/> <b>`State = "normal" \| "hover" \| "active"`</b> <br/> <br/> `"normal"` - the normal state of an element, <br/> `"hover"` - the state when the element is hovered over, <br/> `"active"` - the state when the element is active (e.g., current page in pagination) |
 | `disabled?`  | `boolean`                                |   `false`    | Configure the condition under which the control is disabled or enabled.                                                                                                                                                                                                                                                                 |
+| `display?`   | `"inline"` \| `"block"`                  |  `"inline"`  | Configure how the control and its label will be arranged. If `display` is `"inline"` then label and control will be in one row, if `display` is `"block"` then label will be in one row, and the next row down will be the control.                                                                                                     |
 | `options`    | `Array<ControlItem>`                     |      -       | An array of controls that will be grouped together.  <br/><br/> **```ControlItem : {id: number; type: string; disabled: boolean; position: number; devices: "all"` \| `"desktop"` \| `"responsive"}```**                                                                                                                                |
 
 ### Basic example
@@ -72,6 +74,30 @@ This control does not return a value.
 
 ### Usage
 
+#### Label example
+
+Adding a label on the left side of the control.
+
+```js
+{
+  id: "groupSettings",
+  type: "group",
+  label: "Settings",
+  options: [
+    {
+      id: "width",
+      type: "slider",
+      label: "Width"
+    },
+    {
+      id: "height",
+      type: "slider",
+      label: "Height"
+    }
+  ]
+}
+```
+
 #### Class name example
 
 Adding a CSS class to the control's DOM node.
@@ -95,6 +121,33 @@ Adding a CSS class to the control's DOM node.
     {
       id: "borderRadius",
       type: "slider"
+    }
+  ]
+}
+```
+
+#### Display example
+
+In this example, with `display: "block"`, the label will be rendered on the first row and the control on the second.
+
+![Group Display Block](/img/controls/group-display-block.jpg)
+
+```js
+{
+  id: "groupSettings",
+  type: "group",
+  label: "SETTINGS",
+  display: "block",
+  options: [
+    {
+      id: "width",
+      type: "slider",
+      label: "Width"
+    },
+    {
+      id: "height",
+      type: "slider",
+      label: "Height"
     }
   ]
 }

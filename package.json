@@ -3,15 +3,12 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-
     "build:docs": "turbo run build --filter=@brizy/docs",
     "build:next": "turbo run build --filter=next",
     "build:remix": "turbo run build --filter=remix",
-
     "start:docs": "npm run start --workspace=@brizy/docs",
     "start:next": "npm run start --workspace=next",
     "start:remix": "npm run start --workspace=remix",
-
     "dev:next": "npm run dev --workspace=next",
     "dev:remix": "npm run dev --workspace=remix",
     "tsc": "turbo run tsc",

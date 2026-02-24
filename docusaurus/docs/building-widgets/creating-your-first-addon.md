@@ -195,6 +195,10 @@ The widget state contains:
 - Any additional custom data you add programmatically
 - Default values specified in your toolbar options
 
+### `dynamicClassName` prop
+
+The `dynamicClassName` prop is the runtime value of the `{{WRAPPER}}` placeholder: the unique CSS class (e.g. `.brz-css-gpVzg`) that scopes your widget's styles and avoids conflicts with other elements. See [`{{WRAPPER}}`](/docs-internals/control-arguments/css#wrapper-placeholder) placeholder for how it is used in control selectors.
+
 ### onChange Callback
 
 Along with the value props, your component receives an `onChange` callback function that allows you to update the widget's state. This callback accepts a partial object containing only the fields you want to update.

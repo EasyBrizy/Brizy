@@ -64,7 +64,7 @@ Brizy AI operates through a sophisticated session-based workflow:
 
 ### 3. Content Generation
 - AI analyzes requirements and industry context
-- Generates appropriate content using Brizy's fine-tuned models
+- Generates appropriate content using fine-tuned models
 - Selects relevant templates and styling
 - Creates location-specific content when applicable
 
@@ -108,10 +108,9 @@ Brizy AI operates through a sophisticated session-based workflow:
 ## Technology Stack
 
 ### AI & Machine Learning
-- **OpenAI GPT Models**: Fine-tuned models for website content generation (headings, descriptions, testimonials, etc.)
-- **Custom Training**: Train your own models using Brizy's provided prompt files
+- **OpenAI GPT Models**: Fine-tuned models for specialized content generation
+- **Custom Training**: Industry-specific model training for better results
 - **Content Optimization**: AI-powered content improvement and SEO
-- **Prompt Files Available**: Brizy provides training prompt files - contact Brizy support to receive prompt datasets for training your own fine-tuned models
 
 ### Cloud Infrastructure
 - **AWS S3**: Cloud storage for assets and configurations

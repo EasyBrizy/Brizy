@@ -57,10 +57,6 @@ To use Brizy AI features, you'll need these API keys configured:
 
 **Note**: Free tier available for testing with limited requests
 
-:::info Training Prompt Files Available
-Brizy provides **training prompt files** for fine-tuning GPT models specifically optimized for website content generation. These prompt datasets cover various content types including headings, descriptions, testimonials, and more. **Contact Brizy support to receive the prompt files**, then use OpenAI's fine-tuning API to train your own models. After training, you'll receive model IDs to use in your deployment configuration.
-:::
-
 #### 3. Google Places API Key
 **Purpose**: For location-based data and search functionality
 

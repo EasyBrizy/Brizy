@@ -54,7 +54,7 @@ docker run -d \
   -e SENTRY_LARAVEL_DSN= \
   -e SENTRY_TRACES_SAMPLE_RATE= \
   -e APP_HTTP_SCHEME=http \
-  brizy/ai:latest
+  brizyai/official:latest
 ```
 
 ### Option 2: Docker Compose
@@ -65,7 +65,7 @@ Create a `docker-compose.yml` file with all environment variables:
 version: '3.8'
 services:
   brizy-ai:
-    image: brizy/ai:latest
+    image: brizyai/official:latest
     container_name: brizy-ai
     ports:
       - "80:80"
@@ -81,9 +81,8 @@ services:
       AMAZON_S3_BUCKET: Bucket Name
       AMAZON_S3_KEY: EXAMPLE KEY
       AMAZON_S3_SECRET: EXAMPLE KEY
-
+      
       # OpenAI Fine-tuned Models
-      # Note: Brizy provides these pre-trained models. Contact support for model IDs.
       APP_GPT_MODEL_HEADING: EXAMPLE KEY
       APP_GPT_MODEL_HEADING_LOCATION: EXAMPLE KEY
       APP_GPT_MODEL_SUBHEAD: EXAMPLE KEY
@@ -129,70 +128,6 @@ Then run:
 ```bash
 docker-compose up -d
 ```
-
-## Fine-Tuned Models
-
-:::info Training Your Own Fine-Tuned Models
-The OpenAI GPT model IDs (starting with `APP_GPT_MODEL_*`) reference **fine-tuned models that you train using Brizy's provided prompt files** for optimal website content generation. These models should be trained for:
-
-- Business headings and subheadings
-- Location-specific content
-- Testimonials and reviews
-- Service names and descriptions
-- Business name generation
-- Multi-language translation
-- Industry-specific content
-
-**Training Process:**
-1. **Contact Brizy support** to receive the training prompt files for each content type
-2. **Use OpenAI's fine-tuning API** to train models with the provided prompt datasets
-3. **Update environment variables** with your trained model IDs (e.g., `ft:gpt-4o-mini-2024-07-18:your-org:model-name:id`)
-
-### How to Fine-Tune Models
-
-Once you receive the prompt files from Brizy, you'll need to fine-tune models using OpenAI's API. Here's a quick example:
-
-**Step 1: Prepare your training data**
-```bash
-# Brizy provides JSONL files like:
-# - heading_training.jsonl
-# - testimonial_training.jsonl
-# - service_description_training.jsonl
-# etc.
-```
-
-**Step 2: Upload training file to OpenAI**
-```bash
-curl https://api.openai.com/v1/files \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -F "purpose=fine-tune" \
-  -F "file=@heading_training.jsonl"
-```
-
-**Step 3: Create fine-tuning job**
-```bash
-curl https://api.openai.com/v1/fine_tuning/jobs \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "training_file": "file-abc123",
-    "model": "gpt-4o-mini-2024-07-18"
-  }'
-```
-
-**Step 4: Get your fine-tuned model ID**
-```bash
-# After training completes, you'll receive a model ID like:
-# ft:gpt-4o-mini-2024-07-18:your-org:heading-model:abc123
-```
-
-**Resources:**
-- [OpenAI Fine-Tuning Guide](https://platform.openai.com/docs/guides/fine-tuning)
-- [Fine-Tuning API Reference](https://platform.openai.com/docs/api-reference/fine-tuning)
-- [Preparing Your Dataset](https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset)
-
-**Note:** You'll need to repeat this process for each content type (headings, testimonials, services, etc.) and update the corresponding environment variables with your trained model IDs.
-:::
 
 ## Environment Variables Reference
 

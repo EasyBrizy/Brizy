@@ -175,6 +175,9 @@ type config = {
       disableSelectType?: boolean;
       disableAutoplay?: boolean;
     };
+    carousel?: {
+      disableDynamicContent?: boolean;
+    };
   };
 };
 ```
@@ -341,6 +344,7 @@ For more information about DynamicContent and how to replace it, please refer to
 | elements.posts.querySource       | boolean                 | Takes true or false values and lets you turn on or off the `Source` option from toolbar.                                                                                                                                                                                                                                                                                                                                                                                                         |
 | elements.audio.disableSelectType | boolean                 | Enables or disables the **Select Type** option in the toolbar. When set to `true`, users cannot select a custom audio.                                                                                                                                                                                                                                                                                                                                                                           |
 | elements.audio.disableAutoplay   | boolean                 | Enables or disables the **Autoplay** option in the toolbar. When set to `true`, the autoplay setting will not be available.                                                                                                                                                                                                                                                                                                                                                                      |
+| `elements.carousel.disableDynamicContent` | `boolean` | When set to `true`, disables the **Dynamic Content** popover in the Carousel toolbar (including the dynamic content switch and its filters). When omitted or `false`, the popover is available as usual.                                                                                                                                                                                                                                                                                         |
 
 ## Examples
 

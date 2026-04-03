@@ -28,7 +28,7 @@ The project data configuration is stored in JSON format, and it defines the foll
 | `styles`          | Array of style configuration objects                       |
 | `extraFontStyles` | Array for additional font styles (currently empty)         |
 | `font`            | The default font for the application                       |
-| `fonts`           | Contains font configuration data                           |
+| `fonts`           | Google font registry (`config`, `google`, `blocks`); see [Fonts object](#fonts-object) |
 
 ### Style Object
 
@@ -83,7 +83,7 @@ All font families referenced in the style definitions must exist in the `fonts` 
 
 ## Font Style Properties
 
-Each font style requires the following properties:
+Each font style item includes the following. The **Basic properties** and **Responsive properties** sections list fields that are required for a full preset. **Text style and casing**, **Superscript and subscript**, and **Variable font axes** are optional and may be omitted (booleans default to `false` when missing).
 
 ### Basic Properties
 
@@ -99,6 +99,41 @@ Each font style requires the following properties:
 | `fontWeight`     | Font weight (100-900)                |
 | `lineHeight`     | Line height multiplier               |
 | `letterSpacing`  | Letter spacing value                 |
+
+### Text style and casing
+
+These boolean flags control typography appearance. They are stored on each font style item (same shape as in the editor’s typography controls). If omitted, the application treats them as `false`.
+
+| Property    | Description |
+| ----------- | ----------- |
+| `bold`      | When `true`, the global bold CSS variable uses the keyword `bold` instead of the numeric `fontWeight`. |
+| `italic`    | Italic (`font-style`). |
+| `underline` | Underline (`text-decoration`). |
+| `strike`    | Strikethrough / line-through (`text-decoration`). |
+| `uppercase` | Uppercase text transform. |
+| `lowercase` | Lowercase text transform. |
+
+### Superscript and subscript (optional)
+
+| Property | Description |
+| -------- | ----------- |
+| `script` | Optional. Superscript / subscript: empty string `""` (none), `"super"`, or `"sub"`. |
+
+### Variable font axes (optional)
+
+Optional numeric settings for variable fonts. If omitted, defaults apply when generating global typography (for example weight `400`, width `100`, softness `0`). Each axis has desktop, tablet, and mobile fields where applicable.
+
+| Property | Description |
+| -------- | ----------- |
+| `variableFontWeight` | Variable font weight axis (desktop). |
+| `fontWidth` | Variable font width axis (desktop). |
+| `fontSoftness` | Variable font softness axis (desktop). |
+| `tabletVariableFontWeight` | Weight axis for tablet. |
+| `tabletFontWidth` | Width axis for tablet. |
+| `tabletFontSoftness` | Softness axis for tablet. |
+| `mobileVariableFontWeight` | Weight axis for mobile. |
+| `mobileFontWidth` | Width axis for mobile. |
+| `mobileFontSoftness` | Softness axis for mobile. |
 
 ### Responsive Properties
 
@@ -146,7 +181,13 @@ Here's a simplified example of a valid style configuration:
       "fontFamily": "lato",
       "fontFamilyType": "google",
       "fontSize": 16,
-      // Other properties...
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strike": false,
+      "uppercase": false,
+      "lowercase": false,
+      // fontWeight, lineHeight, letterSpacing, responsive fields, etc.
     },
     // Other required font styles...
   ],
@@ -209,6 +250,54 @@ When creating or modifying styles, ensure:
 
 Below is the complete reference JSON configuration used by the brizy. This can be used as a template when creating new styles.
 
+### Font transform keys in `fontStyles`
+
+Each object in `fontStyles` may include **font transform** fields alongside size and weight. They are optional; if omitted, the app behaves as if they were `false` or `script` was empty.
+
+| Key | Type | Meaning |
+| --- | ---- | ------- |
+| `bold` | boolean | When `true`, bold output uses the CSS keyword `bold` instead of the numeric `fontWeight`. |
+| `italic` | boolean | Italic. |
+| `underline` | boolean | Underline. |
+| `strike` | boolean | Strikethrough. |
+| `uppercase` | boolean | Uppercase text transform. |
+| `lowercase` | boolean | Lowercase text transform. |
+| `script` | string | `""` (none), `"super"`, or `"sub"`. |
+
+See [Font Style Properties](#font-style-properties) for variable-font fields and the full typography model.
+
+### Fonts object
+
+The top-level `fonts` object groups **Google Fonts** by how they are used. Each key below is an object with a single **`data`** array of Google Webfont entries (the same shape as the [Google Fonts API](https://developers.google.com/fonts/docs/developer_api) `webfont` item).
+
+| Key | Role |
+| --- | ---- |
+| `config` | Fonts bundled with **global typography / style presets** (this document). |
+| `google` | Extra Google Fonts added at the project level (e.g. chosen in the UI). |
+| `blocks` | Google Fonts added when **blocks** reference typography (e.g. rich text). |
+
+Only **Google Webfont** objects belong in these arrays.
+
+**Google font object** (each item in `fonts.config.data`, `fonts.google.data`, or `fonts.blocks.data`)
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `kind` | `"webfonts#webfont"` | Literal marker. |
+| `family` | `string` | Display family name (e.g. `"Lato"`). |
+| `category` | `string` | e.g. `"sans-serif"`, `"serif"`. |
+| `variants` | `string[]` | Weights/styles (`"regular"`, `"700"`, `"italic"`, `"700italic"`, …). |
+| `subsets` | `string[]` | Script subsets (`"latin"`, `"latin-ext"`, …). |
+| `version` | `string` | Font version. |
+| `lastModified` | `string` | ISO date string. |
+| `files` | `object` | Variant name → file URL (often `.ttf` on `fonts.gstatic.com`). |
+| `brizyId` | `string` | Internal id. |
+| `menu` | `string` | *(Optional)* Menu / preview sample URL. |
+| `deleted` | `boolean` | *(Optional)* If `true`, the font is ignored. |
+
+In **font styles**, use `fontFamilyType: "google"` and set `fontFamily` to the **normalized family id**: lowercase, spaces replaced with underscores (e.g. `"lato"` for `"Lato"`, `"noto_serif"` for `"Noto Serif"`).
+
+**Related:** Google Fonts CSS loading and `urls.googleFonts` are described in the [Editor API reference](./index.md) (*Example: Google Fonts URL (`urls.googleFonts`)* section).
+
 ```jsx
 {
   "selectedKit": "vnexmlshkihvcgsxmozgxzzdwsyvolvmhtne",
@@ -239,6 +328,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 300,
           "lineHeight": 1.7,
           "letterSpacing": 0,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 15,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 300,
@@ -261,6 +357,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 300,
           "lineHeight": 1.5,
           "letterSpacing": 0,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 17,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 300,
@@ -283,6 +386,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 400,
           "lineHeight": 1.7,
           "letterSpacing": 2,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 15,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 400,
@@ -305,6 +415,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 200,
           "lineHeight": 1.3,
           "letterSpacing": -1.5,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 40,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 200,
@@ -327,6 +444,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 700,
           "lineHeight": 1.3,
           "letterSpacing": -1.5,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 35,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 700,
@@ -349,6 +473,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 600,
           "lineHeight": 1.3,
           "letterSpacing": -1,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 27,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 600,
@@ -371,6 +502,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 500,
           "lineHeight": 1.4,
           "letterSpacing": -1,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 24,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 500,
@@ -393,6 +531,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 500,
           "lineHeight": 1.5,
           "letterSpacing": 0,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 19,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 500,
@@ -415,6 +560,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 500,
           "lineHeight": 1.5,
           "letterSpacing": 0,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 16,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 500,
@@ -437,6 +589,13 @@ Below is the complete reference JSON configuration used by the brizy. This can b
           "fontWeight": 600,
           "lineHeight": 1.8,
           "letterSpacing": 3,
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strike": false,
+          "uppercase": false,
+          "lowercase": false,
+          "script": "",
           "tabletFontSize": 12,
           "tabletFontSizeSuffix": "px",
           "tabletFontWeight": 600,
@@ -649,6 +808,8 @@ Each font style must include:
 - `"deletable": "off"`
 - All responsive variants (desktop, tablet, mobile)
 - References to fonts included in the fonts configuration
+
+You may also set text-style flags on each item (`bold`, `italic`, `underline`, `strike`, `uppercase`, `lowercase`), optional `script` for superscript/subscript, and optional variable-font fields—see [Font Style Properties](#font-style-properties).
 
 ### Step 4: Validate Your Style
 

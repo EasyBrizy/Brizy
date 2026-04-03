@@ -327,6 +327,7 @@ For more information about DynamicContent and how to replace it, please refer to
 | `urls.editorIcons` | `string` | These URLs are used for the editor's internal icons, such as those in the toolbar, sidebar, and other components.                                                                                                                                                                 |
 | `pagePreview`      | `string` | This is the link for the preview, which will be set on the "Preview" button in the builder's UI.                                                                                                                                                                                  |
 | `urls.googleFonts` | `string` | Base URL for Google Fonts CSS loading and DNS prefetch/preconnect optimization. Used directly as the base URL when generating Google Fonts CSS links (query parameters are appended). Also used for DNS prefetch and preconnect links. Defaults to `"https://fonts.bunny.net/css"` for CSS links and `"https://fonts.bunny.net"` for prefetch if not provided. |
+| `urls.editorFonts` | `string` | Base URL used when the editor builds the CSS request for **uploaded/custom fonts** in project data (`fonts.upload`). The editor concatenates this URL with a compact descriptor of font ids and weights (`fontId:weights|fontId2:weights2`). Your endpoint must return CSS (e.g. `@font-face` rules) for those uploads. See [Example: Uploaded fonts URL (`urls.editorFonts`)](#example-uploaded-fonts-url-urlseditorfonts) and [Project data — Fonts object](../project-data.md#fonts-object). |
 
 ### Elements parameters
 
@@ -1395,6 +1396,22 @@ When fonts are used, the editor will generate:
 - Implement custom caching strategies
 - Comply with specific data privacy requirements
 - Optimize font loading performance
+
+### Example: Uploaded fonts URL (`urls.editorFonts`)
+
+When you use **uploaded/custom fonts** in project data (`fonts.upload`), the editor builds the final request URL by concatenating **`urls.editorFonts`** with a compact list of font ids and weights: `fontId:weights|fontId2:weights2`. The endpoint must return CSS (for example `@font-face` rules) for those uploads. Without a valid `urls.editorFonts` value, fonts listed under `fonts.upload` will not load in the editor or preview.
+
+**Example configuration:**
+
+```ts
+const config = {
+  urls: {
+    editorFonts: "https://example.com/api/fonts/css?", // Base URL must concatenate cleanly with the appended `fontId:weights|…` segment (often ends with `?` or `&`).
+  },
+};
+```
+
+**See also:** [Project data — Fonts object](../project-data.md#fonts-object), [Custom Fonts](../custom-fonts.md).
 
 ### Video Types
 

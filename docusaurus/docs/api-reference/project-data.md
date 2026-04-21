@@ -26,7 +26,7 @@ The project data configuration is stored in JSON format, and it defines the foll
 | `selectedKit`     | The ID of the currently selected kit                       |
 | `selectedStyle`   | The ID of the currently active style from the styles array |
 | `styles`          | Array of style configuration objects                       |
-| `extraFontStyles` | Array for additional font styles (currently empty)         |
+| `extraFontStyles` | Array of user-defined custom typography presets; same schema as `fontStyles` |
 | `font`            | The default font for the application                       |
 | `fonts`           | Google font registry (`config`, `google`, `blocks`); see [Fonts object](#fonts-object) |
 
@@ -154,6 +154,75 @@ Each font style must also include responsive variants for tablet and mobile:
 - `mobileFontWeight`
 - `mobileLineHeight`
 - `mobileLetterSpacing`
+
+## Extra Font Styles
+
+`extraFontStyles` is used for custom, user-created typography presets that are not part of the 10 required default styles (`paragraph`, `heading1`, etc.). While `fontStyles` contains the required base set, `extraFontStyles` extends it with additional reusable presets.
+
+### Purpose
+
+- Store additional global typography presets created in the editor
+- Keep custom presets separate from mandatory defaults
+- Reuse consistent text styling across elements and pages
+
+### Data shape
+
+Each entry in `extraFontStyles` uses the same object structure as entries in `fontStyles`:
+
+- Basic typography fields (`id`, `title`, `fontFamily`, `fontWeight`, `lineHeight`, etc.)
+- Responsive fields (`tablet*`, `mobile*`)
+- Optional text transform fields (`bold`, `italic`, `underline`, `strike`, `uppercase`, `lowercase`)
+- Optional script and variable font axis fields
+
+### Recommended conventions
+
+- `id` should be unique across **both** `fontStyles` and `extraFontStyles` to avoid collisions when resolving presets.
+- `title` should be human-readable and unique enough for editor dropdowns.
+- `fontFamily` must exist in the `fonts` registry.
+- `deletable` is typically `"on"` for custom presets (so users can remove them), unlike required presets in `fontStyles` which must remain `"off"`.
+
+### Example `extraFontStyles` entry
+
+```json
+{
+  "extraFontStyles": [
+    {
+      "deletable": "on",
+      "id": "caption-small",
+      "title": "Caption Small",
+      "fontFamily": "lato",
+      "fontFamilyType": "google",
+      "fontSize": 12,
+      "fontSizeSuffix": "px",
+      "fontWeight": 400,
+      "lineHeight": 1.4,
+      "letterSpacing": 0.2,
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strike": false,
+      "uppercase": false,
+      "lowercase": false,
+      "tabletFontSize": 12,
+      "tabletFontSizeSuffix": "px",
+      "tabletFontWeight": 400,
+      "tabletLineHeight": 1.4,
+      "tabletLetterSpacing": 0.2,
+      "mobileFontSize": 11,
+      "mobileFontSizeSuffix": "px",
+      "mobileFontWeight": 400,
+      "mobileLineHeight": 1.4,
+      "mobileLetterSpacing": 0.2
+    }
+  ]
+}
+```
+
+### Validation notes
+
+- `extraFontStyles` can be empty (`[]`) when no custom presets are defined.
+- If populated, validate each item with the same field expectations used for `fontStyles`.
+- Missing responsive fields can produce inconsistent rendering between desktop/tablet/mobile.
 
 ## Example Configuration
 

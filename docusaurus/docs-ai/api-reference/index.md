@@ -33,30 +33,32 @@ X-API-Key: your-api-key-here
 
 #### Create Session
 
-Partner X initiates a session by making a POST request to `/api/create-session`:
+Partner X initiates a session by making a POST request to `/api/sessions`:
 
 ```http
-POST /api/create-session
+POST /api/sessions
 Headers: { "X-API-Key": "12345" }
 ```
 
-**⚠️ Important:** The request body must be empty.
+**⚠️ Important:** JSON body is optional; use `{"data": { ... }}` for initial session data, or `{}`.
 
 **Response:**
 ```json
 { 
-  "sessionId": "123", 
-  "aiUrl": "http://ai.url.example.com"
+  "sessionId": "sess_abc123", 
+  "aiUrl": "http://ai.url.example.com/get-started/project?sessionId=sess_abc123"
 }
 ```
 
 **JavaScript Example:**
 ```javascript
-const response = await fetch('http://ai.url.example.com/api/create-session', {
+const response = await fetch('http://ai.url.example.com/api/sessions', {
   method: 'POST',
   headers: {
-    'X-API-Key': '12345'
-  }
+    'X-API-Key': '12345',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({})
 });
 
 if (!response.ok) {
@@ -70,9 +72,10 @@ console.log('AI URL:', aiUrl);
 
 **cURL Example:**
 ```bash
-curl -X POST http://ai.url.example.com/api/create-session \
+curl -X POST http://ai.url.example.com/api/sessions \
   -H "X-API-Key: 12345" \
-  -H "Content-Type: application/json"
+  -H "Content-Type: application/json" \
+  -d '{}'
 ```
 
 #### Redirect to AI Platform
@@ -81,13 +84,13 @@ Partner X redirects the user to the AI platform using the `aiUrl` from step 1 an
 
 ```javascript
 // Redirect user to AI platform with callback URL
-const redirectUrl = `${aiUrl}?callbackUrl=${encodeURIComponent('https://your-app.com/callback')}`;
+const redirectUrl = `${aiUrl}&callbackUrl=${encodeURIComponent('https://your-app.com/callback')}`;
 window.location.href = redirectUrl;
 ```
 
 **Redirect URL Format:**
 ```
-http://ai.url.example.com?callbackUrl=partnerUrl
+http://ai.url.example.com/get-started/project?sessionId=sess_abc123&callbackUrl=partnerUrl
 ```
 
 **⚠️ Important:** The `aiUrl` must be concatenated **only** with the `callbackUrl` parameter. Do not modify the URL or add any additional query parameters. Adding extra parameters or modifying the URL structure will cause the AI platform to fail.
@@ -107,7 +110,7 @@ Redirect: callbackUrl
 Partner X fetches the generated output using the session ID:
 
 ```javascript
-const response = await fetch(`http://ai.url.example.com/api/generated-template/${sessionId}`, {
+const response = await fetch(`http://ai.url.example.com/api/sessions/${sessionId}`, {
   headers: {
     'X-API-Key': '12345'
   }
@@ -132,7 +135,7 @@ console.log('Project data:', project);
 
 **cURL Example:**
 ```bash
-curl -X GET http://ai.url.example.com/api/generated-template/123 \
+curl -X GET http://ai.url.example.com/api/sessions/sess_abc123 \
   -H "X-API-Key: 12345"
 ```
 
@@ -168,11 +171,11 @@ For API support and questions:
 - **Authentication Errors**: Verify your API key is correct and included in the `X-API-Key` header
 - **Session Timeouts**: Sessions expire after a certain period; create a new session if needed
 - **Callback URL Issues**: Ensure your callback URL is publicly accessible and properly formatted
-- **Empty Request Body**: The `create-session` endpoint requires an empty request body
+- **Request Body**: The `sessions` store endpoint accepts optional JSON (`{}` or `{"data": { ... }}`). Under `data`, optional keys used when loading the AI session UI are **`color`** (palette), **`typography`**, and **`pages`** (page slugs; if missing or empty, the UI defaults to `["home"]`).
 - **URL Encoding**: Always encode your callback URL when redirecting to the AI platform
 
 ### Documentation Resources
 
 - [Usage Guide](../getting-started/usage.md) - Setup and configuration
 - [Requirements](../getting-started/requirements.md) - System requirements and API keys
-- [Templates & Structures](./templates-structures.md) - Template creation and placeholders
+- [Blocks Creation](./blocks-creation.md) - Block creation

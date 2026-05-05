@@ -9,15 +9,16 @@ Brizy AI is a powerful AI-driven website builder that enables you to create stun
 
 ## What is Brizy AI?
 
-Brizy AI combines the power of artificial intelligence with a sophisticated website builder to deliver an unparalleled web development experience. It leverages advanced language models and design algorithms to generate complete websites based on your business requirements and preferences.
+Brizy AI combines the power of artificial intelligence with a sophisticated website builder to deliver an unparalleled web development experience. It leverages advanced language models and design algorithms to generate complete websites based on your business requirements and preferences,by composing **each page from an ordered stack of sections**
 
 ### Core Concept
 
 Brizy AI operates as a **session-based AI service** that:
 1. **Collects Requirements**: Gathers business information and preferences
 2. **Generates Content**: Creates AI-powered text, images, and layouts
-3. **Builds Templates**: Produces Brizy Editor-compatible templates
-4. **Delivers Results**: Provides ready-to-use website content
+3. **Composes Pages**: Builds every page at **section level**—an ordered sequence of Brizy 
+Editor-compatible blocks
+4. **Delivers Results**: Provides Brizy Editor–ready pages and global project styles
 
 ## Key Features
 
@@ -65,11 +66,11 @@ Brizy AI operates through a sophisticated session-based workflow:
 ### 3. Content Generation
 - AI analyzes requirements and industry context
 - Generates appropriate content using fine-tuned models
-- Selects relevant templates and styling
+- **Composes each page as a section stack**—the AI chooses which section types appear and how often (for example a reviews-focused page might use header, hero, then several testimonial sections, then footer)
 - Creates location-specific content when applicable
 
-### 4. Template Delivery
-- AI compiles generated content into Brizy Editor format
+### 4. Editor Delivery
+- AI compiles each page's sections and generated content into Brizy Editor format
 - Returns both page content and global project styles
 - Content is ready for immediate use in Brizy Editor
 
@@ -145,7 +146,7 @@ To see Brizy AI in action, visit our [live demo](https://ai.brizy.io).
 - **[Requirements](./requirements.md)**: System requirements and API key setup
 - **[Usage](./usage.md)**: Docker deployment and environment configuration
 - **[API Reference](../api-reference/index.md)**: Complete API documentation and integration guide
-- **[Templates & Structures](../api-reference/templates-structures.md)**: Template creation and placeholder system
+- **[Create Blocks](../api-reference/blocks-creation.md)**: How to create your own blocks
 
 ## Support & Community
 
@@ -169,6 +170,6 @@ Ready to get started? Follow these steps:
 1. **Review Requirements**: Check the [Requirements](./requirements.md) guide
 2. **Set Up Environment**: Follow the [Usage](./usage.md) guide for deployment
 3. **Integrate API**: Use the [API Reference](../api-reference/index.md) for implementation
-4. **Create Templates**: Learn about [Templates & Structures](../api-reference/templates-structures.md)
+4. **Create Blocks**: Learn how to create your own blocks in [Create Blocks](../api-reference/blocks-creation.md)
 
 Start building AI-powered websites with Brizy AI today!

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "/collection_items/8969182",
+    "slug": "block5170dark",
+    "categories": "Hero",
+    "theme": "Dark",
+    "pro": "PRO",
+    "thumbnail": "8c36689e5cacdce761e9893588281f76.jpg",
+    "thumbnailWidth": 600,
+    "thumbnailHeight": 231,
+    "keywords": "Hero",
+    "order": 5170,
+    "kit_slug": "19562563",
+    "url": "https://papaya19562563.brizy.site"
+  },
+  {
+    "id": "/collection_items/8969183",
+    "slug": "block5170light",
+    "categories": "Hero",
+    "theme": "Light",
+    "pro": "PRO",
+    "thumbnail": "016899bae66256d560fdc239f38b39aa.jpg",
+    "thumbnailWidth": 600,
+    "thumbnailHeight": 227,
+    "keywords": "Hero",
+    "order": 5170,
+    "kit_slug": "19562563",
+    "url": "https://papaya19562563.brizy.site"
+  }
+]

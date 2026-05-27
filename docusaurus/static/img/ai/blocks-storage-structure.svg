@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMin meet" role="img" aria-labelledby="title desc">
+  <title id="title">Blocks storage folder structure</title>
+  <desc id="desc">Directory tree for Brizy AI blocks on S3 or CDN</desc>
+  <defs>
+    <style>
+      .folder { fill: #ebf8ff; stroke: #2b6cb0; stroke-width: 1.5; }
+      .file { fill: #f7fafc; stroke: #4a5568; stroke-width: 1.5; }
+      .root { fill: #e6fffa; stroke: #319795; stroke-width: 2; }
+      .text { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; fill: #1a202c; }
+      .label { font-family: system-ui, sans-serif; font-size: 12px; fill: #4a5568; }
+      .line { stroke: #a0aec0; stroke-width: 1.25; }
+      .legend-box { fill: #fff; stroke: #e2e8f0; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <!-- root -->
+  <rect class="root" x="520" y="16" width="160" height="40" rx="6"/>
+  <text class="text" x="600" y="42" text-anchor="middle">blocks/</text>
+
+  <!-- connector to four branches -->
+  <line class="line" x1="600" y1="56" x2="600" y2="76"/>
+  <line class="line" x1="140" y1="76" x2="1060" y2="76"/>
+  <line class="line" x1="140" y1="76" x2="140" y2="96"/>
+  <line class="line" x1="440" y1="76" x2="440" y2="96"/>
+  <line class="line" x1="760" y1="76" x2="760" y2="96"/>
+  <line class="line" x1="1060" y1="76" x2="1060" y2="96"/>
+
+  <!-- branch: kits -->
+  <rect class="folder" x="70" y="96" width="140" height="36" rx="6"/>
+  <text class="text" x="140" y="119" text-anchor="middle">kits/</text>
+  <line class="line" x1="140" y1="132" x2="140" y2="152"/>
+  <rect class="folder" x="70" y="152" width="140" height="36" rx="6"/>
+  <text class="text" x="140" y="175" text-anchor="middle">default/</text>
+  <line class="line" x1="140" y1="188" x2="140" y2="208"/>
+  <rect class="file" x="45" y="208" width="190" height="36" rx="6"/>
+  <text class="text" x="140" y="231" text-anchor="middle">catalog.json</text>
+  <text class="label" x="140" y="258" text-anchor="middle">block index</text>
+
+  <!-- branch: html -->
+  <rect class="folder" x="370" y="96" width="140" height="36" rx="6"/>
+  <text class="text" x="440" y="119" text-anchor="middle">html/</text>
+  <line class="line" x1="440" y1="132" x2="440" y2="152"/>
+  <rect class="folder" x="355" y="152" width="170" height="36" rx="6"/>
+  <text class="text" x="440" y="175" text-anchor="middle">{kit_slug}/</text>
+  <line class="line" x1="440" y1="188" x2="440" y2="208"/>
+  <rect class="file" x="310" y="208" width="260" height="36" rx="6"/>
+  <text class="text" x="440" y="231" text-anchor="middle">{collection_item_id}</text>
+  <text class="label" x="440" y="258" text-anchor="middle">compiled HTML</text>
+
+  <!-- branch: assets -->
+  <rect class="folder" x="690" y="96" width="140" height="36" rx="6"/>
+  <text class="text" x="760" y="119" text-anchor="middle">assets/</text>
+  <line class="line" x1="760" y1="132" x2="760" y2="152"/>
+  <rect class="folder" x="675" y="152" width="170" height="36" rx="6"/>
+  <text class="text" x="760" y="175" text-anchor="middle">{kit_slug}/</text>
+  <line class="line" x1="760" y1="188" x2="760" y2="208"/>
+  <rect class="file" x="630" y="208" width="260" height="36" rx="6"/>
+  <text class="text" x="760" y="231" text-anchor="middle">{collection_item_id}</text>
+  <text class="label" x="760" y="258" text-anchor="middle">scripts and styles</text>
+
+  <!-- branch: json -->
+  <rect class="folder" x="990" y="96" width="140" height="36" rx="6"/>
+  <text class="text" x="1060" y="119" text-anchor="middle">json/</text>
+  <line class="line" x1="1060" y1="132" x2="1060" y2="152"/>
+  <rect class="folder" x="975" y="152" width="170" height="36" rx="6"/>
+  <text class="text" x="1060" y="175" text-anchor="middle">{kit_slug}/</text>
+  <line class="line" x1="1060" y1="188" x2="1060" y2="208"/>
+  <rect class="file" x="960" y="208" width="200" height="36" rx="6"/>
+  <text class="text" x="1060" y="231" text-anchor="middle">{block_slug}</text>
+  <text class="label" x="1060" y="258" text-anchor="middle">editor JSON</text>
+
+  <!-- legend -->
+  <rect class="legend-box" x="32" y="300" width="1136" height="142" rx="8"/>
+  <text class="label" x="56" y="332">kit_slug</text>
+  <text class="text" x="230" y="332">- Kit id from export (e.g. 19562563)</text>
+  <text class="label" x="56" y="362">collection_item_id</text>
+  <text class="text" x="230" y="362">- Numeric id from catalog entry id</text>
+  <text class="label" x="56" y="392">block_slug</text>
+  <text class="text" x="230" y="392">- Slug from catalog (e.g. block5170dark)</text>
+  <text class="label" x="56" y="422">One section per export page</text>
+  <text class="text" x="230" y="422">- Required when building custom blocks</text>
+</svg>

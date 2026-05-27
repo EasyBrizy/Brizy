@@ -1,74 +1,148 @@
+---
+sidebar_position: 3
+---
+
 # Blocks Creation
 
-This document explains how to create JSON blocks for Brizy.
+This guide explains how to create, export, and publish **custom blocks** for Brizy AI. The AI loads blocks from your storage (typically S3 or a CDN) using the folder layout below.
 
 ## Overview
 
-Brizy AI collects the following data from clients:
-- **SITE NAME**: The name of the website/business
-- **INDUSTRY**: The business industry or sector
-- **INFO**: Additional business information and requirements
-- **PAGES**: The pages needed for the website
+Brizy AI uses client input (site name, industry, info, pages) to pick blocks per page, generate content, and output Brizy Editor–ready JSON and HTML.
 
-After collecting this data, the AI chooses blocks for each page, generates on-brand content based on provided info, and injects them into each block to produce the Brizy JSON (and compiled output) for the site.
+You can:
 
-### Blocks Options
+1. **Use Brizy blocks** — pre-built blocks from the Brizy ecosystem (default kit).
+2. **Create personal blocks** — design sections in **Brizy Local Editor**, export them, and upload to your own `blocks/` tree.
 
-You have two options for blocks:
+**Important:** JSON blocks must be created in the **Brizy Editor** (Brizy Local Editor). Do not hand-write block JSON.
 
-1. **Use Brizy Blocks**: Utilize our pre-built blocks available in the Brizy ecosystem
-2. **Create Personal Blocks**: Design your own custom blocks using the Brizy Local Editor
+**Warning:** Export **one section per page**. Each block = one page in the editor, one section only.
 
-## Block Creation Workflow
+## Block creation workflow
 
-**⚠️ Important:** All JSON blocks must be created using the **Brizy Editor Builder** (specifically Brizy Local Editor). 
+### Step 1 — Set up Brizy Local Editor
 
-Developers cannot create JSON blocks manually - they must use the visual builder interface.
+1. Install and run [Brizy Local Editor](https://github.com/EasyBrizy/Brizy-Local-Editor).
+2. Create a project (blank or from a template).
+3. Design a single section on its own page.
+4. Style and preview the layout.
 
-### Step 1: Setup Brizy Local Editor
+### Step 2 — Export and upload
 
-1. **Install Brizy Local Editor**: Set up the local development environment
-2. **Create New Project**: Start a new project in the Brizy Editor (from scratch or using existing templates)
-3. **Design Layout**: Use the visual builder to create your block design
-5. **Style Elements**: Apply styling through the visual editor
-6. **Test Layout**: Preview and test your block design
+1. Export **JSON** and **HTML** from the editor.
+2. Upload files into the [folder structure](#blocks-folder-structure) on S3 (or your CDN).
+3. Ensure files are **publicly readable**
 
-**⚠️ Warning:** Each block must be exported from its **own page**. Put **only one block (one section) per page**—do not combine multiple blocks on a single page.
+## Blocks folder structure
 
-### Step 2: Export and Save
+All block assets live under a single root folder named `blocks/`.
 
-After creating your block in the Brizy Editor:
+![Blocks storage folder structure](/img/ai/blocks-storage-structure.svg)
 
-1. **Export block**: Use the export functionality to generate JSON & HTML
-2. **Save to Cloud Storage**: Upload the JSON & HTML block to your AWS S3 bucket or another storage provider
-3. **Ensure Public Access**: Make sure blocks are publicly accessible via URLs
-4. **Configure Environment Variables**: Set up the required environment variables (see Usage Guide)
+### Directory reference
 
-## Blocks Storage
+| Path | Purpose |
+|------|---------|
+| `blocks/kits/default/` | Kit **catalog** — JSON array listing every block the AI can choose |
+| `blocks/html/{kit_slug}/{collection_item_id}` | **Compiled HTML** for a collection item (preview / rendering) |
+| `blocks/assets/{kit_slug}/{collection_item_id}` | **Asset manifest** — scripts, styles, and per-section HTML snippets |
+| `blocks/json/{kit_slug}/{block_slug}` | **Editor JSON** — `pageData` |
 
-After creating blocks, you need to store them in a cloud storage provider (AWS S3 recommended) and configure the AI system to access them via environment variables (will need a small api).
+### Path placeholders
 
-### Storage Requirements
+| Placeholder | Where it comes from |
+|-------------|---------------------|
+| `{kit_slug}` | `kit_slug` field in the catalog entry (e.g. `19562563`) |
+| `{collection_item_id}` | Numeric id from catalog `id` (e.g. `/collection_items/8969182`) |
+| `{block_slug}` | `slug` field in the catalog (e.g. `block5170dark`) |
 
-1. **JSON blocks**: Store the exported JSON files
-2. **HTML blocks**: Store the compiled HTML files (required by AI system)
-3. **Public Access**: Ensure blocks are publicly accessible via URLs
+### Kit catalog (`blocks/kits/default`)
 
-### Environment Variables
+The catalog is a **JSON array**. Each object describes one block variant (light/dark, category, thumbnail, etc.).
 
-The required environment variables for blocks configuration are documented in the [Usage Guide](../getting-started/usage.md).
+| Field | Description |
+|-------|-------------|
+| `id` | Collection item path (e.g. `/collection_items/8969182`) |
+| `slug` | Unique block slug; used in `blocks/json/{kit_slug}/{slug}` |
+| `categories` | Section type for AI matching (e.g. `Hero`, `Footer`) |
+| `theme` | `Light` or `Dark` |
+| `pro` | License flag (e.g. `PRO`) |
+| `thumbnail` | Preview image filename |
+| `thumbnailWidth` / `thumbnailHeight` | Thumbnail dimensions |
+| `keywords` | Search / filter keywords |
+| `order` | Sort order in the kit |
+| `kit_slug` | Kit identifier |
+| `url` | Source Brizy site URL used when exporting |
 
-## Best Practices
+**Example:** [kit-catalog.json](/examples/blocks-creation/kit-catalog.json) (two entries; production catalogs contain many blocks).
 
-### Block Design
-- **Responsive Design**: Ensure block work on all device sizes
-- **Accessibility**: Use proper heading hierarchy and alt text
-- **Performance**: Optimize images and minimize code complexity
-- **Consistency**: Maintain consistent styling across all blocks
+### HTML export (`blocks/html/...`)
 
-### Quality Assurance
-- **Preview Responsiveness**: Test on multiple device sizes
-- **Validate Export**: Confirm both JSON and HTML exports are complete
-- **Storage Verification**: Ensure files are accessible from cloud storage URLs
+Compiled page HTML for the collection item. Used when the AI needs rendered markup.
 
-For more information about API integration, see the [API Reference](./index.md).
+**Example:** [block-html.sample.txt](/examples/blocks-creation/block-html.sample.txt) (abbreviated HTML; full exports are much larger).
+
+### Assets manifest (`blocks/assets/...`)
+
+JSON describing root CSS classes and per-block HTML plus bundled scripts/styles.
+
+| Top-level key | Description |
+|---------------|-------------|
+| `rootClassNames` | Wrapper classes for the page root |
+| `rootAttributes` | Extra root attributes |
+| `blocks[]` | One entry per section: `id`, `html`, `assets` (scripts/styles) |
+
+**Example:** [block-assets.json](/examples/blocks-creation/block-assets.json).
+
+### Editor JSON (`blocks/json/...`)
+
+Brizy Editor export: a `collection` array with `pageData` (stringified editor state). The AI replaces text/media inside this structure.
+
+**Example:** [block-json.json](/examples/blocks-creation/block-json.json) (`pageData` truncated).
+
+## End-to-end checklist
+
+1. Design **one section** per editor page → export JSON + HTML.
+2. Add a catalog row under `blocks/kits/default` (or your kit file).
+3. Upload HTML to `blocks/html/{kit_slug}/{collection_item_id}`.
+4. Upload assets JSON to `blocks/assets/{kit_slug}/{collection_item_id}`.
+5. Upload editor JSON to `blocks/json/{kit_slug}/{block_slug}`.
+6. Upload thumbnail images referenced by the catalog.
+
+## Storage requirements
+
+- **JSON** — editor `pageData` per block slug.
+- **HTML** — compiled output (required by the AI pipeline).
+- **Catalog** — index so the AI can discover and filter blocks.
+- **Public URLs** — every path must be reachable from the Brizy AI container.
+
+## Best practices
+
+### Block design
+
+- Design for **responsive** breakpoints.
+- Use clear heading hierarchy and image alt text.
+- Keep sections focused (one layout idea per block).
+
+### Quality assurance
+
+- Preview on desktop, tablet, and mobile.
+- Confirm JSON and HTML exports are complete.
+- Open catalog URLs in a browser to verify CDN/S3 permissions.
+
+## Related documentation
+
+- [API Reference](./index.md) — session workflow and fetching generated pages
+- [Custom Form Integration](./custom-form-integration.md) — custom intake + AI Builder API
+- [Usage Guide](../getting-started/usage.md) — Docker
+- [Requirements](../getting-started/requirements.md) — API keys and infrastructure
+
+### Example files
+
+| File | Description |
+|------|-------------|
+| [kit-catalog.json](/examples/blocks-creation/kit-catalog.json) | Catalog array (sample entries) |
+| [block-html.sample.txt](/examples/blocks-creation/block-html.sample.txt) | Compiled HTML (abbreviated) |
+| [block-assets.json](/examples/blocks-creation/block-assets.json) | Assets manifest structure |
+| [block-json.json](/examples/blocks-creation/block-json.json) | Editor `pageData` shape (truncated) |

@@ -1,0 +1,11 @@
+<div class="brz brz-root__container brz-reset-all brz-root__container-page">
+  <section id="vwG0Ouzi4dZi_vwG0Ouzi4dZi" class="brz-section brz-section__header brz-section__header-type--static">
+    <!-- Compiled HTML for one block (one section). Full exports include all sections and footer. -->
+    <div class="brz-section__menu-item" data-brz-custom-id="o_6QkphPpkSn">
+      <div class="brz-container">
+        <!-- … rows, columns, rich text, images, menus … -->
+      </div>
+    </div>
+  </section>
+  <!-- Additional sections for the same collection item … -->
+</div>

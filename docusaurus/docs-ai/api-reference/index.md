@@ -178,4 +178,5 @@ For API support and questions:
 
 - [Usage Guide](../getting-started/usage.md) - Setup and configuration
 - [Requirements](../getting-started/requirements.md) - System requirements and API keys
+- [Custom Form Integration](./custom-form-integration.md) - AI Builder with your own form (Option 2)
 - [Blocks Creation](./blocks-creation.md) - Block creation

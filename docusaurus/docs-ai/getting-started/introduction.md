@@ -146,6 +146,7 @@ To see Brizy AI in action, visit our [live demo](https://ai.brizy.io).
 - **[Requirements](./requirements.md)**: System requirements and API key setup
 - **[Usage](./usage.md)**: Docker deployment and environment configuration
 - **[API Reference](../api-reference/index.md)**: Complete API documentation and integration guide
+- **[Custom Form Integration](../api-reference/custom-form-integration.md)**: AI Builder with your own intake form
 - **[Create Blocks](../api-reference/blocks-creation.md)**: How to create your own blocks
 
 ## Support & Community
@@ -170,6 +171,7 @@ Ready to get started? Follow these steps:
 1. **Review Requirements**: Check the [Requirements](./requirements.md) guide
 2. **Set Up Environment**: Follow the [Usage](./usage.md) guide for deployment
 3. **Integrate API**: Use the [API Reference](../api-reference/index.md) for implementation
-4. **Create Blocks**: Learn how to create your own blocks in [Create Blocks](../api-reference/blocks-creation.md)
+4. **Custom form**: See [Custom Form Integration](../api-reference/custom-form-integration.md) if you host your own AI intake UI
+5. **Create Blocks**: Learn how to create your own blocks in [Create Blocks](../api-reference/blocks-creation.md)
 
 Start building AI-powered websites with Brizy AI today!

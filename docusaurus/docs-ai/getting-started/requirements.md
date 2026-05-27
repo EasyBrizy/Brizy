@@ -242,6 +242,9 @@ APP_BLOCKS_API_URL=
 # URL to validate API keys (your gateway endpoint)
 APP_VALIDATE_API_KEY_URL=
 
+# Custom AI intake form (required for custom form integration)
+APP_CUSTOM_FORM_URL=https://your-app.com/ai-onboarding
+
 ## DB
 APP_SERVICE=ai-core
 DB_CONNECTION=mysql

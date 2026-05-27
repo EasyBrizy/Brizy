@@ -22,6 +22,7 @@ docker run -d \
   -e APP_ENV=dev \
   -e APP_ENCODE_KEY=base64:dGVzdA== \
   -e APP_HTTP_SCHEME=http \
+  -e APP_CUSTOM_FORM_URL=https://your-app.com/ai-onboarding \
   -e AMAZON_S3_REGION=Bucket Region \
   -e AMAZON_S3_BUCKET=Bucket Name \
   -e AMAZON_S3_KEY=EXAMPLE KEY \
@@ -88,6 +89,7 @@ x-brizy-environment: &brizy-environment
   APP_ENCODE_KEY: base64:dGVzdA==
   APP_HTTP_SCHEME: http
   APP_SERVICE: brizy-ai
+  APP_CUSTOM_FORM_URL: https://your-app.com/ai-onboarding
 
   # AWS S3 Configuration
   AMAZON_S3_REGION: Bucket Region
@@ -234,6 +236,7 @@ docker-compose up -d
 | **APP_ENV** | Environment mode (`dev` or `prod`). Use `dev` in development and `prod` in production for security. | `dev` |
 | **APP_ENCODE_KEY** | Secret key used for encrypting sensitive data (e.g., cookies, tokens). Must start with `base64:` followed by your base64-encoded key. Should be a secure, random string. Never share or expose this value. | `base64:dGVzdA==` |
 | **APP_HTTP_SCHEME** | Protocol scheme for the app (`http` or `https`). Use `https` in production for security. | `http` |
+| **APP_CUSTOM_FORM_URL** | Public URL of your custom AI intake form. Set this after your form is deployed so the AI Builder redirects users to your UI instead of the default hosted flow. Required for [Custom Form Integration](../api-reference/custom-form-integration.md); leave empty when using the built-in form. | `https://your-app.com/ai-onboarding` |
 | **AMAZON_S3_REGION** | AWS region where your S3 bucket is hosted. Must match your actual AWS S3 region. | `region` |
 | **AMAZON_S3_BUCKET** | Name of the AWS S3 bucket used for storing user assets, uploads, and configuration files. | `buket name` |
 | **AMAZON_S3_KEY** | AWS access key ID for S3 access. Should have permissions for the specified bucket. | `1234` |

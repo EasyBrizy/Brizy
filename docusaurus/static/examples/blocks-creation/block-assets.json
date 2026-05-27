@@ -1,0 +1,28 @@
+{
+  "rootClassNames": [
+    "brz brz-root__container brz-reset-all brz-root__container-page"
+  ],
+  "rootAttributes": [],
+  "blocks": [
+    {
+      "id": "vwG0Ouzi4dZi",
+      "html": "<section id=\"…\">…</section>",
+      "assets": {
+        "freeScripts": {
+          "main": {
+            "name": "main",
+            "score": 30,
+            "content": {}
+          }
+        },
+        "freeStyles": {
+          "main": {
+            "name": "main",
+            "score": 30,
+            "content": {}
+          }
+        }
+      }
+    }
+  ]
+}

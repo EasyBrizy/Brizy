@@ -93,16 +93,28 @@ export const getToolbar: GetToolbar = ({ t }) => {
                 title: "Spin",
                 showCount: true,
               },
+              // The wheel the user starts with. Without it the element is
+              // inserted with an empty wheel
+              default: {
+                value: [
+                  { id: "s1", title: "Item 1", defaults: { score: { value: 10 } } },
+                  { id: "s2", title: "Item 2", defaults: { score: { value: 20 } } },
+                  { id: "s3", title: "Item 3" },
+                ],
+              },
               shape: [
                 {
                   id: "score",
                   label: t("Score"),
                   type: "number",
+                  // used by "Item 3" and by any item the user adds
+                  default: { value: 50 },
                 },
                 {
                   id: "title",
                   label: t("Title"),
                   type: "inputText",
+                  default: { value: "Prize" },
                 },
               ],
             },

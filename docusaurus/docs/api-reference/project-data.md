@@ -21,13 +21,13 @@ The project data configuration is stored in JSON format, and it defines the foll
 
 ### Top-Level Properties
 
-| Property          | Description                                                |
-| ----------------- | ---------------------------------------------------------- |
-| `selectedKit`     | The ID of the currently selected kit                       |
-| `selectedStyle`   | The ID of the currently active style from the styles array |
-| `styles`          | Array of style configuration objects                       |
-| `extraFontStyles` | Array of custom typography presets (same schema as `fontStyles`; can be empty) |
-| `font`            | The default font for the application                       |
+| Property          | Description                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| `selectedKit`     | The ID of the currently selected kit                                                      |
+| `selectedStyle`   | The ID of the currently active style from the styles array                                |
+| `styles`          | Array of style configuration objects                                                      |
+| `extraFontStyles` | Array of custom typography presets (same schema as `fontStyles`; can be empty)            |
+| `font`            | The default font for the application                                                      |
 | `fonts`           | Font registry (`config`, `google`, `blocks`, `upload`); see [Fonts object](#fonts-object) |
 
 ### Style Object
@@ -104,36 +104,36 @@ Each font style item includes the following. The **Basic properties** and **Resp
 
 These boolean flags control typography appearance. They are stored on each font style item (same shape as in the editor’s typography controls). If omitted, the application treats them as `false`.
 
-| Property    | Description |
-| ----------- | ----------- |
+| Property    | Description                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------ |
 | `bold`      | When `true`, the global bold CSS variable uses the keyword `bold` instead of the numeric `fontWeight`. |
-| `italic`    | Italic (`font-style`). |
-| `underline` | Underline (`text-decoration`). |
-| `strike`    | Strikethrough / line-through (`text-decoration`). |
-| `uppercase` | Uppercase text transform. |
-| `lowercase` | Lowercase text transform. |
+| `italic`    | Italic (`font-style`).                                                                                 |
+| `underline` | Underline (`text-decoration`).                                                                         |
+| `strike`    | Strikethrough / line-through (`text-decoration`).                                                      |
+| `uppercase` | Uppercase text transform.                                                                              |
+| `lowercase` | Lowercase text transform.                                                                              |
 
 ### Superscript and subscript (optional)
 
-| Property | Description |
-| -------- | ----------- |
+| Property | Description                                                                         |
+| -------- | ----------------------------------------------------------------------------------- |
 | `script` | Optional. Superscript / subscript: empty string `""` (none), `"super"`, or `"sub"`. |
 
 ### Variable font axes (optional)
 
 Optional numeric settings for variable fonts. If omitted, defaults apply when generating global typography (for example weight `400`, width `100`, softness `0`). Each axis has desktop, tablet, and mobile fields where applicable.
 
-| Property | Description |
-| -------- | ----------- |
-| `variableFontWeight` | Variable font weight axis (desktop). |
-| `fontWidth` | Variable font width axis (desktop). |
-| `fontSoftness` | Variable font softness axis (desktop). |
-| `tabletVariableFontWeight` | Weight axis for tablet. |
-| `tabletFontWidth` | Width axis for tablet. |
-| `tabletFontSoftness` | Softness axis for tablet. |
-| `mobileVariableFontWeight` | Weight axis for mobile. |
-| `mobileFontWidth` | Width axis for mobile. |
-| `mobileFontSoftness` | Softness axis for mobile. |
+| Property                   | Description                            |
+| -------------------------- | -------------------------------------- |
+| `variableFontWeight`       | Variable font weight axis (desktop).   |
+| `fontWidth`                | Variable font width axis (desktop).    |
+| `fontSoftness`             | Variable font softness axis (desktop). |
+| `tabletVariableFontWeight` | Weight axis for tablet.                |
+| `tabletFontWidth`          | Width axis for tablet.                 |
+| `tabletFontSoftness`       | Softness axis for tablet.              |
+| `mobileVariableFontWeight` | Weight axis for mobile.                |
+| `mobileFontWidth`          | Width axis for mobile.                 |
+| `mobileFontSoftness`       | Softness axis for mobile.              |
 
 ### Responsive Properties
 
@@ -154,6 +154,75 @@ Each font style must also include responsive variants for tablet and mobile:
 - `mobileFontWeight`
 - `mobileLineHeight`
 - `mobileLetterSpacing`
+
+## Extra Font Styles
+
+`extraFontStyles` is used for custom, user-created typography presets that are not part of the 10 required default styles (`paragraph`, `heading1`, etc.). While `fontStyles` contains the required base set, `extraFontStyles` extends it with additional reusable presets.
+
+### Purpose
+
+- Store additional global typography presets created in the editor
+- Keep custom presets separate from mandatory defaults
+- Reuse consistent text styling across elements and pages
+
+### Data shape
+
+Each entry in `extraFontStyles` uses the same object structure as entries in `fontStyles`:
+
+- Basic typography fields (`id`, `title`, `fontFamily`, `fontWeight`, `lineHeight`, etc.)
+- Responsive fields (`tablet*`, `mobile*`)
+- Optional text transform fields (`bold`, `italic`, `underline`, `strike`, `uppercase`, `lowercase`)
+- Optional script and variable font axis fields
+
+### Recommended conventions
+
+- `id` should be unique across **both** `fontStyles` and `extraFontStyles` to avoid collisions when resolving presets.
+- `title` should be human-readable and unique enough for editor dropdowns.
+- `fontFamily` must exist in the `fonts` registry.
+- `deletable` is typically `"on"` for custom presets (so users can remove them), unlike required presets in `fontStyles` which must remain `"off"`.
+
+### Example `extraFontStyles` entry
+
+```json
+{
+  "extraFontStyles": [
+    {
+      "deletable": "on",
+      "id": "caption-small",
+      "title": "Caption Small",
+      "fontFamily": "lato",
+      "fontFamilyType": "google",
+      "fontSize": 12,
+      "fontSizeSuffix": "px",
+      "fontWeight": 400,
+      "lineHeight": 1.4,
+      "letterSpacing": 0.2,
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strike": false,
+      "uppercase": false,
+      "lowercase": false,
+      "tabletFontSize": 12,
+      "tabletFontSizeSuffix": "px",
+      "tabletFontWeight": 400,
+      "tabletLineHeight": 1.4,
+      "tabletLetterSpacing": 0.2,
+      "mobileFontSize": 11,
+      "mobileFontSizeSuffix": "px",
+      "mobileFontWeight": 400,
+      "mobileLineHeight": 1.4,
+      "mobileLetterSpacing": 0.2
+    }
+  ]
+}
+```
+
+### Validation notes
+
+- `extraFontStyles` can be empty (`[]`) when no custom presets are defined.
+- If populated, validate each item with the same field expectations used for `fontStyles`.
+- Missing responsive fields can produce inconsistent rendering between desktop/tablet/mobile.
 
 ## Example Configuration
 
@@ -254,15 +323,15 @@ Below is the complete reference JSON configuration used by the brizy. This can b
 
 Each object in `fontStyles` may include **font transform** fields alongside size and weight. They are optional; if omitted, the app behaves as if they were `false` or `script` was empty.
 
-| Key | Type | Meaning |
-| --- | ---- | ------- |
-| `bold` | boolean | When `true`, bold output uses the CSS keyword `bold` instead of the numeric `fontWeight`. |
-| `italic` | boolean | Italic. |
-| `underline` | boolean | Underline. |
-| `strike` | boolean | Strikethrough. |
-| `uppercase` | boolean | Uppercase text transform. |
-| `lowercase` | boolean | Lowercase text transform. |
-| `script` | string | `""` (none), `"super"`, or `"sub"`. |
+| Key         | Type    | Meaning                                                                                   |
+| ----------- | ------- | ----------------------------------------------------------------------------------------- |
+| `bold`      | boolean | When `true`, bold output uses the CSS keyword `bold` instead of the numeric `fontWeight`. |
+| `italic`    | boolean | Italic.                                                                                   |
+| `underline` | boolean | Underline.                                                                                |
+| `strike`    | boolean | Strikethrough.                                                                            |
+| `uppercase` | boolean | Uppercase text transform.                                                                 |
+| `lowercase` | boolean | Lowercase text transform.                                                                 |
+| `script`    | string  | `""` (none), `"super"`, or `"sub"`.                                                       |
 
 See [Font Style Properties](#font-style-properties) for variable-font fields and the full typography model.
 
@@ -339,44 +408,44 @@ Each entry in `extraFontStyles` uses the same object structure as entries in `fo
 
 The top-level `fonts` object groups font families by **source**. Each key is an object with a single **`data`** array. Do not mix types: **`config`**, **`google`**, and **`blocks`** contain **only** [Google Webfont](https://developers.google.com/fonts/docs/developer_api) items; **`upload`** contains **only** custom uploaded font entries.
 
-| Key | Content | Role |
-| --- | ------- | ---- |
-| `config` | Google Webfont objects | Fonts bundled with **global typography / style presets** (this document). |
-| `google` | Google Webfont objects | Extra Google Fonts at the project level (e.g. chosen in the UI). |
-| `blocks` | Google Webfont objects | Google Fonts added when **blocks** reference typography (e.g. rich text). |
-| `upload` | Uploaded font objects (`type: "uploaded"`) | **Custom uploaded** fonts (user-provided files). |
+| Key      | Content                                    | Role                                                                      |
+| -------- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| `config` | Google Webfont objects                     | Fonts bundled with **global typography / style presets** (this document). |
+| `google` | Google Webfont objects                     | Extra Google Fonts at the project level (e.g. chosen in the UI).          |
+| `blocks` | Google Webfont objects                     | Google Fonts added when **blocks** reference typography (e.g. rich text). |
+| `upload` | Uploaded font objects (`type: "uploaded"`) | **Custom uploaded** fonts (user-provided files).                          |
 
 For registering, listing, and deleting custom fonts in the editor (Custom Fonts API and `config` integration), see **[Custom Fonts](./custom-fonts.md)**.
 
 **Google font object** (each item in `fonts.config.data`, `fonts.google.data`, or `fonts.blocks.data`)
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| `kind` | `"webfonts#webfont"` | Literal marker. |
-| `family` | `string` | Display family name (e.g. `"Lato"`). |
-| `category` | `string` | e.g. `"sans-serif"`, `"serif"`. |
-| `variants` | `string[]` | Weights/styles (`"regular"`, `"700"`, `"italic"`, `"700italic"`, …). |
-| `subsets` | `string[]` | Script subsets (`"latin"`, `"latin-ext"`, …). |
-| `version` | `string` | Font version. |
-| `lastModified` | `string` | ISO date string. |
-| `files` | `object` | Variant name → file URL (often `.ttf` on `fonts.gstatic.com`). |
-| `brizyId` | `string` | Internal id. |
-| `menu` | `string` | *(Optional)* Menu / preview sample URL. |
-| `deleted` | `boolean` | *(Optional)* If `true`, the font is ignored. |
+| Field          | Type                 | Description                                                          |
+| -------------- | -------------------- | -------------------------------------------------------------------- |
+| `kind`         | `"webfonts#webfont"` | Literal marker.                                                      |
+| `family`       | `string`             | Display family name (e.g. `"Lato"`).                                 |
+| `category`     | `string`             | e.g. `"sans-serif"`, `"serif"`.                                      |
+| `variants`     | `string[]`           | Weights/styles (`"regular"`, `"700"`, `"italic"`, `"700italic"`, …). |
+| `subsets`      | `string[]`           | Script subsets (`"latin"`, `"latin-ext"`, …).                        |
+| `version`      | `string`             | Font version.                                                        |
+| `lastModified` | `string`             | ISO date string.                                                     |
+| `files`        | `object`             | Variant name → file URL (often `.ttf` on `fonts.gstatic.com`).       |
+| `brizyId`      | `string`             | Internal id.                                                         |
+| `menu`         | `string`             | _(Optional)_ Menu / preview sample URL.                              |
+| `deleted`      | `boolean`            | _(Optional)_ If `true`, the font is ignored.                         |
 
 In **font styles**, use `fontFamilyType: "google"` and set `fontFamily` to the **normalized family id**: lowercase, spaces replaced with underscores (e.g. `"lato"` for `"Lato"`, `"noto_serif"` for `"Noto Serif"`).
 
 **Uploaded font object** (each item in `fonts.upload.data`)
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| `id` | `string` | Stable id for the upload; must match **`fontFamily`** in `fontStyles` when `fontFamilyType` is `"upload"`. |
-| `family` | `string` | Human-readable display name. |
-| `type` | `"uploaded"` | Required literal. |
-| `weights` | `string[]` | Available weights as strings (e.g. `["400","700"]`). |
-| `brizyId` | `string` | Internal id. |
-| `variations` | `array` | *(Optional)* Variable font axes: `{ "tag": string, "min": number, "max": number }[]`. |
-| `deleted` | `boolean` | *(Optional)* If `true`, the font is ignored. |
+| Field        | Type         | Description                                                                                                |
+| ------------ | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| `id`         | `string`     | Stable id for the upload; must match **`fontFamily`** in `fontStyles` when `fontFamilyType` is `"upload"`. |
+| `family`     | `string`     | Human-readable display name.                                                                               |
+| `type`       | `"uploaded"` | Required literal.                                                                                          |
+| `weights`    | `string[]`   | Available weights as strings (e.g. `["400","700"]`).                                                       |
+| `brizyId`    | `string`     | Internal id.                                                                                               |
+| `variations` | `array`      | _(Optional)_ Variable font axes: `{ "tag": string, "min": number, "max": number }[]`.                      |
+| `deleted`    | `boolean`    | _(Optional)_ If `true`, the font is ignored.                                                               |
 
 Use `fontFamilyType: "upload"` and set `fontFamily` to the upload’s **`id`** (not only the display `family` name).
 

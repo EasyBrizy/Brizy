@@ -57,6 +57,8 @@ type config = {
         delete(res: Response<string>, rej: Response<string>, fontId: string): void;
       };
     };
+    /// Google Maps
+    googleMapApiKey?: string;
   };
 
   // L10n
@@ -325,6 +327,7 @@ For more information about DynamicContent and how to replace it, please refer to
 | `integrations.fonts.upload.get`       | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor.         |
 | `integrations.fonts.upload.upload`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, you can call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
 | `integrations.fonts.upload.delete`    | `function` | Is a function with a Promise-like signature. This function lets you use your own logic to retrieve the desired value. Once the value is available, you must call the resolve(value) function to pass it to the editor. In case you want to cancel the operation, you can call the reject() function. A resolve or reject call is mandatory. If you miss this step, the editor will remain in waiting mode. Error management on the host application must call the reject function to unblock the editor. |
+| `integrations.googleMapApiKey`        | `string`   | Your Google Maps Embed API key. It is used by the **Map** element and by map backgrounds, in the editor and on the published page. Without a key, maps do not load. For more details, see the [API reference](/api-reference/google-maps).                                                                                                                                                                                                                                                               |
 
 ### API parameters
 
